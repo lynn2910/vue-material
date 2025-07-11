@@ -1,9 +1,12 @@
 <template>
-  <div v-show="isExpanded && expandedLayout === ExpandedLayout.Modal"
-       @click="toggleExpanded()"
-       class="fixed top-0 left-0 w-full h-full bg-shadow/50 z-50"/>
+  <!-- Modal overlay with simple fade -->
+  <Transition name="fade">
+    <div v-show="isExpanded && expandedLayout === ExpandedLayout.Modal"
+         @click="toggleExpanded()"
+         class="fixed top-0 left-0 w-full h-full bg-shadow/50 z-50"/>
+  </Transition>
 
-  <nav class="flex flex-col px-3 h-screen"
+  <nav class="flex flex-col px-3 h-screen transition-[width] duration-300 ease-standard"
        aria-label="Navigation"
        :class="{
           'w-26': !isExpanded,
@@ -11,6 +14,8 @@
           'bg-surface': expandedLayout === ExpandedLayout.Standard,
           'fixed z-[100] top-0 h-dvh left-0 rounded-r-xl bg-surface': isExpanded && expandedLayout === ExpandedLayout.Modal,
         }">
+
+    <!-- Menu button -->
     <button type="button"
             class="select-none cursor-pointer text-2xl ml-7 pt-7 pb-5 w-fit"
             :aria-expanded="isExpanded"
@@ -22,16 +27,21 @@
     <!-- FAB -->
     <button v-if="fab" type="button"
             :aria-label="fab.label"
-            class="flex flex-row mt-2 mb-7"
+            class="flex flex-row mt-2 mb-7 transition-all duration-300 ease-standard"
             :class=" {
               'bg-primary-container rounded-lg text-on-primary-container w-fit gap-2 ml-6 py-4 pb-2.5 px-4': isExpanded
             }"
     >
-      <div :class="{'mx-auto w-fit p-4 pb-2.5 bg-primary-container rounded-lg': !isExpanded,}">
+      <div :class="{'mx-auto w-fit p-4 pb-2.5 bg-primary-container rounded-lg': !isExpanded,}"
+           class="transition-all duration-300 ease-standard">
         <i aria-hidden="true"
-           class="material-icons-outlined text-2xl text-on-primary-container">{{ fab.icon }}</i>
+           class="material-icons-outlined text-2xl text-on-primary-container">
+          {{ fab.icon }}
+        </i>
       </div>
-      <p v-if="isExpanded">{{ fab.label }}</p>
+      <Transition name="text-reveal">
+        <p v-if="isExpanded" class="whitespace-nowrap">{{ fab.label }}</p>
+      </Transition>
     </button>
 
     <!-- Items -->
@@ -40,23 +50,26 @@
           class="relative mt-1 group">
 
         <div v-if="item.type === 'section'">
-          <p class="text-secondary mt-9 mb-5 w-fit">{{ item.label }}</p>
+          <Transition name="text-reveal">
+            <p v-if="isExpanded" class="text-secondary mt-9 mb-5 w-fit">{{ item.label }}</p>
+          </Transition>
         </div>
+
         <button v-else type="button"
                 @click="item.onClick || (() => {})"
                 :aria-selected="item.selected"
-                class="flex items-center content-center cursor-pointer gap-2 mb-1.5 rounded-full"
+                class="flex items-center content-center cursor-pointer gap-2 mb-1.5 rounded-full transition-colors duration-200 ease-standard"
                 :class="{
-                  'group-hover:bg-secondary-container/50 transition duration-short4': isExpanded && !item.selected,
+                  'group-hover:bg-secondary-container/50': isExpanded && !item.selected,
                   'flex-row ml-5 py-4 px-5 w-fit': isExpanded,
                   'bg-secondary-container rounded-full text-on-secondary-container': isExpanded && item.selected,
                   'flex-col mx-auto w-full': !isExpanded,
                 }">
 
           <i aria-hidden="true"
-             class="material-icons-outlined text-center select-none text-2xl rounded-full"
+             class="material-icons-outlined text-center select-none text-2xl rounded-full transition-colors duration-200 ease-standard"
              :class="{
-               'group-hover:bg-secondary-container/50 transition duration-short4': !isExpanded && !item.selected,
+               'group-hover:bg-secondary-container/50': !isExpanded && !item.selected,
                'text-on-secondary-container': item.selected,
                'text-on-surface-variant': !item.selected,
                'bg-secondary-container': item.selected && !isExpanded,
@@ -64,14 +77,18 @@
               }">
             {{ item.icon }}
           </i>
-          <p class="text-secondary">{{ item.label }}</p>
 
+          <Transition name="text-reveal">
+            <p class="text-secondary whitespace-nowrap">{{ item.label }}</p>
+          </Transition>
 
-          <!-- badge -->
+          <!-- Badge -->
           <div v-if="item.show_badge" class="absolute top-0 right-0 bg-error rounded-full">
-            <span v-if="item.badge_type === 'large'" class="bg-on-error">
+            <span v-if="item.badge_type === 'large'"
+                  class="bg-on-error px-2 py-1 text-xs rounded-full">
               {{ item.badge_label }}
             </span>
+            <span v-else class="block w-2 h-2 bg-error rounded-full"></span>
           </div>
         </button>
       </li>
@@ -133,3 +150,33 @@ export type NavigationItem = {
   badge_label?: string
 }
 </script>
+
+<style scoped>
+.ease-standard {
+  transition-timing-function: cubic-bezier(0.2, 0.0, 0, 1.0);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.15s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.text-reveal-enter-active {
+  transition: opacity 0.15s ease;
+  transition-delay: 0.1s;
+}
+
+.text-reveal-leave-active {
+  transition: opacity 0.1s ease;
+}
+
+.text-reveal-enter-from,
+.text-reveal-leave-to {
+  opacity: 0;
+}
+</style>
