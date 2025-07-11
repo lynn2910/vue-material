@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+/*@config "../../tailwind.config.js";*/
+
+@theme {
+
+  --font-roboto: "Roboto", sans-serif;
+
+  /* ========================================
+   *
+   *        Material 3 Color schemes
+   *    DON'T EDIT COLOR AND NAMES !
+   *
+   * ======================================== */
+  --color-background: #141313;
+  --color-on-background: #e5e2e1;
+  --color-surface: #141313;
+  --color-surface-dim: #141313;
+  --color-surface-bright: #3a3939;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-surface-container-low: #1c1b1b;
+  --color-surface-container: #201f1f;
+  --color-surface-container-high: #2a2a2a;
+  --color-surface-container-highest: #353434;
+  --color-on-surface: #e5e2e1;
+  --color-surface-variant: #444748;
+  --color-on-surface-variant: #c4c7c8;
+  --color-inverse-surface: #e5e2e1;
+  --color-inverse-on-surface: #313030;
+  --color-outline: #8e9192;
+  --color-outline-variant: #444748;
+  --color-shadow: #000000;
+  --color-scrim: #000000;
+  --color-surface-tint: #c6c6c7;
+  --color-primary: #ffffff;
+  --color-on-primary: #2f3131;
+  --color-primary-container: #d4d4d4;
+  --color-on-primary-container: #3e4040;
+  --color-inverse-primary: #5d5f5f;
+  --color-secondary: #c8c6c6;
+  --color-on-secondary: #303030;
+  --color-secondary-container: #3f3f3f;
+  --color-on-secondary-container: #d5d4d3;
+  --color-tertiary: #ffffff;
+  --color-on-tertiary: #2f3131;
+  --color-tertiary-container: #d4d4d4;
+  --color-on-tertiary-container: #3e4040;
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+
+  /* ========================================
+   *
+   * Material 3 Typography
+   *
+   * ======================================== */
+  --text-display-large: 57px;
+  --text-display-large--line-height: 64px;
+  --text-display-large--letter-spacing: -0.25px;
+
+  --text-display-medium: 45px;
+  --text-display-medium--line-height: 52px;
+
+  --text-display-small: 36px;
+  --text-display-small--line-height: 44px;
+
+  --text-headline-large: 32px;
+  --text-headline-large--line-height: 40px;
+
+  --text-headline-medium: 28px;
+  --text-headline-medium--line-height: 36px;
+
+  --text-headline-small: 24px;
+  --text-headline-small--line-height: 32px;
+
+  --text-title-large: 22px;
+  --text-title-large--line-height: 28px;
+
+  --text-title-medium: 16px;
+  --text-title-medium--line-height: 24px;
+  --text-title-medium--letter-spacing: 0.15px;
+
+  --text-title-small: 14px;
+  --text-title-small--line-height: 20px;
+  --text-title-small--letter-spacing: 0.1px;
+
+  --text-body-large: 16px;
+  --text-body-large--line-height: 24px;
+  --text-body-large--letter-spacing: 0.5px;
+
+  --text-body-medium: 14px;
+  --text-body-medium--line-height: 20px;
+  --text-body-medium--letter-spacing: 0.25px;
+
+  --text-body-small: 12px;
+  --text-body-small--line-height: 16px;
+  --text-body-small--letter-spacing: 0.4px;
+
+  --text-label-large: 14px;
+  --text-label-large--line-height: 20px;
+  --text-label-large--letter-spacing: 0.1px;
+
+  --text-label-medium: 12px;
+  --text-label-medium--line-height: 16px;
+  --text-label-medium--letter-spacing: 0.5px;
+
+  --text-label-small: 11px;
+  --text-label-small--line-height: 16px;
+  --text-label-small--letter-spacing: 0.5px;
+
+  /* ========================================
+   *
+   * Theme extensions
+   *
+   * ======================================== */
+  --rounded-xs: 4px;
+  --rounded-sm: 8px;
+  --rounded-md: 12px;
+  --rounded-lg: 16px;
+  --rounded-xl: 28px;
+  --rounded-full: 9999px;
+
+  --shadow-dp1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+  --shadow-dp2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+  --shadow-dp3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+  --shadow-dp4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+  --shadow-dp5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
+
+  --spacing-keyline: 16px;
+  --spacing-8: 8px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-40: 40px;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
+
+  --duration-short1: 50ms;
+  --duration-short2: 100ms;
+  --duration-short3: 150ms;
+  --duration-short4: 200ms;
+  --duration-medium1: 250ms;
+  --duration-medium2: 300ms;
+  --duration-medium3: 350ms;
+  --duration-medium4: 400ms;
+  --duration-long1: 450ms;
+  --duration-long2: 500ms;
+  --duration-long3: 550ms;
+  --duration-long4: 600ms;
+}

@@ -1,0 +1,113 @@
+module.exports = {
+  theme: {
+    fontFamily: {
+      'roboto': ['Roboto', 'sans-serif'],
+    },
+    colors: {
+      // ========================================
+      //
+      //          Material 3 Color schemes
+      //   DON'T EDIT THE COLORS AND NAMES ! It'll break EVERYTHING
+      //
+      // ========================================
+      "background": "var(--color-background)",
+      "on-background": "var(--color-on-background)",
+      "surface": "var(--color-surface)",
+      "surface-dim": "var(--color-surface-dim)",
+      "surface-bright": "var(--color-surface-bright)",
+      "surface-container-lowest": "var(--color-surface-container-lowest)",
+      "surface-container-low": "var(--color-surface-container-low)",
+      "surface-container": "var(--color-surface-container)",
+      "surface-container-high": "var(--color-surface-container-high)",
+      "surface-container-highest": "var(--color-surface-container-highest)",
+      "on-surface": "var(--color-on-surface)",
+      "surface-variant": "var(--color-surface-variant)",
+      "on-surface-variant": "var(--color-on-surface-variant)",
+      "inverse-surface": "var(--color-inverse-surface)",
+      "inverse-on-surface": "var(--color-inverse-on-surface)",
+      "outline": "var(--color-outline)",
+      "outline-variant": "var(--color-outline-variant)",
+      "shadow": "var(--color-shadow)",
+      "scrim": "var(--color-scrim)",
+      "surface-tint": "var(--color-surface-tint)",
+      "primary": "var(--color-primary)",
+      "on-primary": "var(--color-on-primary)",
+      "primary-container": "var(--color-primary-container)",
+      "on-primary-container": "var(--color-on-primary-container)",
+      "inverse-primary": "var(--color-inverse-primary)",
+      "secondary": "var(--color-secondary)",
+      "on-secondary": "var(--color-on-secondary)",
+      "secondary-container": "var(--color-secondary-container)",
+      "on-secondary-container": "var(--color-on-secondary-container)",
+      "tertiary": "var(--color-tertiary)",
+      "on-tertiary": "var(--color-on-tertiary)",
+      "tertiary-container": "var(--color-tertiary-container)",
+      "on-tertiary-container": "var(--color-on-tertiary-container)",
+      "error": "var(--color-error)",
+      "on-error": "var(--color-on-error)",
+      "error-container": "var(--color-error-container)",
+      "on-error-container": "var(--color-on-error-container)"
+    },
+    fontSize: {
+      'display-large': ['57px', {lineHeight: '64px', letterSpacing: '-0.25px'}],
+      'display-medium': ['45px', {lineHeight: '52px'}],
+      'display-small': ['36px', {lineHeight: '44px'}],
+      'headline-large': ['32px', {lineHeight: '40px'}],
+      'headline-medium': ['28px', {lineHeight: '36px'}],
+      'headline-small': ['24px', {lineHeight: '32px'}],
+      'title-large': ['22px', {lineHeight: '28px'}],
+      'title-medium': ['16px', {lineHeight: '24px', letterSpacing: '0.15px'}],
+      'title-small': ['14px', {lineHeight: '20px', letterSpacing: '0.1px'}],
+      'body-large': ['16px', {lineHeight: '24px', letterSpacing: '0.5px'}],
+      'body-medium': ['14px', {lineHeight: '20px', letterSpacing: '0.25px'}],
+      'body-small': ['12px', {lineHeight: '16px', letterSpacing: '0.4px'}],
+      'label-large': ['14px', {lineHeight: '20px', letterSpacing: '0.1px'}],
+      'label-medium': ['12px', {lineHeight: '16px', letterSpacing: '0.5px'}],
+      'label-small': ['11px', {lineHeight: '16px', letterSpacing: '0.5px'}],
+    },
+    extend: {
+      borderRadius: {
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '28px',
+        'full': '9999px',
+      },
+      boxShadow: {
+        'dp1': '0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3)',
+        'dp2': '0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3)',
+        'dp3': '0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3)',
+        'dp4': '0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.3)',
+        'dp5': '0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.3)',
+      },
+      spacing: {
+        'keyline': '16px',
+        '8': '8px',
+        '16': '16px',
+        '24': '24px',
+        '40': '40px',
+      },
+      transitionTimingFunction: {
+        'standard': 'cubic-bezier(0.2, 0, 0, 1)',
+        'emphasized': 'cubic-bezier(0.2, 0, 0, 1)',
+        'decelerate': 'cubic-bezier(0, 0, 0.2, 1)',
+        'accelerate': 'cubic-bezier(0.4, 0, 1, 1)',
+      },
+      transitionDuration: {
+        'short1': '50ms',
+        'short2': '100ms',
+        'short3': '150ms',
+        'short4': '200ms',
+        'medium1': '250ms',
+        'medium2': '300ms',
+        'medium3': '350ms',
+        'medium4': '400ms',
+        'long1': '450ms',
+        'long2': '500ms',
+        'long3': '550ms',
+        'long4': '600ms',
+      },
+    }
+  }
+}

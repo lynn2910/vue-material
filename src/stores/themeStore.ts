@@ -1,0 +1,258 @@
+import {defineStore} from 'pinia';
+import {ref, computed, watchEffect} from 'vue';
+import {
+  argbFromHex,
+  themeFromSourceColor,
+  hexFromArgb,
+  Hct,
+  MaterialDynamicColors,
+  SchemeVibrant
+} from '@material/material-color-utilities';
+
+export const useThemeStore = defineStore('theme', () => {
+  const sourceColor = ref('#6750A4');
+  const isDarkMode = ref(true);
+  const isSystemTheme = ref(false);
+  const isUpdatingFromHct = ref(false);
+
+  const hue = ref(258);
+  const chroma = ref(48);
+  const tone = ref(64);
+
+  const systemPrefersDark = computed(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
+
+  const effectiveTheme = computed(() => {
+    return isSystemTheme.value ? systemPrefersDark.value : isDarkMode.value;
+  });
+
+  const hctToHex = (h: number, c: number, t: number): string => {
+    const hct = Hct.from(h, c, t);
+    return hexFromArgb(hct.toInt());
+  };
+
+  const hexToHct = (hex: string) => {
+    const hct = Hct.fromInt(argbFromHex(hex));
+    return {
+      hue: hct.hue,
+      chroma: hct.chroma,
+      tone: hct.tone
+    };
+  };
+
+  const updateSourceFromHct = () => {
+    isUpdatingFromHct.value = true;
+    sourceColor.value = hctToHex(hue.value, chroma.value, tone.value);
+    // Use setTimeout to ensure the flag is reset after the watch handlers have run
+    setTimeout(() => {
+      isUpdatingFromHct.value = false;
+    }, 0);
+  };
+
+  const updateHctFromSource = () => {
+    const hctValues = hexToHct(sourceColor.value);
+    hue.value = Math.round(hctValues.hue);
+    chroma.value = Math.round(hctValues.chroma);
+    tone.value = Math.round(hctValues.tone);
+  };
+
+  const applyColors = (colors: Record<string, number>) => {
+    const root = document.documentElement;
+
+    Object.entries(colors).forEach(([key, argbValue]) => {
+      const hexValue = hexFromArgb(argbValue);
+      root.style.setProperty(`--color-${key}`, hexValue);
+    });
+  };
+
+  const getMaterialColors = (scheme: any) => {
+    console.log(scheme);
+    return {
+      'background': scheme.background,
+      'on-background': scheme.onBackground,
+      'surface': scheme.surface,
+      'surface-dim': scheme.surfaceDim,
+      'surface-bright': scheme.surfaceBright,
+      'surface-container-lowest': scheme.surfaceContainerLowest,
+      'surface-container-low': scheme.surfaceContainerLow,
+      'surface-container': scheme.surfaceContainer,
+      'surface-container-high': scheme.surfaceContainerHigh,
+      'surface-container-highest': scheme.surfaceContainerHighest,
+      'on-surface': scheme.onSurface,
+      'surface-variant': scheme.surfaceVariant,
+      'on-surface-variant': scheme.onSurfaceVariant,
+      'inverse-surface': scheme.inverseSurface,
+      'inverse-on-surface': scheme.inverseOnSurface,
+      'outline': scheme.outline,
+      'outline-variant': scheme.outlineVariant,
+      'shadow': scheme.shadow,
+      'scrim': scheme.scrim,
+      'surface-tint': scheme.surfaceTint,
+      'primary': scheme.primary,
+      'on-primary': scheme.onPrimary,
+      'primary-container': scheme.primaryContainer,
+      'on-primary-container': scheme.onPrimaryContainer,
+      'inverse-primary': scheme.inversePrimary,
+      'secondary': scheme.secondary,
+      'on-secondary': scheme.onSecondary,
+      'secondary-container': scheme.secondaryContainer,
+      'on-secondary-container': scheme.onSecondaryContainer,
+      'tertiary': scheme.tertiary,
+      'on-tertiary': scheme.onTertiary,
+      'tertiary-container': scheme.tertiaryContainer,
+      'on-tertiary-container': scheme.onTertiaryContainer,
+      'error': scheme.error,
+      'on-error': scheme.onError,
+      'error-container': scheme.errorContainer,
+      'on-error-container': scheme.onErrorContainer
+    };
+  };
+
+  const setSourceColor = (color: string) => {
+    sourceColor.value = color;
+    updateHctFromSource();
+  };
+
+  const setHue = (value: number) => {
+    hue.value = value;
+    // Ensure chroma and tone are within valid ranges
+    chroma.value = Math.min(100, Math.max(0, chroma.value));
+    tone.value = Math.min(100, Math.max(0, tone.value));
+    updateSourceFromHct();
+  };
+
+  const setChroma = (value: number) => {
+    chroma.value = Math.min(100, Math.max(0, value));
+    updateSourceFromHct();
+  };
+
+  const setTone = (value: number) => {
+    tone.value = Math.min(100, Math.max(0, value));
+    updateSourceFromHct();
+  };
+
+  const toggleTheme = () => {
+    if (isSystemTheme.value) {
+      isSystemTheme.value = false;
+      isDarkMode.value = !systemPrefersDark.value;
+    } else {
+      isDarkMode.value = !isDarkMode.value;
+    }
+  };
+
+  const setSystemTheme = () => {
+    isSystemTheme.value = true;
+  };
+
+  const setManualTheme = (dark: boolean) => {
+    isSystemTheme.value = false;
+    isDarkMode.value = dark;
+  };
+
+  const savePreferences = () => {
+    if (typeof window !== 'undefined') {
+      const preferences = {
+        sourceColor: sourceColor.value,
+        isDarkMode: isDarkMode.value,
+        isSystemTheme: isSystemTheme.value,
+        hue: hue.value,
+        chroma: chroma.value,
+        tone: tone.value
+      };
+      localStorage.setItem('theme-preferences', JSON.stringify(preferences));
+    }
+  };
+
+  const loadPreferences = () => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme-preferences');
+      if (saved) {
+        try {
+          const preferences = JSON.parse(saved);
+          sourceColor.value = preferences.sourceColor || '#6750A4';
+          isDarkMode.value = preferences.isDarkMode !== undefined ? preferences.isDarkMode : true;
+          isSystemTheme.value = preferences.isSystemTheme || false;
+          hue.value = preferences.hue || 258;
+          chroma.value = preferences.chroma || 48;
+          tone.value = preferences.tone || 64;
+        } catch (e) {
+          console.warn('Erreur lors du chargement des préférences du thème:', e);
+        }
+      }
+    }
+  };
+
+  watchEffect(() => {
+    // Create a theme from the source color
+    const theme = themeFromSourceColor(argbFromHex(sourceColor.value));
+    console.log(theme);
+
+    // Get the appropriate scheme based on the theme mode
+    const scheme = effectiveTheme.value ? theme.schemes.dark : theme.schemes.light;
+
+    // Create an Hct instance from the source color
+    const sourceColorHct = Hct.fromInt(argbFromHex(sourceColor.value));
+
+    // Create a SchemeVibrant instance
+    const dynamicScheme = new SchemeVibrant(sourceColorHct, effectiveTheme.value, 0);
+
+    // Get the colors from the scheme
+    const colors = getMaterialColors(scheme);
+
+    // Add the surface container variations from MaterialDynamicColors
+    colors['surface-container-lowest'] = hexFromArgb(MaterialDynamicColors.surfaceContainerLowest.getArgb(dynamicScheme));
+    colors['surface-container-low'] = hexFromArgb(MaterialDynamicColors.surfaceContainerLow.getArgb(dynamicScheme));
+    colors['surface-container'] = hexFromArgb(MaterialDynamicColors.surfaceContainer.getArgb(dynamicScheme));
+    colors['surface-container-high'] = hexFromArgb(MaterialDynamicColors.surfaceContainerHigh.getArgb(dynamicScheme));
+    colors['surface-container-highest'] = hexFromArgb(MaterialDynamicColors.surfaceContainerHighest.getArgb(dynamicScheme));
+
+    // Apply the colors
+    applyColors(colors);
+  });
+
+  watchEffect(() => {
+    savePreferences();
+  });
+
+  if (typeof window !== 'undefined') {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (isSystemTheme.value) {
+        // The theme will automatically be updated using the computed
+      }
+    });
+  }
+
+  return {
+    // States
+    sourceColor,
+    isDarkMode,
+    isSystemTheme,
+    isUpdatingFromHct,
+    hue,
+    chroma,
+    tone,
+
+    // Computed
+    systemPrefersDark,
+    effectiveTheme,
+
+    // Actions
+    setSourceColor,
+    setHue,
+    setChroma,
+    setTone,
+    toggleTheme,
+    setSystemTheme,
+    setManualTheme,
+    loadPreferences,
+    savePreferences,
+
+    // Utils
+    hctToHex,
+    hexToHct
+  };
+});
