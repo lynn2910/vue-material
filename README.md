@@ -12,9 +12,12 @@ Si vous souhaitez supprimer le système de déploiement sur GitHub Pages:
 - Supprimez ".github/workflows/deploy-github-pages.yml"
 - Supprimez la ligne suivante:
 ```ts
-publicDir: process.env.NODE_ENV === 'production' ? '/vue-material' : '/'
+base: process.env.NODE_ENV === 'production' ? '/vue-material' : '/'
 ```
 
 Sinon, modifiez `"vue-material"` dans [`vite.config.ts`](vite.config.ts) et mettez le nom du dépôt Github.
 
-Afin de déployez 
+Afin de déployer l'application sur Github Pages, vous pouvez :
+- Publier une release
+- Activer manuellement le _workflow_; voir ci-dessous le bouton 'Run workflow' :
+![deploy_pages_manual.png](doc-images/deploy_pages_manual.png)

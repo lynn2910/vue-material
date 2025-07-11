@@ -12,7 +12,7 @@ export default defineConfig({
     vueJsx(),
     vueDevTools(),
   ],
-  publicDir: process.env.NODE_ENV === 'production' ? '/vue-material' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/vue-material/' : '/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
