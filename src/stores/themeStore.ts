@@ -4,9 +4,7 @@ import {
   argbFromHex,
   themeFromSourceColor,
   hexFromArgb,
-  Hct,
-  MaterialDynamicColors,
-  SchemeVibrant
+  Hct
 } from '@material/material-color-utilities';
 
 export const useThemeStore = defineStore('theme', () => {
@@ -70,7 +68,6 @@ export const useThemeStore = defineStore('theme', () => {
   };
 
   const getMaterialColors = (scheme: any) => {
-    console.log(scheme);
     return {
       'background': scheme.background,
       'on-background': scheme.onBackground,
@@ -187,30 +184,10 @@ export const useThemeStore = defineStore('theme', () => {
   };
 
   watchEffect(() => {
-    // Create a theme from the source color
     const theme = themeFromSourceColor(argbFromHex(sourceColor.value));
-    console.log(theme);
-
-    // Get the appropriate scheme based on the theme mode
     const scheme = effectiveTheme.value ? theme.schemes.dark : theme.schemes.light;
 
-    // Create an Hct instance from the source color
-    const sourceColorHct = Hct.fromInt(argbFromHex(sourceColor.value));
-
-    // Create a SchemeVibrant instance
-    const dynamicScheme = new SchemeVibrant(sourceColorHct, effectiveTheme.value, 0);
-
-    // Get the colors from the scheme
     const colors = getMaterialColors(scheme);
-
-    // Add the surface container variations from MaterialDynamicColors
-    colors['surface-container-lowest'] = hexFromArgb(MaterialDynamicColors.surfaceContainerLowest.getArgb(dynamicScheme));
-    colors['surface-container-low'] = hexFromArgb(MaterialDynamicColors.surfaceContainerLow.getArgb(dynamicScheme));
-    colors['surface-container'] = hexFromArgb(MaterialDynamicColors.surfaceContainer.getArgb(dynamicScheme));
-    colors['surface-container-high'] = hexFromArgb(MaterialDynamicColors.surfaceContainerHigh.getArgb(dynamicScheme));
-    colors['surface-container-highest'] = hexFromArgb(MaterialDynamicColors.surfaceContainerHighest.getArgb(dynamicScheme));
-
-    // Apply the colors
     applyColors(colors);
   });
 
@@ -219,7 +196,7 @@ export const useThemeStore = defineStore('theme', () => {
   });
 
   if (typeof window !== 'undefined') {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (_) => {
       if (isSystemTheme.value) {
         // The theme will automatically be updated using the computed
       }
