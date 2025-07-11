@@ -11,10 +11,14 @@
       <ColorPicker/>
     </div>
 
-    <NavigationRail :items="navigation_rail_items" :fab="{icon: 'add', label: 'Ajouter'}"
-                    :expanded-layout="ExpandedLayout.Standard"></NavigationRail>
+    <div class="flex flex-row">
+      <NavigationRail :items="navigation_rail_items" :fab="{icon: 'add', label: 'Ajouter'}"
+                      :expanded-layout="ExpandedLayout.Modal"/>
 
-    <router-view/>
+      <router-view/>
+      Test ?
+
+    </div>
 
   </div>
 </template>

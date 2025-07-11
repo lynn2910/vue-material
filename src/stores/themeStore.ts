@@ -78,17 +78,11 @@ export const useThemeStore = defineStore('theme', () => {
   };
 
   const getMaterialColors = (scheme: any) => {
+    console.log(Object.keys(scheme.props).toString());
     return {
       'background': scheme.background,
       'on-background': scheme.onBackground,
       'surface': scheme.surface,
-      'surface-dim': scheme.surfaceDim,
-      'surface-bright': scheme.surfaceBright,
-      'surface-container-lowest': scheme.surfaceContainerLowest,
-      'surface-container-low': scheme.surfaceContainerLow,
-      'surface-container': scheme.surfaceContainer,
-      'surface-container-high': scheme.surfaceContainerHigh,
-      'surface-container-highest': scheme.surfaceContainerHighest,
       'on-surface': scheme.onSurface,
       'surface-variant': scheme.surfaceVariant,
       'on-surface-variant': scheme.onSurfaceVariant,
@@ -98,7 +92,6 @@ export const useThemeStore = defineStore('theme', () => {
       'outline-variant': scheme.outlineVariant,
       'shadow': scheme.shadow,
       'scrim': scheme.scrim,
-      'surface-tint': scheme.surfaceTint,
       'primary': scheme.primary,
       'on-primary': scheme.onPrimary,
       'primary-container': scheme.primaryContainer,

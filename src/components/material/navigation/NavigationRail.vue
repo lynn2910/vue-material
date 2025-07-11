@@ -1,11 +1,18 @@
 <template>
-  <nav class="flex flex-col bg-surface mx-3 m"
+  <div v-show="isExpanded && expandedLayout === ExpandedLayout.Modal"
+       @click="toggleExpanded()"
+       class="fixed top-0 left-0 w-full h-full bg-shadow/50 z-50"/>
+
+  <nav class="flex flex-col px-3 h-screen"
        aria-label="Navigation"
        :class="{
           'w-26': !isExpanded,
           'min-w-56 max-w-[360px]': isExpanded,
+          'bg-surface': expandedLayout === ExpandedLayout.Standard,
+          'fixed z-[100] top-0 h-dvh left-0 rounded-r-xl bg-surface': isExpanded && expandedLayout === ExpandedLayout.Modal,
         }">
-    <button type="button" class="select-none cursor-pointer text-2xl ml-10 pt-7 pb-5 w-fit"
+    <button type="button"
+            class="select-none cursor-pointer text-2xl ml-7 pt-7 pb-5 w-fit"
             :aria-expanded="isExpanded"
             @click="toggleExpanded">
       <i v-if="!hideMenuButton && !isExpanded" class="material-icons-outlined">menu</i>
@@ -33,7 +40,7 @@
           class="relative mt-1 group">
 
         <div v-if="item.type === 'section'">
-          <p class="text-secondary mt-9 mb-5 w-fit pl-2">{{ item.label }}</p>
+          <p class="text-secondary mt-9 mb-5 w-fit">{{ item.label }}</p>
         </div>
         <button v-else type="button"
                 @click="item.onClick || (() => {})"
@@ -82,7 +89,7 @@ const props = defineProps<{
   fab?: { icon: string, label: string }
 }>();
 
-const isExpanded = ref(false);
+const isExpanded = ref(true);
 
 const {
   items,
