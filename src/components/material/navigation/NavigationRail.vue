@@ -47,7 +47,7 @@
     <!-- Items -->
     <ul>
       <li v-for="(item, index) in items" :key="index"
-          class="relative mt-1 group">
+          class="mt-1 group">
 
         <div v-if="item.type === 'section'">
           <Transition name="text-reveal">
@@ -66,30 +66,35 @@
                   'flex-col mx-auto w-full': !isExpanded,
                 }">
 
-          <i aria-hidden="true"
-             class="material-icons-outlined text-center select-none text-2xl rounded-full transition-colors duration-200 ease-standard"
-             :class="{
+          <div
+            class="relative text-center select-none text-2xl rounded-full transition-colors duration-200 ease-standard"
+            :class="{
                'group-hover:bg-secondary-container/50': !isExpanded && !item.selected,
                'text-on-secondary-container': item.selected,
                'text-on-surface-variant': !item.selected,
                'bg-secondary-container': item.selected && !isExpanded,
-               'w-3/4 py-4': !isExpanded,
+               'w-3/4 py-4 pb-2.5': !isExpanded,
               }">
-            {{ item.icon }}
-          </i>
+            <i aria-hidden="true" class="material-icons-outlined mt-1">
+              {{ item.icon }}
+            </i>
+
+            <!-- Badge -->
+            <div v-if="item.show_badge">
+              <SmallBadge v-if="item.badge_type === 'small'"
+                          class="absolute z-[101] top-0 right-0 translate-y-1/2"/>
+              <LargeBadge v-else :n="item.badge_label || 0"
+                          class="absolute z-[101] translate-x-full"
+                          :class="{
+                            '-translate-y-10 right-3 top-7.5': isExpanded,
+                            'top-0 right-7 translate-y-1/2': !isExpanded
+                          }"/>
+            </div>
+          </div>
 
           <Transition name="text-reveal">
             <p class="text-secondary whitespace-nowrap">{{ item.label }}</p>
           </Transition>
-
-          <!-- Badge -->
-          <div v-if="item.show_badge" class="absolute top-0 right-0 bg-error rounded-full">
-            <span v-if="item.badge_type === 'large'"
-                  class="bg-on-error px-2 py-1 text-xs rounded-full">
-              {{ item.badge_label }}
-            </span>
-            <span v-else class="block w-2 h-2 bg-error rounded-full"></span>
-          </div>
         </button>
       </li>
     </ul>
@@ -98,6 +103,8 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
+import SmallBadge from "@/components/material/badges/SmallBadge.vue";
+import LargeBadge from "@/components/material/badges/LargeBadge.vue";
 
 const props = defineProps<{
   expandedLayout?: ExpandedLayout,
@@ -106,7 +113,7 @@ const props = defineProps<{
   fab?: { icon: string, label: string }
 }>();
 
-const isExpanded = ref(true);
+const isExpanded = ref(false);
 
 const {
   items,
@@ -147,7 +154,7 @@ export type NavigationItem = {
   onClick?: () => void,
   show_badge?: boolean,
   badge_type?: "large" | "small",
-  badge_label?: string
+  badge_label?: number
 }
 </script>
 

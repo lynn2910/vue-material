@@ -41,12 +41,16 @@ const navigation_rail_items: NavigationItem[] = [
   },
   {
     type: 'section',
-    label: "Composants"
+    label: "Composants",
   },
   {
     selected: false,
     icon: "apps",
-    label: "Navigation"
+    label: "Navigation",
+
+    show_badge: true,
+    badge_type: 'large',
+    badge_label: 3,
   }
 ]
 </script>
