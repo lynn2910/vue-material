@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col bg-surface mx-3"
+  <div class="flex flex-col bg-surface mx-3 m"
        :class="{
           'w-26': !isExpanded,
           'min-w-56 max-w-[360px]': isExpanded,
@@ -9,6 +9,20 @@
       <i v-else-if="isExpanded" class="material-icons-outlined">menu_open</i>
     </div>
 
+    <!-- FAB -->
+    <div v-if="fab"
+         class="flex flex-row mt-2 mb-7"
+         :class=" {
+            'bg-primary-container rounded-lg text-on-primary-container w-fit gap-2 ml-6 py-4 pb-2.5 px-4': isExpanded
+         }"
+    >
+      <div :class="{'mx-auto w-fit p-4 pb-2.5 bg-primary-container rounded-lg': !isExpanded,}">
+        <i class="material-icons-outlined text-2xl text-on-primary-container">{{ fab.icon }}</i>
+      </div>
+      <p v-if="isExpanded">{{ fab.label }}</p>
+    </div>
+
+    <!-- Items -->
     <div v-for="(item, index) in items" :key="index"
          class="relative mt-1">
 
@@ -18,7 +32,7 @@
       <div v-else
            class="flex items-center content-center cursor-pointer w-fit gap-2 mb-1.5"
            :class="{
-             'flex-row py-4 px-5': isExpanded,
+             'flex-row ml-5 py-4 px-5': isExpanded,
              'bg-secondary-container rounded-full text-on-secondary-container': isExpanded && item.selected,
              'flex-col mx-auto': !isExpanded,
            }">
@@ -49,18 +63,20 @@
 <script setup lang="ts">
 import {ref} from "vue";
 
-const isExpanded = ref(false)
-
 const props = defineProps<{
   expandedLayout?: ExpandedLayout,
   hideMenuButton?: Boolean,
-  items: NavigationItem[]
+  items: NavigationItem[],
+  fab?: { icon: string, label: string }
 }>();
+
+const isExpanded = ref(false);
 
 const {
   items,
   hideMenuButton = false,
   expandedLayout = ExpandedLayout.Standard,
+  fab
 } = props;
 
 function toggleExpanded() {
@@ -89,7 +105,7 @@ export enum ExpandedLayout {
 
 export type NavigationItem = {
   type?: "item" | "section",
-  selected: boolean,
+  selected?: boolean,
   icon?: string,
   label: string,
   onClick?: () => void,

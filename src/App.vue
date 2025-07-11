@@ -11,7 +11,7 @@
       <ColorPicker/>
     </div>
 
-    <NavigationRail :items="navigation_rail_items"
+    <NavigationRail :items="navigation_rail_items" :fab="{icon: 'add', label: 'Ajouter'}"
                     :expanded-layout="ExpandedLayout.Standard"></NavigationRail>
 
     <router-view/>
@@ -23,11 +23,14 @@
 import {RouterView} from 'vue-router'
 import {ref} from "vue";
 import ColorPicker from "@/components/material/ColorPicker.vue";
-import NavigationRail, {ExpandedLayout} from "@/components/material/navigation/NavigationRail.vue";
+import NavigationRail, {
+  ExpandedLayout,
+  type NavigationItem
+} from "@/components/material/navigation/NavigationRail.vue";
 
 const showThemeControls = ref(false);
 
-const navigation_rail_items = [
+const navigation_rail_items: NavigationItem[] = [
   {
     selected: true,
     icon: "home",
