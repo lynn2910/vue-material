@@ -13,10 +13,9 @@
 
     <div class="flex flex-row">
       <NavigationRail :items="navigation_rail_items" :fab="{icon: 'add', label: 'Ajouter'}"
-                      :expanded-layout="ExpandedLayout.Modal"/>
+                      :expanded-layout="ExpandedLayout.Standard"/>
 
       <router-view/>
-      Test ?
 
     </div>
 

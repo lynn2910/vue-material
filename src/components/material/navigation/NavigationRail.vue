@@ -51,7 +51,7 @@
 
         <div v-if="item.type === 'section'">
           <Transition name="text-reveal">
-            <p v-if="isExpanded" class="text-secondary mt-9 mb-5 w-fit">{{ item.label }}</p>
+            <p class="text-secondary mt-9 mb-5 w-fit">{{ item.label }}</p>
           </Transition>
         </div>
 
@@ -73,7 +73,7 @@
                'text-on-secondary-container': item.selected,
                'text-on-surface-variant': !item.selected,
                'bg-secondary-container': item.selected && !isExpanded,
-               'w-8/12 py-4': !isExpanded,
+               'w-3/4 py-4': !isExpanded,
               }">
             {{ item.icon }}
           </i>
