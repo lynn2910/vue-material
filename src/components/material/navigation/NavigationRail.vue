@@ -30,7 +30,7 @@
     <!-- Items -->
     <ul>
       <li v-for="(item, index) in items" :key="index"
-          class="relative mt-1 focus:outline">
+          class="relative mt-1 group">
 
         <div v-if="item.type === 'section'">
           <p class="text-secondary mt-9 mb-5 w-fit pl-2">{{ item.label }}</p>
@@ -38,8 +38,9 @@
         <button v-else type="button"
                 @click="item.onClick || (() => {})"
                 :aria-selected="item.selected"
-                class="flex items-center content-center cursor-pointer gap-2 mb-1.5 group"
+                class="flex items-center content-center cursor-pointer gap-2 mb-1.5 rounded-full"
                 :class="{
+                  'group-hover:bg-secondary-container/50 transition duration-short4': isExpanded && !item.selected,
                   'flex-row ml-5 py-4 px-5 w-fit': isExpanded,
                   'bg-secondary-container rounded-full text-on-secondary-container': isExpanded && item.selected,
                   'flex-col mx-auto w-full': !isExpanded,
