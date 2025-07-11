@@ -8,14 +8,24 @@ import {
 } from '@material/material-color-utilities';
 
 export const useThemeStore = defineStore('theme', () => {
-  const sourceColor = ref('#6750A4');
-  const isDarkMode = ref(true);
-  const isSystemTheme = ref(false);
+  const saved = localStorage.getItem('theme-preferences');
+  let preferences;
+  try {
+    preferences = saved ? JSON.parse(saved) : {};
+  } catch (e) {
+    console.error(e);
+    localStorage.removeItem('theme-preferences');
+    preferences = {};
+  }
+
+  const sourceColor = ref(preferences.sourceColor || '#6750A4');
+  const isDarkMode = ref(preferences.isDarkMode !== undefined ? preferences.isDarkMode : true);
+  const isSystemTheme = ref(preferences.isSystemTheme || false);
   const isUpdatingFromHct = ref(false);
 
-  const hue = ref(258);
-  const chroma = ref(48);
-  const tone = ref(64);
+  const hue = ref(preferences.hue || 258);
+  const chroma = ref(preferences.chroma || 48);
+  const tone = ref(preferences.tone || 64);
 
   const systemPrefersDark = computed(() => {
     if (typeof window !== 'undefined') {
@@ -45,7 +55,7 @@ export const useThemeStore = defineStore('theme', () => {
   const updateSourceFromHct = () => {
     isUpdatingFromHct.value = true;
     sourceColor.value = hctToHex(hue.value, chroma.value, tone.value);
-    // Use setTimeout to ensure the flag is reset after the watch handlers have run
+
     setTimeout(() => {
       isUpdatingFromHct.value = false;
     }, 0);
@@ -151,6 +161,7 @@ export const useThemeStore = defineStore('theme', () => {
   };
 
   const savePreferences = () => {
+    console.log("saving preferences")
     if (typeof window !== 'undefined') {
       const preferences = {
         sourceColor: sourceColor.value,
