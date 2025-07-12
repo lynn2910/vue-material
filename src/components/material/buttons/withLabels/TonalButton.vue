@@ -2,12 +2,12 @@
   <button
     @click="clicked()"
     :disabled="props.disabled"
-    class="btn_after relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25em] shadow-lg text-sm tracking-[.00714em] font-medium select-none"
+    class="btn_after relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25em] text-sm tracking-[.00714em] font-medium select-none"
     :class="{
       'bg-primary-container text-primary cursor-pointer': !props.disabled,
       'bg-surface-container text-on-surface-variant/70 cursor-default': props.disabled
     }">
-    <i v-if="props.icon" class="  material-icons-outlined">{{ props.icon }}</i>
+    <i v-if="props.icon" class="material-icons-outlined">{{ props.icon }}</i>
     {{ props.label }}
   </button>
 </template>
@@ -31,7 +31,7 @@ function clicked() {
 @reference "@/styles/index.css"
 
 .btn_after {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  /*box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);*/
 }
 
 .btn_after:not(:disabled)::after {
