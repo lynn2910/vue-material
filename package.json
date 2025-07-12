@@ -13,8 +13,8 @@
     "lint": "run-s lint:*"
   },
   "dependencies": {
-    "@material/material-color-utilities": "^0.3.0",
     "@material/web": "^2.3.0",
+    "@poupe/material-color-utilities": "^0.3.6",
     "@tailwindcss/vite": "^4.1.11",
     "pinia": "^3.0.3",
     "tailwindcss": "^4.1.11",

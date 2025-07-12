@@ -4,8 +4,58 @@ import {
   argbFromHex,
   themeFromSourceColor,
   hexFromArgb,
-  Hct
-} from '@material/material-color-utilities';
+  Hct, type Theme
+} from '@poupe/material-color-utilities';
+
+export const getMissingColorMap = (
+  theme: Theme,
+  mode: "dark" | "light"
+): Map<string, string> => {
+  const {primary, secondary, tertiary, neutral} = theme.palettes;
+
+  const globalColors = new Map<string, string>([
+    ['primary-fixed', hexFromArgb(primary.tone(90))],
+    ['primary-fixed-dim', hexFromArgb(primary.tone(80))],
+    ['on-primary-fixed', hexFromArgb(primary.tone(10))],
+    ['on-primary-fixed-variant', hexFromArgb(primary.tone(30))],
+    ['secondary-fixed', hexFromArgb(secondary.tone(90))],
+    ['secondary-fixed-dim', hexFromArgb(secondary.tone(80))],
+    ['on-secondary-fixed', hexFromArgb(secondary.tone(10))],
+    ['on-secondary-fixed-variant', hexFromArgb(secondary.tone(30))],
+    ['tertiary-fixed', hexFromArgb(tertiary.tone(90))],
+    ['tertiary-fixed-dim', hexFromArgb(tertiary.tone(80))],
+    ['on-tertiary-fixed', hexFromArgb(tertiary.tone(10))],
+    ['on-tertiary-fixed-variant', hexFromArgb(tertiary.tone(30))],
+  ]);
+
+  const lightColors = new Map<string, string>([
+    ['surface-dim', hexFromArgb(neutral.tone(87))],
+    ['surface-bright', hexFromArgb(neutral.tone(98))],
+    ['surface-container-lowest', hexFromArgb(neutral.tone(100))],
+    ['surface-container-low', hexFromArgb(neutral.tone(96))],
+    ['surface-container', hexFromArgb(neutral.tone(94))],
+    ['surface-container-high', hexFromArgb(neutral.tone(92))],
+    ['surface-container-highest', hexFromArgb(neutral.tone(90))]
+  ]);
+
+  const darkColors = new Map<string, string>([
+    ['surface-dim', hexFromArgb(neutral.tone(6))],
+    ['surface-bright', hexFromArgb(neutral.tone(24))],
+    ['surface-container-lowest', hexFromArgb(neutral.tone(4))],
+    ['surface-container-low', hexFromArgb(neutral.tone(10))],
+    ['surface-container', hexFromArgb(neutral.tone(12))],
+    ['surface-container-high', hexFromArgb(neutral.tone(17))],
+    ['surface-container-highest', hexFromArgb(neutral.tone(22))]
+  ]);
+
+  if (mode === 'light') {
+    return new Map([...globalColors.entries(), ...lightColors.entries()]);
+  } else if (mode === 'dark') {
+    return new Map([...globalColors.entries(), ...darkColors.entries()]);
+  } else {
+    return new Map([...globalColors.entries(), ...lightColors.entries(), ...darkColors.entries()]);
+  }
+};
 
 export const useThemeStore = defineStore('theme', () => {
   const saved = localStorage.getItem('theme-preferences');
@@ -77,39 +127,17 @@ export const useThemeStore = defineStore('theme', () => {
     });
   };
 
-  const getMaterialColors = (scheme: any) => {
-    console.log(Object.keys(scheme.props).toString());
-    return {
-      'background': scheme.background,
-      'on-background': scheme.onBackground,
-      'surface': scheme.surface,
-      'on-surface': scheme.onSurface,
-      'surface-variant': scheme.surfaceVariant,
-      'on-surface-variant': scheme.onSurfaceVariant,
-      'inverse-surface': scheme.inverseSurface,
-      'inverse-on-surface': scheme.inverseOnSurface,
-      'outline': scheme.outline,
-      'outline-variant': scheme.outlineVariant,
-      'shadow': scheme.shadow,
-      'scrim': scheme.scrim,
-      'primary': scheme.primary,
-      'on-primary': scheme.onPrimary,
-      'primary-container': scheme.primaryContainer,
-      'on-primary-container': scheme.onPrimaryContainer,
-      'inverse-primary': scheme.inversePrimary,
-      'secondary': scheme.secondary,
-      'on-secondary': scheme.onSecondary,
-      'secondary-container': scheme.secondaryContainer,
-      'on-secondary-container': scheme.onSecondaryContainer,
-      'tertiary': scheme.tertiary,
-      'on-tertiary': scheme.onTertiary,
-      'tertiary-container': scheme.tertiaryContainer,
-      'on-tertiary-container': scheme.onTertiaryContainer,
-      'error': scheme.error,
-      'on-error': scheme.onError,
-      'error-container': scheme.errorContainer,
-      'on-error-container': scheme.onErrorContainer
-    };
+  const getMaterialColors = (scheme: { [key: string]: number }) => {
+    const camelCaseToKebabCase = (str: string) => str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+
+    let properties: { [key: string]: number } = {};
+
+    Object.entries(scheme)
+      .forEach(([k, v]) => {
+        properties[camelCaseToKebabCase(k)] = v;
+      });
+
+    return properties;
   };
 
   const setSourceColor = (color: string) => {
@@ -154,7 +182,6 @@ export const useThemeStore = defineStore('theme', () => {
   };
 
   const savePreferences = () => {
-    console.log("saving preferences")
     if (typeof window !== 'undefined') {
       const preferences = {
         sourceColor: sourceColor.value,
@@ -191,7 +218,20 @@ export const useThemeStore = defineStore('theme', () => {
     const theme = themeFromSourceColor(argbFromHex(sourceColor.value));
     const scheme = effectiveTheme.value ? theme.schemes.dark : theme.schemes.light;
 
-    const colors = getMaterialColors(scheme);
+    let color_schemes: { [key: string]: number } = {};
+
+    getMissingColorMap(theme, effectiveTheme.value ? 'dark' : 'light')
+      .forEach((hexValue, name) => {
+        color_schemes[name] = argbFromHex(hexValue);
+      })
+
+    Object.entries((scheme as unknown as { props: { [key: string]: number } }).props)
+      .forEach(([k, v]) => {
+        color_schemes[k] = v;
+      });
+
+    const colors = getMaterialColors(color_schemes);
+
     applyColors(colors);
   });
 

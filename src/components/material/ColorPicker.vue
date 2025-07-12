@@ -60,7 +60,7 @@
 <script setup lang="ts">
 import {useThemeStore} from '@/stores/themeStore';
 import {ref, watch, computed} from "vue";
-import {Hct, hexFromArgb} from '@material/material-color-utilities';
+import {Hct, hexFromArgb} from '@poupe/material-color-utilities';
 
 const themeStore = useThemeStore();
 
