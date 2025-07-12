@@ -2,6 +2,7 @@ module.exports = {
   theme: {
     fontFamily: {
       'roboto': ['Roboto', 'sans-serif'],
+      'noto-sans': ['Noto Sans', 'sans-serif'],
     },
     colors: {
       // ========================================

@@ -4,7 +4,8 @@
 
 @theme {
 
-  --font-roboto: "Roboto", sans-serif;
+  --font-roboto: "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --font-noto-sans: "Noto Sans", ui-sans-serif, system-ui, sans-serif;
 
   /* ========================================
    *
