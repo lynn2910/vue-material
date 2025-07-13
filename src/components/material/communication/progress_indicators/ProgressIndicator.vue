@@ -6,7 +6,7 @@
 
     <div class="absolute left-0 top-0 bg-primary h-full rounded-full"
          v-if="props.percentage && props.percentage > 0"
-         :style="{width: `${props.percentage}%`}"/>
+         :style="{width: `${Math.min(props.percentage, 100)}%`}"/>
     <!-- Stop -->
     <div class="absolute right-0 top-0 bg-primary h-full rounded-full"
          :style="{width: `${strikeThickness}px`}"/>
@@ -111,7 +111,7 @@ const circularCircumference = computed(() => {
 
 const circularDashOffset = computed(() => {
   if (!props.percentage) return circularCircumference.value;
-  return circularCircumference.value * (1 - props.percentage / 100);
+  return circularCircumference.value * (1 - (Math.min(props.percentage, 100)) / 100);
 });
 </script>
 
