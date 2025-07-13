@@ -20,6 +20,11 @@ const router = createRouter({
           path: 'containment',
           name: 'containment_presentation',
           component: () => import('../views/components/ContainmentPresentation.vue')
+        },
+        {
+          path: 'communication',
+          name: 'communication_presentation',
+          component: () => import('../views/components/CommunicationPresentation.vue')
         }
       ]
     }

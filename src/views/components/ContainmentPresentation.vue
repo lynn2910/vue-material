@@ -56,7 +56,6 @@
 </template>
 
 <script setup lang="ts">
-
 import OutlinedCard from "@/components/material/containment/cards/OutlinedCard.vue";
 import FilledCard from "@/components/material/containment/cards/FilledCard.vue";
 import Divider from "@/components/material/containment/dividers/Divider.vue";

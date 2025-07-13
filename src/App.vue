@@ -19,6 +19,17 @@
 
     </div>
 
+
+    <!--
+
+        Material UI required Section for global components
+      DON'T EDIT THIS SECTION
+
+      If you want to add elements, do it before this comment !!
+
+    -->
+
+    <Snackbar/>
   </div>
 </template>
 
@@ -30,6 +41,7 @@ import NavigationRail, {
   ExpandedLayout,
   type NavigationItem
 } from "@/components/material/navigation/NavigationRail.vue";
+import Snackbar from "@/components/material/communication/snackbar/Snackbar.vue";
 
 const showThemeControls = ref(false);
 
