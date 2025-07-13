@@ -8,7 +8,7 @@
     <br><br>
 
     <div
-      class="flex flex-row gap-10  p-7 bg-surface-container-lowest rounded-lg border border-surface-container-highest w-full">
+      class="flex flex-row gap-10  p-7 bg-surface rounded-lg border border-surface-container-highest w-full">
       <div class="flex flex-col gap-5">
 
         <h3 class="text-title-medium text-on-surface">Boutons</h3>

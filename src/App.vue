@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen min-w-screen bg-background text-on-background transition-colors duration-300">
+    class="min-h-screen min-w-screen bg-surface-container-lowest text-on-background transition-colors duration-300">
 
     <button @click="showThemeControls = !showThemeControls"
             class="fixed top-2 right-2">

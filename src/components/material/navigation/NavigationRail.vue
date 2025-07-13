@@ -11,7 +11,7 @@
        :class="{
           'w-26': !isExpanded,
           'min-w-56 max-w-[360px]': isExpanded,
-          'bg-surface': expandedLayout === ExpandedLayout.Standard,
+          // 'bg-surface': expandedLayout === ExpandedLayout.Standard,
           'fixed z-[100] top-0 h-dvh left-0 rounded-r-xl bg-surface': isExpanded && expandedLayout === ExpandedLayout.Modal,
         }">
 
