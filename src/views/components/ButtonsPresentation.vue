@@ -60,7 +60,30 @@
             <Fab icon="edit" label="Compose"/>
             <SmallFab icon="edit"/>
           </div>
+        </div>
+        <div>
+          <h3 class="text-title-medium text-on-surface">Boutons segmentés (Checkbox & Radio)</h3>
 
+          <div class="flex flex-col gap-5 items-start my-5">
+            <SegmentedButtons
+              :items="[
+                {label: 'Rouge', value: 1},
+                {label: 'Vert', value: 2},
+                {label: 'Bleu', value: 3},
+              ]"
+              id="radio_segmented"
+            />
+
+            <SegmentedButtons
+              :items="[
+                {label: 'Rouge', value: 1},
+                {label: 'Vert', value: 2},
+                {label: 'Bleu', value: 3},
+              ]"
+              id="radio_segmented"
+              allow_multiple
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -81,4 +104,5 @@ import OutlinedIcon from "@/components/material/buttons/icons/OutlinedIcon.vue";
 import FabBig from "@/components/material/buttons/fab/FabBig.vue";
 import Fab from "@/components/material/buttons/fab/Fab.vue";
 import SmallFab from "@/components/material/buttons/fab/SmallFab.vue";
+import SegmentedButtons from "@/components/material/buttons/segmented/SegmentedButtons.vue";
 </script>
