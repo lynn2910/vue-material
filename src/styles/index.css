@@ -139,12 +139,11 @@
   --shadow-dp4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
   --shadow-dp5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
 
-  --spacing-keyline: 16px;
-  --spacing-8: 8px;
-  --spacing-16: 16px;
-  --spacing-24: 24px;
-  --spacing-40: 40px;
-
+  /*--spacing-keyline: 16px;*/
+  /*--spacing-8: 8px;*/
+  /*--spacing-16: 16px;*/
+  /*--spacing-24: 24px;*/
+  /*--spacing-40: 40px;*/
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
   --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);

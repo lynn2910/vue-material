@@ -54,11 +54,11 @@
         <div>
           <h3 class="text-title-medium text-on-surface">Boutons d'action flottants (Fabs)</h3>
 
-          <div class="flex flex-row gap-5 items-center my-5">
-            <FabBig/>
-            <Fab/>
-            <Fab/>
-            <SmallFab/>
+          <div class="flex flex-row gap-2 items-center my-5">
+            <FabBig icon="edit"/>
+            <Fab icon="edit" label="Compose" show_label/>
+            <Fab icon="edit" label="Compose"/>
+            <SmallFab icon="edit"/>
           </div>
 
         </div>
