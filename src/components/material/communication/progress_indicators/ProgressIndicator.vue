@@ -147,11 +147,11 @@ const animationEasing = computed(() => props.animationEasing || 'cubic-bezier(.6
   }
   60% {
     left: 100%;
-    right: -70%;
+    right: -90%;
   }
   100% {
     left: 100%;
-    right: -70%;
+    right: -90%;
   }
 }
 
@@ -162,11 +162,11 @@ const animationEasing = computed(() => props.animationEasing || 'cubic-bezier(.6
   }
   60% {
     left: 107%;
-    right: 15%;
+    right: -90%;
   }
   100% {
     left: 107%;
-    right: 15%;
+    right: -90%;
   }
 }
 
