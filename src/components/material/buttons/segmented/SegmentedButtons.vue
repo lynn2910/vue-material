@@ -41,7 +41,7 @@ const props = defineProps<{
   id: string,
   allow_multiple?: boolean,
   disallow_none?: boolean,
-  modelValue: any[]
+  modelValue: any[] | any
 }>();
 
 const emit = defineEmits(['update:modelValue']);
@@ -59,11 +59,13 @@ const modes: Record<string, (selected_item: Item) => void> =
       if (!props.disallow_none && selectedItemsComputed.value.includes(selected_item.value)) {
         selectedItemsComputed.value = [];
       } else {
-        selectedItemsComputed.value = [selected_item.value];
+        selectedItemsComputed.value = selected_item.value;
       }
     },
     'multiple': (selected_item: Item) => {
-      const index = selectedItemsComputed.value.findIndex(item => item === selected_item.value);
+      if (!Array.isArray(selectedItemsComputed)) throw new Error('modelValue must be an array');
+
+      const index = selectedItemsComputed.value.findIndex((item: any) => item === selected_item.value);
       if (index === -1) {
         selectedItemsComputed.value = [...selectedItemsComputed.value, selected_item.value];
       } else {
