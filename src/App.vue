@@ -41,7 +41,7 @@ import NavigationRail, {
   ExpandedLayout,
   type NavigationItem
 } from "@/components/material/navigation/NavigationRail.vue";
-import Snackbar from "@/components/material/communication/snackbar/Snackbar.vue";
+import Snackbar from "@/components/material/communication/Snackbar.vue";
 
 const showThemeControls = ref(false);
 
