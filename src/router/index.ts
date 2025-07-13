@@ -13,7 +13,13 @@ const router = createRouter({
       children: [
         {
           path: 'buttons',
+          name: 'buttons_presentation',
           component: () => import('../views/components/ButtonsPresentation.vue')
+        },
+        {
+          path: 'containment',
+          name: 'containment_presentation',
+          component: () => import('../views/components/ContainmentPresentation.vue')
         }
       ]
     }
