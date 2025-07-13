@@ -41,7 +41,7 @@ const props = defineProps<{
   id: string,
   allow_multiple?: boolean,
   disallow_none?: boolean,
-  modelValue: string[]
+  modelValue: any[]
 }>();
 
 const emit = defineEmits(['update:modelValue']);
