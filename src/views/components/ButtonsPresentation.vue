@@ -44,7 +44,7 @@
           <h3 class="text-title-medium text-on-surface">Boutons icons</h3>
 
           <div class="flex flex-row gap-5 items-center my-5">
-            <IconButton icon="settings"/>
+            <ButtonIcon icon="settings"/>
             <FilledIcon icon="settings"/>
             <TonalIcon icon="settings"/>
             <OutlinedIcon icon="settings"/>
@@ -99,7 +99,7 @@ import FilledButton from "@/components/material/buttons/withLabels/FilledButton.
 import TonalButton from "@/components/material/buttons/withLabels/TonalButton.vue";
 import OutlinedButton from "@/components/material/buttons/withLabels/OutlinedButton.vue";
 import TextButton from "@/components/material/buttons/withLabels/TextButton.vue";
-import IconButton from "@/components/material/buttons/icons/IconButton.vue";
+import ButtonIcon from "@/components/material/buttons/icons/ButtonIcon.vue";
 import FilledIcon from "@/components/material/buttons/icons/FilledIcon.vue";
 import TonalIcon from "@/components/material/buttons/icons/TonalIcon.vue";
 import OutlinedIcon from "@/components/material/buttons/icons/OutlinedIcon.vue";
