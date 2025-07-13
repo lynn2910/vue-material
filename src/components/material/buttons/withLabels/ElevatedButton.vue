@@ -7,7 +7,7 @@
       'bg-surface-container hover:bg-surface-container-high focus:bg-surface-container-highest text-primary cursor-pointer': !props.disabled,
       'bg-surface-container text-on-surface-variant/70 cursor-default': props.disabled
     }">
-    <i v-if="props.icon" class="  material-icons-outlined">{{ props.icon }}</i>
+    <i v-if="props.icon" class="material-symbols-outlined normal_outlined_icon">{{ props.icon }}</i>
     {{ props.label }}
   </button>
 </template>

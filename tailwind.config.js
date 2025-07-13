@@ -1,4 +1,5 @@
 module.exports = {
+  ignores: ['**/node_modules/**/*', '**/dist/**/*'],
   theme: {
     fontFamily: {
       'roboto': ['Roboto', 'sans-serif'],

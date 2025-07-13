@@ -3,8 +3,9 @@
     <!-- Head -->
     <div class="flex flex-row justify-between items-center">
       <h2 class="text-title-large text-on-surface">Editeur de thème</h2>
-      <i class="material-icons-outlined select-none cursor-pointer text-on-surface"
-         @click="copyColor">copy</i>
+      <i
+        class="material-symbols-outlined normal_outlined_icon select-none cursor-pointer text-on-surface"
+        @click="copyColor">copy</i>
     </div>
 
     <!-- Color picker -->

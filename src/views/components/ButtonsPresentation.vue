@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full m-10">
 
     <h1>Boutons</h1>
 
@@ -8,9 +8,8 @@
     <br><br>
 
     <div
-      class="flex flex-row gap-10  p-7 bg-surface-container-lowest rounded-lg border border-surface-container-highest">
-      <div
-        class="flex flex-col gap-5">
+      class="flex flex-row gap-10  p-7 bg-surface-container-lowest rounded-lg border border-surface-container-highest w-full">
+      <div class="flex flex-col gap-5">
 
         <h3 class="text-title-medium text-on-surface">Boutons</h3>
 
@@ -52,6 +51,17 @@
           </div>
 
         </div>
+        <div>
+          <h3 class="text-title-medium text-on-surface">Boutons d'action flottants (Fabs)</h3>
+
+          <div class="flex flex-row gap-5 items-center my-5">
+            <FabBig/>
+            <Fab/>
+            <Fab/>
+            <SmallFab/>
+          </div>
+
+        </div>
       </div>
     </div>
 
@@ -68,4 +78,7 @@ import IconButton from "@/components/material/buttons/icons/IconButton.vue";
 import FilledIcon from "@/components/material/buttons/icons/FilledIcon.vue";
 import TonalIcon from "@/components/material/buttons/icons/TonalIcon.vue";
 import OutlinedIcon from "@/components/material/buttons/icons/OutlinedIcon.vue";
+import FabBig from "@/components/material/buttons/fab/FabBig.vue";
+import Fab from "@/components/material/buttons/fab/Fab.vue";
+import SmallFab from "@/components/material/buttons/fab/SmallFab.vue";
 </script>

@@ -20,8 +20,9 @@
             class="select-none cursor-pointer text-2xl ml-7 pt-7 pb-5 w-fit"
             :aria-expanded="isExpanded"
             @click="toggleExpanded">
-      <i v-if="!hideMenuButton && !isExpanded" class="material-icons-outlined">menu</i>
-      <i v-else-if="isExpanded" class="material-icons-outlined">menu_open</i>
+      <i v-if="!hideMenuButton && !isExpanded"
+         class="material-symbols-outlined normal_outlined_icon">menu</i>
+      <i v-else-if="isExpanded" class="material-symbols-outlined normal_outlined_icon">menu_open</i>
     </button>
 
     <!-- FAB -->
@@ -35,7 +36,7 @@
       <div :class="{'mx-auto w-fit p-4 pb-2.5 bg-primary-container rounded-lg': !isExpanded,}"
            class="transition-all duration-300 ease-standard">
         <i aria-hidden="true"
-           class="material-icons-outlined text-2xl text-on-primary-container">
+           class="material-symbols-outlined normal_outlined_icon text-2xl text-on-primary-container">
           {{ fab.icon }}
         </i>
       </div>
@@ -75,7 +76,7 @@
                'bg-secondary-container': item.selected && !isExpanded,
                'w-3/4 py-4 pb-2.5': !isExpanded,
               }">
-            <i aria-hidden="true" class="material-icons-outlined mt-1">
+            <i aria-hidden="true" class="material-symbols-outlined normal_outlined_icon mt-1">
               {{ item.icon }}
             </i>
 

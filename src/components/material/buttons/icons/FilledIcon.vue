@@ -7,7 +7,9 @@
       'bg-primary text-on-primary cursor-pointer': !props.disabled,
       'bg-surface-container text-on-surface-variant/70 cursor-default': props.disabled
     }">
-    <i v-if="props.icon" class="material-icons-outlined">{{ props.icon }}</i>
+    <span v-if="props.icon" class="material-symbols-outlined normal_outlined_icon">{{
+        props.icon
+      }}</span>
   </button>
 </template>
 

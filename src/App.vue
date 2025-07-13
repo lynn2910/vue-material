@@ -4,7 +4,7 @@
 
     <button @click="showThemeControls = !showThemeControls"
             class="fixed top-2 right-2">
-      <i class="material-icons-outlined">palette</i>
+      <i class="material-symbols-outlined normal_outlined_icon">palette</i>
     </button>
 
     <div v-show="showThemeControls" class="fixed top-12 right-2">
