@@ -72,6 +72,7 @@
                 {label: 'Bleu', value: 3},
               ]"
               id="radio_segmented"
+              v-model="selectedOptions"
             />
 
             <SegmentedButtons
@@ -82,6 +83,7 @@
               ]"
               id="radio_segmented"
               allow_multiple
+              v-model="selectedOptionsMultiple"
             />
           </div>
         </div>
@@ -105,4 +107,10 @@ import FabBig from "@/components/material/buttons/fab/FabBig.vue";
 import Fab from "@/components/material/buttons/fab/Fab.vue";
 import SmallFab from "@/components/material/buttons/fab/SmallFab.vue";
 import SegmentedButtons from "@/components/material/buttons/segmented/SegmentedButtons.vue";
+
+import {ref} from "vue";
+
+const selectedOptions = ref<number[]>([1]);
+
+const selectedOptionsMultiple = ref<number[]>([2, 3]);
 </script>

@@ -4,32 +4,35 @@
     <div v-for="(item, index) in props.items" :key="item.value"
          class="segmented_after h-10 py-2.5 relative inline-flex flex-row items-center justify-center text-sm gap-x-2 tracking-[.00714em] px-6 font-medium text-primary"
          :class="{
-            'rounded-l-full': index === 0,
-            'rounded-r-full': index === props.items.length - 1,
-            'border-r border-r-on-surface-variant/70': index < props.items.length - 1,
-            'bg-primary/25': selectedItems.includes(item.value),
+           'rounded-l-full': index === 0,
+           'rounded-r-full': index === props.items.length - 1,
+           'border-r border-r-on-surface-variant/70': index < props.items.length - 1,
+           'bg-primary/25': modelValue.includes(item.value),
          }">
+
       <input :id="props.id + '_' + item.value"
              @change="selected(item)"
              :value="item.value"
-             :checked="selectedItems.includes(item.value)"
+             :checked="modelValue.includes(item.value)"
              class="z-10 opacity-0 absolute inset-0"
              type="checkbox">
 
       <label class="flex items-center gap-3"
              :for="props.id + '_' + item.value">
         <i class="material-symbols-outlined normal_outlined_icon"
-           v-if="selectedItems.includes(item.value)">check</i>
+           v-if="modelValue.includes(item.value)">
+          check
+        </i>
         {{ item.label }}
       </label>
+
     </div>
 
   </div>
 </template>
 
 <script lang="ts" setup>
-
-import {ref} from "vue";
+import {computed} from "vue";
 
 type Item = { label: string, value: any };
 
@@ -37,27 +40,38 @@ const props = defineProps<{
   items: Item[],
   id: string,
   allow_multiple?: boolean,
+  disallow_none?: boolean,
+  modelValue: string[]
 }>();
 
-const emit = defineEmits(['change'])
+const emit = defineEmits(['update:modelValue']);
 
-const selectedItems = ref<string[]>([]);
+const selectedItemsComputed = computed({
+  get: () => props.modelValue,
+  set: (newValue) => {
+    emit('update:modelValue', newValue);
+  }
+});
 
 const modes: Record<string, (selected_item: Item) => void> =
   {
     'single': (selected_item: Item) => {
-      if (selectedItems.value.includes(selected_item.value)) {
-        selectedItems.value = [];
+      if (!props.disallow_none && selectedItemsComputed.value.includes(selected_item.value)) {
+        selectedItemsComputed.value = [];
       } else {
-        selectedItems.value = [selected_item.value];
+        selectedItemsComputed.value = [selected_item.value];
       }
     },
     'multiple': (selected_item: Item) => {
-      const index = selectedItems.value.findIndex(item => item === selected_item.value);
+      const index = selectedItemsComputed.value.findIndex(item => item === selected_item.value);
       if (index === -1) {
-        selectedItems.value.push(selected_item.value);
+        selectedItemsComputed.value = [...selectedItemsComputed.value, selected_item.value];
       } else {
-        selectedItems.value.splice(index, 1);
+        const newArray = [...selectedItemsComputed.value];
+        if (!props.disallow_none || (props.disallow_none && newArray.length > 1)) {
+          newArray.splice(index, 1);
+        }
+        selectedItemsComputed.value = newArray;
       }
     }
   }
@@ -68,8 +82,6 @@ function selected(selected_item: Item) {
   } else {
     modes['single'](selected_item);
   }
-
-  emit('change', selectedItems.value);
 }
 </script>
 
