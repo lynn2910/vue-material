@@ -27,6 +27,7 @@
                               disallow_none
                               id="progress_indicator_thickness"/>
 
+
             <ProgressIndicator linear :percentage="percentage"
                                :thin="areProgressIndicatorsThin"
                                :medium="areProgressIndicatorsMedium"
@@ -34,6 +35,7 @@
 
 
             <ProgressIndicator linear indeterminate
+                               :animationDuration="percentageAnimationDuration"
                                :thin="areProgressIndicatorsThin"
                                :medium="areProgressIndicatorsMedium"
                                :thick="areProgressIndicatorsThick"/>
@@ -47,6 +49,7 @@
 
 
               <ProgressIndicator circular indeterminate
+                                 :animationDuration="percentageAnimationDuration"
                                  :thin="areProgressIndicatorsThin"
                                  :medium="areProgressIndicatorsMedium"
                                  :thick="areProgressIndicatorsThick"/>
@@ -117,6 +120,7 @@ let areProgressIndicatorsMedium = computed(() => selectedSizeValue.value === 'me
 let areProgressIndicatorsThick = computed(() => selectedSizeValue.value === 'large');
 
 const percentage = ref(0);
+let percentageAnimationDuration = ref(0);
 
 let percentageEvolutionMethod = [
   {label: 'Aléatoire', value: 'random'},
@@ -135,6 +139,9 @@ const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 // hé hé
 onMounted(async () => {
   do {
+    let wait_time = percentage.value >= 100 ? 2000 : 250 + Math.random() * 1000;
+    percentageAnimationDuration.value = wait_time - 250;
+
     if (selectedPercentageEvolutionMethod.value === 'random') {
       if (percentage.value >= 100) {
         updatePercentage(0);
@@ -143,7 +150,6 @@ onMounted(async () => {
       }
     }
 
-    let wait_time = percentage.value >= 100 ? 2000 : 250 + Math.random() * 1000;
     console.log(wait_time);
     await wait(wait_time);
   } while (true);

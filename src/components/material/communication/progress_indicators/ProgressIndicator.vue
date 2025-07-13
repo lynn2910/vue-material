@@ -4,7 +4,7 @@
        class="relative w-full rounded-full bg-secondary-container"
        :style="{ height: strikeThickness + 'px'}">
 
-    <div class="absolute left-0 top-0 bg-primary h-full rounded-full"
+    <div class="absolute left-0 top-0 bg-primary h-full rounded-full progress-bar-transition"
          v-if="props.percentage && props.percentage > 0"
          :style="{width: `${Math.min(props.percentage, 100)}%`}"/>
     <!-- Stop -->
@@ -43,7 +43,7 @@
         :cy="circularSize / 2"
         :r="circularRadius"
         fill="none"
-        class="stroke-primary"
+        class="stroke-primary circular-progress-transition"
         :stroke-width="strikeThickness"
         :stroke-dasharray="circularCircumference"
         :stroke-dashoffset="circularDashOffset"
@@ -59,6 +59,16 @@
 
     <svg class="transform -rotate-90 circular-progress-indeterminate" :width="circularSize"
          :height="circularSize">
+      <!-- Background circle -->
+      <circle
+        :cx="circularSize / 2"
+        :cy="circularSize / 2"
+        :r="circularRadius"
+        fill="none"
+        class="stroke-secondary-container"
+        :stroke-width="strikeThickness"
+      />
+      <!-- Progress circle -->
       <circle
         :cx="circularSize / 2"
         :cy="circularSize / 2"
@@ -87,6 +97,9 @@ const props = defineProps<{
 
   percentage?: number,
   indeterminate?: boolean,
+
+  animationDuration?: number,
+  animationEasing?: string,
 }>();
 
 const strikeThickness = computed(() => {
@@ -113,9 +126,20 @@ const circularDashOffset = computed(() => {
   if (!props.percentage) return circularCircumference.value;
   return circularCircumference.value * (1 - (Math.min(props.percentage, 100)) / 100);
 });
+
+const animationDuration = computed(() => props.animationDuration || 1000);
+const animationEasing = computed(() => props.animationEasing || 'cubic-bezier(.6,0,.52,1)');
 </script>
 
 <style scoped>
+.progress-bar-transition {
+  transition: width v-bind(animationDuration+ 'ms') v-bind(animationEasing);
+}
+
+.circular-progress-transition {
+  transition: stroke-dashoffset v-bind(animationDuration+ 'ms') v-bind(animationEasing);
+}
+
 @keyframes linear-progress-indeterminate-slow {
   0% {
     left: -35%;
