@@ -1,7 +1,7 @@
 <template>
   <div class="w-full m-10">
     <div
-      class="flex flex-row gap-10  p-7 bg-surface rounded-lg border border-surface-container-highest w-full">
+      class="flex flex-col gap-10 p-7 bg-surface rounded-lg border border-surface-container-highest w-full">
 
       <div class="flex flex-row gap-10 items-stretch">
         <!-- Sliders -->
@@ -66,7 +66,7 @@
 
             <Radio name="radio" label="Valeur 1" :value="1" v-model="radioTest"/>
             <Radio name="radio" label="Valeur 2" :value="2" v-model="radioTest"/>
-            <Radio name="radio" label="Valeur 4 (désactivée)" :value="4" v-model="radioTest"
+            <Radio name="radio" label="Valeur 3 (désactivée)" :value="4" v-model="radioTest"
                    disabled/>
           </div>
         </div>
@@ -96,9 +96,101 @@
         </div>
       </div>
 
-      <div class="flex flex-row gap-10 items-start">
+      <div class="flex flex-row gap-10 items-start w-full">
+        <!-- Chips -->
+        <div class="flex flex-col items-start gap-6">
+          <h3 class="text-title-medium text-on-surface">Puces (Chips)</h3>
 
+          <p>Par défaut, les puces ont le style "outlined". Ajouter la propriété 'filled' (booléen)
+            dans le composant permet d'activer le remplissage de la puce.</p>
 
+          <div
+            class="border border-on-surface-variant/20 p-9 flex flex-col items-start rounded-xl gap-10 text-on-surface-variant h-full w-full">
+
+            <div class="flex flex-col gap-5 w-full">
+              <h4 class="text-title-medium text-on-surface">Puces d'assistances (AssistChip)</h4>
+
+              <p class="text-justify w-1/2">Les <b>Assist chips</b> représentent des actions
+                intelligentes ou automatisées qui
+                peuvent s'étendre sur plusieurs applications. Elles fonctionnent comme si
+                l'utilisateur avait demandé à un assistant de compléter une action.</p>
+
+              <div class="flex flex-row gap-5">
+                <AssistChip label="Assist chip" icon="local_taxi"/>
+                <AssistChip label="Assist chip" icon="local_taxi" filled/>
+                <AssistChip label="Assist chip" icon="local_taxi" disabled/>
+                <AssistChip label="Assist chip" icon="local_taxi" filled disabled/>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-5 w-full">
+              <h4 class="text-title-medium text-on-surface">Puces de filtre (FilterChip)</h4>
+
+              <p class="text-justify w-1/2">Les <b>Filter chips</b> permettent aux utilisateurs de
+                filtrer le contenu en utilisant des balises ou des mots descriptifs. Elles offrent
+                un moyen de sélectionner ou de désélectionner des options pour affiner les
+                informations affichées.</p>
+
+              <div class="flex flex-row gap-5 items-center flex-wrap">
+                <FilterChip label="Filter chip"/>
+                <FilterChip label="Filter chip" disabled/>
+                <FilterChip label="Filter chip" checked/>
+                <FilterChip label="Filter chip" filled disabled/>
+
+                <FilterChip label="Filter chip" checked filled/>
+                <FilterChip label="Filter chip" checked disabled/>
+                <FilterChip label="Filter chip" checked filled disabled/>
+              </div>
+              <div class="flex flex-row gap-5 items-center flex-wrap">
+                <FilterChip label="Filter chip" show_trailing/>
+                <FilterChip label="Filter chip" disabled show_trailing/>
+                <FilterChip label="Filter chip" checked show_trailing/>
+                <FilterChip label="Filter chip" filled disabled show_trailing/>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-5 w-full">
+              <h4 class="text-title-medium text-on-surface">Puces d'entrées (InputChip)</h4>
+
+              <p class="text-justify w-1/2">Les <b>Input chips</b> représentent des informations
+                discrètes saisies par l'utilisateur. Elles permettent de visualiser et de gérer des
+                éléments complexes comme des entités (personnes, lieux, choses) ou du texte. Elles
+                peuvent être rendues sélectionnables, supprimables ou cliquables.</p>
+
+              <div class="flex flex-row gap-5">
+                <InputChip label="Input chip" icon="broken_image"/>
+                <InputChip label="Input chip" icon="broken_image" filled/>
+                <InputChip label="Input chip" icon="broken_image" disabled/>
+                <InputChip label="Input chip" icon="broken_image" filled disabled/>
+              </div>
+
+              <div class="flex flex-row gap-5">
+                <InputChip label="Input chip" icon="broken_image" allow_delete/>
+                <InputChip label="Input chip" icon="broken_image" filled allow_delete/>
+                <InputChip label="Input chip" icon="broken_image" disabled allow_delete/>
+                <InputChip label="Input chip" icon="broken_image" filled disabled allow_delete/>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-5 w-full">
+              <h4 class="text-title-medium text-on-surface">Puces de suggestion
+                (SuggestionChip)</h4>
+
+              <p class="text-justify w-1/2">Les <b>Suggestion chips</b> aident à affiner l'intention
+                de l'utilisateur en présentant des suggestions générées dynamiquement. Elles sont
+                souvent utilisées pour anticiper le besoin de l'utilisateur ou pour proposer des
+                réponses rapides.</p>
+
+              <div class="flex flex-row gap-5">
+                <SuggestionChip label="Assist chip"/>
+                <SuggestionChip label="Assist chip" filled/>
+                <SuggestionChip label="Assist chip" disabled/>
+                <SuggestionChip label="Assist chip" filled disabled/>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -112,6 +204,10 @@ import RangeSlider from "@/components/material/inputs/sliders/RangeSlider.vue";
 import Checkbox from "@/components/material/inputs/Checkbox.vue";
 import Radio from "@/components/material/inputs/Radio.vue";
 import Switch from "@/components/material/inputs/Switch.vue";
+import AssistChip from "@/components/material/inputs/chips/AssistChip.vue";
+import FilterChip from "@/components/material/inputs/chips/FilterChip.vue";
+import InputChip from "@/components/material/inputs/chips/InputChip.vue";
+import SuggestionChip from "@/components/material/inputs/chips/SuggestionChip.vue";
 
 const horizontalSlider1 = ref(4);
 const horizontalSliderStepped = ref(3);
