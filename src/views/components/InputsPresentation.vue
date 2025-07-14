@@ -114,7 +114,7 @@
                          name="outlined_login"
                          support_text="L'identifiant qui vous as été transmis par mail"/>
 
-              <TextField type="password"
+              <TextField type="text"
                          v-model="input2"
                          id="outlined_user_password"
                          name="outlined_last_name"
@@ -136,6 +136,7 @@
                          v-model="input5"
                          label="Email"
                          name="outlined_email"
+                         :pattern="emailValidationRegex"
                          id="outlined_email_field"
                          icon="alternate_email"/>
             </div>
@@ -154,7 +155,7 @@
                          label="Identifiant"
                          support_text="L'identifiant qui vous as été transmis par mail"/>
 
-              <TextField type="password"
+              <TextField type="text"
                          v-model="input7"
                          filled
                          id="filled_user_password"
@@ -179,6 +180,7 @@
                          label="Email"
                          id="filled_email_field"
                          filled
+                         :pattern="emailValidationRegex"
                          name="filled_email"
                          icon="alternate_email"/>
             </div>
@@ -328,5 +330,5 @@ const input8 = ref("");
 const input9 = ref("");
 const input10 = ref("");
 
-const emailValidationRegex = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+const emailValidationRegex = "^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$";
 </script>
