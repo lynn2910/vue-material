@@ -3,9 +3,7 @@
     <!-- Head -->
     <div class="flex flex-row justify-between items-center">
       <h2 class="text-title-large text-on-surface">Editeur de thème</h2>
-      <i
-        class="material-symbols-outlined normal_outlined_icon select-none cursor-pointer text-on-surface"
-        @click="copyColor">copy</i>
+      <Icon icon="content_copy" class="cursor-pointer" @click="copyColor"/>
     </div>
 
     <!-- Color picker -->
@@ -62,6 +60,7 @@
 import {useThemeStore} from '@/stores/themeStore';
 import {ref, watch, computed} from "vue";
 import {Hct, hexFromArgb} from '@poupe/material-color-utilities';
+import Icon from "@/components/material/Icon.vue";
 
 const themeStore = useThemeStore();
 

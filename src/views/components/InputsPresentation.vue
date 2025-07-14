@@ -29,10 +29,9 @@
       </div>
 
 
-      <!-- Sliders -->
+      <!-- Checkbox -->
       <div class="flex flex-col items-start gap-6">
         <h3 class="text-title-medium text-on-surface">Checkbox</h3>
-
 
         <div
           class="border border-on-surface-variant/20 p-9 flex flex-col items-start rounded-xl gap-2 text-on-surface-variant">
@@ -42,8 +41,8 @@
             <Checkbox name="checkbox_1" v-model="checkbox1"/>
             <Checkbox name="checkbox_2" v-model="checkbox2"/>
             <Checkbox name="checkbox_3" v-model="checkbox3"/>
-            <Checkbox name="checkbox_3" v-model="checkbox3" disabled/>
-            <Checkbox name="checkbox_3" v-model="checkbox2" disabled/>
+            <Checkbox name="checkbox_3" v-model="checkboxDisabled" disabled/>
+            <Checkbox name="checkbox_3" v-model="checkbox2Disabled" disabled/>
           </div>
 
           <p>Erreur</p>
@@ -51,10 +50,24 @@
             <Checkbox name="checkbox_1" v-model="checkbox1" is_error/>
             <Checkbox name="checkbox_2" v-model="checkbox2" is_error/>
             <Checkbox name="checkbox_3" v-model="checkbox3" is_error/>
-            <Checkbox name="checkbox_3" v-model="checkbox3" is_error disabled/>
-            <Checkbox name="checkbox_3" v-model="checkbox2" is_error disabled/>
+            <Checkbox name="checkbox_3" v-model="checkboxDisabled" is_error disabled/>
+            <Checkbox name="checkbox_3" v-model="checkbox2Disabled" is_error disabled/>
           </div>
 
+        </div>
+      </div>
+
+      <!-- Radio -->
+      <div class="flex flex-col items-start gap-6">
+        <h3 class="text-title-medium text-on-surface">Radio</h3>
+
+        <div
+          class="border border-on-surface-variant/20 p-9 flex flex-col items-start rounded-xl gap-2 text-on-surface-variant h-full">
+
+          <Radio name="radio" label="Valeur 1" :value="1" v-model="radioTest"/>
+          <Radio name="radio" label="Valeur 2" :value="2" v-model="radioTest"/>
+          <Radio name="radio" label="Valeur 4 (désactivée)" :value="4" v-model="radioTest"
+                 disabled/>
         </div>
       </div>
     </div>
@@ -67,6 +80,7 @@ import Divider from "@/components/material/containment/dividers/Divider.vue";
 import {ref} from "vue";
 import RangeSlider from "@/components/material/inputs/sliders/RangeSlider.vue";
 import Checkbox from "@/components/material/inputs/Checkbox.vue";
+import Radio from "@/components/material/inputs/Radio.vue";
 
 const horizontalSlider1 = ref(4);
 const horizontalSliderStepped = ref(3);
@@ -75,4 +89,8 @@ const horizontalRange = ref([2, 6]);
 const checkbox1 = ref(0);
 const checkbox2 = ref(1);
 const checkbox3 = ref(-1);
+const checkboxDisabled = ref(0);
+const checkbox2Disabled = ref(1);
+
+const radioTest = ref(0);
 </script>
