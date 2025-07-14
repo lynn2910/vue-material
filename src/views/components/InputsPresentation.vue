@@ -11,12 +11,17 @@
           class="border border-on-surface-variant/20 p-10 flex flex-row items-start rounded-xl gap-5 text-on-surface-variant">
 
           <!-- Horizontal -->
-          <div class="flex flex-col gap-5 w-48">
+          <div class="flex flex-col gap-5 w-64">
             <BaseSlider v-model="horizontalSlider1" :min="0" :max="10"/>
             <RangeSlider v-model="horizontalRange" :min="0" :max="10"/>
           </div>
 
           <Divider vertical/>
+
+          <div class="flex flex-col gap-3.5 w-64">
+            <p class="m-0">{{ horizontalSlider1 }}</p>
+            <p class="m-0">{{ horizontalRange[0] }} - {{ horizontalRange[1] }}</p>
+          </div>
 
         </div>
       </div>
