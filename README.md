@@ -37,7 +37,7 @@ Afin de déployer l'application sur Github Pages, vous pouvez:
 - [x] Radio button
 - [x] Switch
 - [x] Chips
-- [ ] Text fields
+- [x] Text fields
 - [ ] _Date pickers_
 - [ ] _Time pickers_
 
