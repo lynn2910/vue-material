@@ -32,9 +32,9 @@ Afin de déployer l'application sur Github Pages, vous pouvez:
 - [x] Sliders
 - [x] Checkbox
 - [x] Radio button
-- [ ] Switch
-- [ ] Navigation bar & rail (rework)
+- [x] Switch
 - [ ] Chips
+- [ ] Navigation bar & rail (rework)
 - [ ] Text fields
 - [ ] Tabs
 - [ ] App bars

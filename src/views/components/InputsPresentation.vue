@@ -125,7 +125,7 @@ const checkbox2Disabled = ref(1);
 
 const radioTest = ref(0);
 
-const switch1 = ref(true);
-const switch2 = ref(false);
+const switch1 = ref(false);
+const switch2 = ref(true);
 const switchDisabled = ref(true);
 </script>
