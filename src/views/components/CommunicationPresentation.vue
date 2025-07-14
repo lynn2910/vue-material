@@ -152,7 +152,6 @@ onMounted(async () => {
 
     console.log(wait_time);
     await wait(wait_time);
-  } while (true);
-
+  } while (true); // oxlint-disable-line no-constant-condition
 })
 </script>
