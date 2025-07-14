@@ -13,6 +13,7 @@
           <!-- Horizontal -->
           <div class="flex flex-col gap-5 w-64">
             <BaseSlider v-model="horizontalSlider1" :min="0" :max="10"/>
+            <BaseSlider v-model="horizontalSliderStepped" :min="0" :max="10" :step="1" showSteps/>
             <RangeSlider v-model="horizontalRange" :min="0" :max="10"/>
           </div>
 
@@ -20,6 +21,7 @@
 
           <div class="flex flex-col gap-3.5 w-64">
             <p class="m-0">{{ horizontalSlider1 }}</p>
+            <p class="m-0">{{ horizontalSliderStepped }}</p>
             <p class="m-0">{{ horizontalRange[0] }} - {{ horizontalRange[1] }}</p>
           </div>
 
@@ -35,6 +37,7 @@ import Divider from "@/components/material/containment/dividers/Divider.vue";
 import {ref} from "vue";
 import RangeSlider from "@/components/material/inputs/sliders/RangeSlider.vue";
 
-const horizontalSlider1 = ref(3);
+const horizontalSlider1 = ref(4);
+const horizontalSliderStepped = ref(3);
 const horizontalRange = ref([2, 6]);
 </script>
