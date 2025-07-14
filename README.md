@@ -29,26 +29,41 @@ Afin de déployer l'application sur Github Pages, vous pouvez:
 
 ## Todo list
 
+### Inputs
+
+- [x] Buttons
 - [x] Sliders
 - [x] Checkbox
 - [x] Radio button
 - [x] Switch
-- [ ] Chips
-- [ ] Navigation bar & rail (rework)
+- [x] Chips
 - [ ] Text fields
+- [ ] _Date pickers_
+- [ ] _Time pickers_
+
+### Navigation
+
+- [ ] Navigation bar & rail (rework)
 - [ ] Tabs
 - [ ] App bars
-- [ ] Carousel
-- [ ] Date pickers
-- [ ] Time pickers
-- [ ] Dialogs
-- [ ] Lists
-- [ ] Menus
-- [ ] Split buttons
-- [ ] FAB menu
-- [ ] Button groups
 - [ ] Bottom sheets
 - [ ] Side sheets
 - [ ] Full-view sheets
+
+### Interactions
+
+- [ ] Menus
+- [ ] Dialogs
+- [ ] FAB menu
+- [ ] Button groups
 - [ ] Toolbars
 - [ ] Tooltips
+- [ ] Split buttons
+
+### Elements visuels
+
+- [ ] Carousel
+- [ ] Lists
+- [ ] _Data table_ (n'existe pas dans la documentation Material)
+- [ ] _Graphiques_
+- [ ] _Search_ (pas besoin dans l'immédiat)
