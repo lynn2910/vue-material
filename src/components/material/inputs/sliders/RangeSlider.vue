@@ -28,8 +28,10 @@
       :style="thumbEndStyle"
     />
 
-    <div class="rounded-full bg-primary absolute z-20 h-1 w-1 right-1"></div>
-    <div class="rounded-full bg-primary absolute z-20 h-1 w-1 left-1"></div>
+    <div v-show="(modelValue[0] > effectiveMin) && (modelValue[1] > effectiveMin)"
+         class="rounded-full bg-primary absolute z-20 h-1 w-1 left-1"></div>
+    <div v-show="(modelValue[0] < effectiveMax) && (modelValue[1] < effectiveMax)"
+         class="rounded-full bg-primary absolute z-20 h-1 w-1 right-1"></div>
 
     <input
       type="range"

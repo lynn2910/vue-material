@@ -18,8 +18,10 @@
       :style="thumbStyle"
     />
 
-    <div class="rounded-full bg-primary absolute z-20 h-1 w-1 right-1"></div>
-    <div class="rounded-full bg-primary absolute z-20 h-1 w-1 left-1"></div>
+    <div v-show="modelValue > effectiveMin"
+         class="rounded-full bg-primary absolute z-20 h-1 w-1 left-1"></div>
+    <div v-show="modelValue < effectiveMax"
+         class="rounded-full bg-primary absolute z-20 h-1 w-1 right-1"></div>
 
     <input
       type="range"
