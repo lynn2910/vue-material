@@ -72,7 +72,7 @@ const props = defineProps<{
   min?: number;
   max?: number;
   step?: number;
-  modelValue: [number, number];
+  modelValue: number[];
 }>();
 
 const emit = defineEmits(["update:modelValue"]);
