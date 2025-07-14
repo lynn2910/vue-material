@@ -12,15 +12,10 @@
 
           <!-- Horizontal -->
           <div class="flex flex-col gap-5 w-48">
-            <BaseSlider v-model="horizontalSlider1" :min="0" :max="10" horizontal/>
+            <BaseSlider v-model="horizontalSlider1" :min="0" :max="10"/>
           </div>
 
           <Divider vertical/>
-
-          <!-- Vertical -->
-          <div class="flex flex-col gap-5 h-48">
-            <BaseSlider v-model="verticalSlider1" :min="0" :max="10" vertical/>
-          </div>
 
         </div>
       </div>
