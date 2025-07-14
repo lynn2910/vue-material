@@ -13,6 +13,7 @@
           <!-- Horizontal -->
           <div class="flex flex-col gap-5 w-48">
             <BaseSlider v-model="horizontalSlider1" :min="0" :max="10"/>
+            <RangeSlider v-model="horizontalRange" :min="0" :max="10"/>
           </div>
 
           <Divider vertical/>
@@ -27,7 +28,8 @@
 import BaseSlider from "@/components/material/inputs/sliders/BaseSlider.vue";
 import Divider from "@/components/material/containment/dividers/Divider.vue";
 import {ref} from "vue";
+import RangeSlider from "@/components/material/inputs/sliders/RangeSlider.vue";
 
 const horizontalSlider1 = ref(3);
-const verticalSlider1 = ref(3);
+const horizontalRange = ref([2, 6]);
 </script>
