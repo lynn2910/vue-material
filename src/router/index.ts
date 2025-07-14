@@ -25,6 +25,11 @@ const router = createRouter({
           path: 'communication',
           name: 'communication_presentation',
           component: () => import('../views/components/CommunicationPresentation.vue')
+        },
+        {
+          path: 'inputs',
+          name: 'inputs_presentation',
+          component: () => import('../views/components/InputsPresentation.vue')
         }
       ]
     }
