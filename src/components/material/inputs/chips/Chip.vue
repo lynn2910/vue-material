@@ -1,6 +1,9 @@
 <template>
 
-  <button :disabled="props.disabled" @click="chipClicked"
+  <button :disabled="props.disabled"
+          @click="chipClicked"
+          :aria-label="props.label"
+          :aria-disabled="props.disabled"
           class="relative flex flex-row w-fit rounded-lg gap-x-3 py-1.5 px-3 focus:ring-2 focus-ring-primary"
           :class="{
             'opacity-35': props.disabled,
