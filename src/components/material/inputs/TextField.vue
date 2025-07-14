@@ -11,7 +11,9 @@
              :type="props.type"
              :aria-label="props.label"
              :name="props.name"
+             :required="props.required"
              placeholder=""
+
              :class="{ 'pl-12': props.icon }"
              class="w-full h-14 leading-5 relative py-2 px-4 rounded border border-on-surface-variant/70 focus:border-primary outline-none focus:ring-0 peer"/>
       <label
@@ -47,6 +49,7 @@ const props = defineProps<{
   support_text?: string,
   filled?: boolean,
 
+  required?: boolean,
   disabled?: boolean,
 }>();
 

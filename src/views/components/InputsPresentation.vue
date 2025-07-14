@@ -327,4 +327,6 @@ const input7 = ref("");
 const input8 = ref("");
 const input9 = ref("");
 const input10 = ref("");
+
+const emailValidationRegex = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
 </script>
