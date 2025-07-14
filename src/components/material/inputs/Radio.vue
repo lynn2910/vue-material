@@ -38,7 +38,6 @@ const emit = defineEmits<{
 }>();
 
 const updateValue = () => {
-  // Quand ce radio est cliqué, il émet sa propre valeur pour devenir la nouvelle modelValue
   emit('update:modelValue', props.value);
 };
 </script>
