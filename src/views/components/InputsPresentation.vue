@@ -3,7 +3,7 @@
     <div
       class="flex flex-row gap-10  p-7 bg-surface rounded-lg border border-surface-container-highest w-full">
 
-      <!-- Snackbars -->
+      <!-- Sliders -->
       <div class="flex flex-col items-start gap-6">
         <h3 class="text-title-medium text-on-surface">Sliders</h3>
 
@@ -27,6 +27,32 @@
 
         </div>
       </div>
+
+
+      <!-- Sliders -->
+      <div class="flex flex-col items-start gap-6">
+        <h3 class="text-title-medium text-on-surface">Checkbox</h3>
+
+
+        <div
+          class="border border-on-surface-variant/20 p-9 flex flex-col items-start rounded-xl gap-2 text-on-surface-variant">
+
+          <p>Standard</p>
+          <div class="flex flex-row items-center justify-start gap-5">
+            <Checkbox v-model="checkbox1"/>
+            <Checkbox v-model="checkbox2"/>
+            <Checkbox v-model="checkbox3"/>
+          </div>
+
+          <p>Erreur</p>
+          <div class="flex flex-row items-center justify-start gap-5">
+            <Checkbox v-model="checkbox1" is_error/>
+            <Checkbox v-model="checkbox2" is_error/>
+            <Checkbox v-model="checkbox3" is_error/>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -36,8 +62,13 @@ import BaseSlider from "@/components/material/inputs/sliders/BaseSlider.vue";
 import Divider from "@/components/material/containment/dividers/Divider.vue";
 import {ref} from "vue";
 import RangeSlider from "@/components/material/inputs/sliders/RangeSlider.vue";
+import Checkbox from "@/components/material/inputs/Checkbox.vue";
 
 const horizontalSlider1 = ref(4);
 const horizontalSliderStepped = ref(3);
 const horizontalRange = ref([2, 6]);
+
+const checkbox1 = ref(0);
+const checkbox2 = ref(1);
+const checkbox3 = ref(-1);
 </script>

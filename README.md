@@ -29,13 +29,13 @@ Afin de déployer l'application sur Github Pages, vous pouvez:
 
 ## Todo list
 
-- [ ] Navigation bar & rail (rework)
-- [ ] Checkbox
+- [x] Sliders
+- [x] Checkbox
 - [ ] Switch
+- [ ] Navigation bar & rail (rework)
 - [ ] Radio button
 - [ ] Chips
 - [ ] Text fields
-- [ ] Sliders
 - [ ] Tabs
 - [ ] App bars
 - [ ] Carousel
