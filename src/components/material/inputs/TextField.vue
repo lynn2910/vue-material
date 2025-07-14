@@ -1,10 +1,16 @@
 <template>
   <div class="relative flex flex-col" :class="{'cursor-disabled select-none': props.disabled}">
 
-    <div class="relative z-0 bg-surface">
-
-      <div v-if="props.icon" class="absolute left-4 top-4 z-10">
-        <Icon :icon="props.icon" class="text-on-surface-variant/70"/>
+    <div class="relative z-0">
+      <div v-if="props.icon"
+           class="absolute left-4 z-10 top-4">
+        <Icon :icon="props.icon"
+              :class="{
+                'text-on-surface-variant/70': !hasError && !props.disabled && !isFocused,
+                'text-primary': isFocused && !hasError && !props.disabled,
+                'text-error': hasError && !props.disabled,
+                'text-on-surface-variant/50': props.disabled
+              }"/>
       </div>
 
       <input
@@ -16,6 +22,8 @@
         placeholder=""
         :value="modelValue"
         @input="handleInput"
+        @focus="isFocused = true"
+        @blur="isFocused = false"
         :disabled="props.disabled"
         :min="props.min"
         :max="props.max"
@@ -24,37 +32,87 @@
         :autocomplete="props.autocomplete"
         :readonly="props.readonly"
         :class="{
+          // Common styles
+          'w-full h-14 leading-5 relative py-2 rounded outline-none focus:ring-0 peer': true,
+          'cursor-not-allowed text-on-surface-variant/50': props.disabled,
+
+          // Padding based on icon presence
           'pl-12': props.icon,
-          'px-4': true,
-          'border-error text-error': hasError && !props.disabled,
-          'border-on-surface-variant/70 focus:border-primary': !hasError && !props.disabled,
-          'cursor-not-allowed bg-surface-variant/30 text-on-surface-variant/50': props.disabled
+          'px-4': !props.icon,
+          'pr-4': true,
+
+          // Outlined specific styles
+          'border': !props.filled,
+          'border-on-surface-variant/70 focus:border-primary': !props.filled && !hasError && !props.disabled,
+          'bg-surface': !props.filled,
+          'rounded': !props.filled,
+
+          // Filled specific styles
+          'rounded-t bg-surface-container-highest': props.filled,
+          'pb-3 pt-6': props.filled,
+          'border-b-2 border-on-surface-variant/70': props.filled && !hasError && !props.disabled,
+          'hover:bg-surface-container-high': props.filled && !props.disabled,
+          'focus:bg-surface-container-highest': props.filled && !props.disabled,
+
+          // Error states
+          'border-error text-error': hasError && !props.disabled && !props.filled,
+          'border-b-error text-error': hasError && !props.disabled && props.filled,
+
+          // Disabled states for background and border
+          'bg-surface-variant/30 border-on-surface-variant/20': props.disabled && !props.filled,
+          'bg-surface-variant/30 border-b-on-surface-variant/20': props.disabled && props.filled
         }"
-        class="w-full h-14 leading-5 relative py-2 rounded border outline-none focus:ring-0 peer"
       />
 
       <label
         :for="props.name"
         :class="{
-          'bg-surface': !props.disabled,
-          'left-12 peer-focus:left-12': props.icon,
-          'left-4 peer-focus:left-4': !props.icon,
+          // Common styles for floating label
+          'absolute tracking-[.03125em] duration-300 transform px-1 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-focus:scale-75': true,
+          'select-none': props.disabled,
+
+          // Background for floating label (always bg-surface in M3)
+          'bg-surface peer-focus:bg-surface': !props.disabled && !props.filled,
+
+          // Horizontal position
+          'left-12 peer-focus:left-18': props.icon && props.filled,
+          'left-12 peer-focus:left-12': props.icon && !props.filled,
+          'left-4 peer-focus:left-10': !props.icon && props.filled,
+          'left-4 peer-focus:left-4': !props.icon && !props.filled,
+
+          // Vertical position (initial state)
+          'top-4 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-7': !props.filled,
+          'top-4 peer-placeholder-shown:translate-y-0 peer-focus:top-7 peer-focus:-translate-7': props.filled,
+
+          // Text color
           'text-error': hasError && !props.disabled,
           'text-on-surface-variant/70 peer-focus:text-primary': !hasError && !props.disabled,
-          'text-on-surface-variant/50 select-none': props.disabled
+          'text-on-surface-variant/50': props.disabled
         }"
-        class="absolute tracking-[.03125em] duration-300 transform px-1 -translate-y-7 scale-75 top-4 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7 peer-focus:bg-surface"
       >
         {{ props.label }}
       </label>
+
+      <div v-if="props.filled"
+           :class="{
+             'absolute bottom-0 left-0 right-0 h-0.5 transform origin-bottom scale-x-0 transition-transform duration-300 peer-focus:scale-x-100': true,
+             'bg-primary': !hasError,
+             'bg-error': hasError
+           }">
+      </div>
+
     </div>
 
-    <p v-if="props.support_text && !hasError"
+    <p v-if="props.support_text && !hasError && !props.disabled"
        class="pt-1 px-4 text-xs tracking-[0.4px] text-on-surface-variant">
       {{ props.support_text }}
     </p>
-    <p v-if="hasError" class="pt-1 px-4 text-xs tracking-[0.4px] text-error">
+    <p v-if="hasError && !props.disabled" class="pt-1 px-4 text-xs tracking-[0.4px] text-error">
       {{ props.error_message || 'Format invalide.' }}
+    </p>
+    <p v-if="props.disabled && props.support_text"
+       class="pt-1 px-4 text-xs tracking-[0.4px] text-on-surface-variant/50">
+      {{ props.support_text }}
     </p>
   </div>
 </template>
@@ -85,13 +143,20 @@ const props = defineProps<{
   pattern?: string;
   autocomplete?: string;
   readonly?: boolean;
+  filled?: boolean;
 }>();
 
 const emit = defineEmits(['update:modelValue', 'validation-change']);
 
 const isValid = ref(true);
+const isFocused = ref(false);
 
 const hasError = computed(() => {
+  if (props.disabled) {
+    isValid.value = true;
+    return false;
+  }
+
   if (!props.pattern) {
     return false;
   }
@@ -101,7 +166,7 @@ const hasError = computed(() => {
     return true;
   }
 
-  if (props.pattern && props.modelValue) {
+  if (props.pattern && props.modelValue !== undefined && props.modelValue !== null && String(props.modelValue) !== '') {
     const regex = new RegExp(props.pattern);
     const valid = regex.test(String(props.modelValue));
     isValid.value = valid;
@@ -124,7 +189,6 @@ function handleInput(event: Event) {
   }
 
   emit('update:modelValue', value);
-
   emit('validation-change', !hasError.value);
 }
 

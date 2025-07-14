@@ -145,7 +145,7 @@
 
             <!-- Filled -->
             <div class="flex flex-col gap-3.5 w-80">
-              <p class="text-title-medium">Input outlined</p>
+              <p class="text-title-medium">Input Filled</p>
 
               <TextField type="text"
                          v-model="input6"
@@ -313,7 +313,7 @@ const checkbox3 = ref(-1);
 const checkboxDisabled = ref(0);
 const checkbox2Disabled = ref(1);
 
-const radioTest = ref(0);
+const radioTest = ref(2);
 
 const switch1 = ref(false);
 const switch2 = ref(true);
