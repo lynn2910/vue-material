@@ -96,6 +96,97 @@
         </div>
       </div>
 
+      <div class="flex flex-row gap-10 items-stretch">
+        <!-- TextFields -->
+        <div class="flex flex-col items-start gap-6">
+          <h3 class="text-title-medium text-on-surface">Champs de textes (TextField)</h3>
+
+          <div
+            class="border border-on-surface-variant/20 p-10 flex flex-row items-start rounded-xl gap-5 text-on-surface-variant">
+
+            <div class="flex flex-col gap-3.5 w-80">
+              <p class="text-title-medium">Input outlined</p>
+
+              <TextField type="text"
+                         v-model="input1"
+                         id="outlined_user_login"
+                         label="Identifiant"
+                         name="outlined_login"
+                         support_text="L'identifiant qui vous as été transmis par mail"/>
+
+              <TextField type="password"
+                         v-model="input2"
+                         id="outlined_user_password"
+                         name="outlined_last_name"
+                         label="Last name"/>
+
+              <TextField label="Disabled" type="text" disabled
+                         v-model="input3"
+                         name="outlined_disabled"
+                         id="outlined_disabled_textfield"/>
+
+              <TextField label="Search"
+                         v-model="input4"
+                         icon="search"
+                         name="outlined_search"
+                         id="outlined_search_field"
+                         type="text"/>
+
+              <TextField type="text"
+                         v-model="input5"
+                         label="Email"
+                         name="outlined_email"
+                         id="outlined_email_field"
+                         icon="alternate_email"/>
+            </div>
+
+            <Divider vertical/>
+
+            <!-- Filled -->
+            <div class="flex flex-col gap-3.5 w-80">
+              <p class="text-title-medium">Input outlined</p>
+
+              <TextField type="text"
+                         v-model="input6"
+                         filled
+                         id="filled_user_login"
+                         name="filled_login"
+                         label="Identifiant"
+                         support_text="L'identifiant qui vous as été transmis par mail"/>
+
+              <TextField type="password"
+                         v-model="input7"
+                         filled
+                         id="filled_user_password"
+                         name="filled_last_name"
+                         label="Last name"/>
+
+              <TextField label="Disabled" type="text" disabled filled
+                         v-model="input8"
+                         name="filled_disabled"
+                         id="filled_disabled_textfield"/>
+
+              <TextField label="Search"
+                         v-model="input9"
+                         icon="search"
+                         id="filled_search_field"
+                         name="filled_search"
+                         filled
+                         type="text"/>
+
+              <TextField type="text"
+                         v-model="input10"
+                         label="Email"
+                         id="filled_email_field"
+                         filled
+                         name="filled_email"
+                         icon="alternate_email"/>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       <div class="flex flex-row gap-10 items-start w-full">
         <!-- Chips -->
         <div class="flex flex-col items-start gap-6">
@@ -208,6 +299,7 @@ import AssistChip from "@/components/material/inputs/chips/AssistChip.vue";
 import FilterChip from "@/components/material/inputs/chips/FilterChip.vue";
 import InputChip from "@/components/material/inputs/chips/InputChip.vue";
 import SuggestionChip from "@/components/material/inputs/chips/SuggestionChip.vue";
+import TextField from "@/components/material/inputs/TextField.vue";
 
 const horizontalSlider1 = ref(4);
 const horizontalSliderStepped = ref(3);
@@ -224,4 +316,15 @@ const radioTest = ref(0);
 const switch1 = ref(false);
 const switch2 = ref(true);
 const switchDisabled = ref(true);
+
+const input1 = ref("");
+const input2 = ref("");
+const input3 = ref("");
+const input4 = ref("");
+const input5 = ref("");
+const input6 = ref("");
+const input7 = ref("");
+const input8 = ref("");
+const input9 = ref("");
+const input10 = ref("");
 </script>
