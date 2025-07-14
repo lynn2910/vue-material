@@ -39,16 +39,20 @@
 
           <p>Standard</p>
           <div class="flex flex-row items-center justify-start gap-5">
-            <Checkbox v-model="checkbox1"/>
-            <Checkbox v-model="checkbox2"/>
-            <Checkbox v-model="checkbox3"/>
+            <Checkbox name="checkbox_1" v-model="checkbox1"/>
+            <Checkbox name="checkbox_2" v-model="checkbox2"/>
+            <Checkbox name="checkbox_3" v-model="checkbox3"/>
+            <Checkbox name="checkbox_3" v-model="checkbox3" disabled/>
+            <Checkbox name="checkbox_3" v-model="checkbox2" disabled/>
           </div>
 
           <p>Erreur</p>
           <div class="flex flex-row items-center justify-start gap-5">
-            <Checkbox v-model="checkbox1" is_error/>
-            <Checkbox v-model="checkbox2" is_error/>
-            <Checkbox v-model="checkbox3" is_error/>
+            <Checkbox name="checkbox_1" v-model="checkbox1" is_error/>
+            <Checkbox name="checkbox_2" v-model="checkbox2" is_error/>
+            <Checkbox name="checkbox_3" v-model="checkbox3" is_error/>
+            <Checkbox name="checkbox_3" v-model="checkbox3" is_error disabled/>
+            <Checkbox name="checkbox_3" v-model="checkbox2" is_error disabled/>
           </div>
 
         </div>
