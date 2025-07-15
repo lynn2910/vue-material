@@ -2,8 +2,9 @@
   <div class="relative flex flex-col" :class="{'cursor-disabled select-none': props.disabled}">
 
     <div class="relative z-0">
-      <div v-if="props.icon"
-           class="absolute left-4 z-10 top-4">
+      <label v-if="props.icon"
+             :for="props.name"
+             class="absolute left-4 z-10 top-4 select-none">
         <Icon :icon="props.icon"
               :class="{
                 'text-on-surface-variant/70': !hasError && !props.disabled && !isFocused,
@@ -11,7 +12,7 @@
                 'text-error': hasError && !props.disabled,
                 'text-on-surface-variant/50': props.disabled
               }"/>
-      </div>
+      </label>
 
       <input
         :id="props.id"
@@ -66,6 +67,7 @@
 
       <label
         :for="props.name"
+        class="pointer-events-none select-none"
         :class="{
           // Common styles for floating label
           'absolute tracking-[.03125em] duration-300 transform px-1 z-10 origin-[0]': true,
