@@ -39,7 +39,10 @@ import {RouterView} from 'vue-router'
 import {ref} from "vue";
 import ColorPicker from "@/components/material/ColorPicker.vue";
 import Snackbar from "@/components/material/communication/Snackbar.vue";
-import NavigationRail from "@/components/material/navigation/NavigationRail.vue";
+import NavigationRail, {
+  addDivider,
+  createItem
+} from "@/components/material/navigation/NavigationRail.vue";
 import {
   createGroup,
   type NavStructure
@@ -52,34 +55,35 @@ const navigation_rail_items: NavStructure = [
     'Mail',
     'mail_group',
     [
-      {name: 'Inbox', icon: 'inbox', id: 'item_inbox', counter: 12},
-      {name: 'Sent', icon: 'inbox', id: 'item_sent'},
-      {name: 'Favorite', icon: 'inbox', id: 'item_favorite'},
-      {name: 'Trash', icon: 'inbox', id: 'item_trash'},
+      createItem({name: 'Inbox', icon: 'inbox', id: 'item_inbox', counter: 12}),
+      createItem({name: 'Sent', icon: 'inbox', id: 'item_sent'}),
+      createItem({name: 'Favorite', icon: 'inbox', id: 'item_favorite'}),
+      createItem({name: 'Trash', icon: 'inbox', id: 'item_trash'}),
     ]
   ),
-  {
+  createItem({
     name: 'Components',
     icon: 'inbox',
     id: 'item_components',
     children: [
-      {name: 'Chips', icon: 'inbox', id: 'item_chips'},
-      {name: 'Buttons', icon: 'inbox', id: 'item_buttons'},
-      {name: 'TextFields', icon: 'inbox', id: 'item_text_fields'},
-      {name: 'Selects', icon: 'inbox', id: 'item_selects'},
-      {name: 'Checkboxes', icon: 'inbox', id: 'item_checkboxes'},
-      {name: 'RadioButtons', icon: 'inbox', id: 'item_radio_buttons'},
-      {name: 'Switches', icon: 'inbox', id: 'item_switches'},
+      createItem({name: 'Chips', icon: 'inbox', id: 'item_chips'}),
+      createItem({name: 'Buttons', icon: 'inbox', id: 'item_buttons'}),
+      createItem({name: 'TextFields', icon: 'inbox', id: 'item_text_fields'}),
+      createItem({name: 'Selects', icon: 'inbox', id: 'item_selects'}),
+      createItem({name: 'Checkboxes', icon: 'inbox', id: 'item_checkboxes'}),
+      createItem({name: 'RadioButtons', icon: 'inbox', id: 'item_radio_buttons'}),
+      createItem({name: 'Switches', icon: 'inbox', id: 'item_switches'}),
     ]
-  },
+  }),
+  addDivider(),
   createGroup(
     'Labels',
     'labels_group',
     [
-      {name: 'Work', icon: 'inbox', id: 'item_work'},
-      {name: 'Family', icon: 'inbox', id: 'item_family'},
-      {name: 'Friends', icon: 'inbox', id: 'item_friends'},
-      {name: 'Clients', icon: 'inbox', id: 'item_clients'},
+      createItem({name: 'Work', icon: 'inbox', id: 'item_work'}),
+      createItem({name: 'Family', icon: 'inbox', id: 'item_family'}),
+      createItem({name: 'Friends', icon: 'inbox', id: 'item_friends'}),
+      createItem({name: 'Clients', icon: 'inbox', id: 'item_clients'}),
     ]
   )
 ]

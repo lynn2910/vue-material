@@ -4,16 +4,18 @@
       class="w-full md:w-[360px] inline-flex flex-col p-3 rounded-2xl bg-surface-container-lowest">
 
       <div v-for="(item, index) in props.items" :key="index">
-        <NavigationItem v-if="'icon' in item"
+        <NavigationItem v-if="item.type === 'item'"
                         @navigate="navigateEventReceived"
                         :active="active"
                         :item="item as unknown as Item"
                         :parent-id="[]"/>
-        <NavigationGroup v-else
+        <NavigationGroup v-else-if="item.type === 'group'"
+                         class="mb-5"
                          @navigate="navigateEventReceived"
                          :active="active"
                          :group="item as unknown as ItemGroup"
                          :parent-id="[]"/>
+        <Divider v-else-if="item.type === 'divider'" horizontal class="mt-5 mb-2"/>
       </div>
 
     </div>
@@ -25,6 +27,7 @@
 import NavigationItem from "@/components/material/navigation/NavigationItem.vue";
 import NavigationGroup from "@/components/material/navigation/NavigationGroup.vue";
 import {toRefs} from "vue";
+import Divider from "@/components/material/containment/dividers/Divider.vue";
 
 const props = defineProps<{
   hideMenuButton?: Boolean,
@@ -47,8 +50,10 @@ function navigateEventReceived(id: string, path: string[]) {
 </script>
 
 <script lang="ts">
+export type NavItemType = 'item' | 'group' | 'divider';
+
 export type Item = {
-  allow_expand?: boolean,
+  type: NavItemType,
 
   name: string,
   id: string,
@@ -58,18 +63,36 @@ export type Item = {
   children?: NavStructure,
 
   counter?: number
+  allow_expand?: boolean,
 };
 
 export type ItemGroup = {
+  type: NavItemType,
+
   label: string,
   id: string,
   items: Item[]
 }
 
-export function createGroup(label: string, id: string, items: NavStructure): ItemGroup {
-  return {label, id, items} as ItemGroup;
+export type Divider = {
+  type: NavItemType,
 }
 
-export type NavStructure = (Item | ItemGroup)[];
+export function createGroup(label: string, id: string, items: NavStructure): ItemGroup {
+  return {type: 'group', label, id, items} as ItemGroup;
+}
+
+export function createItem(item: Omit<Item, 'type'>): Item {
+  return {
+    type: 'item',
+    ...item
+  }
+}
+
+export function addDivider(): Divider {
+  return {type: 'divider'} as Divider;
+}
+
+export type NavStructure = (Item | Divider | ItemGroup)[];
 
 </script>

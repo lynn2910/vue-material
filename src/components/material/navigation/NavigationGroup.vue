@@ -12,17 +12,19 @@
           class="relative">
 
         <!-- Recursive hell -->
-        <NavigationItem v-if="'icon' in item"
+        <NavigationItem v-if="item.type === 'item'"
                         @navigate="navigateEventReceived"
                         :active="childActive"
                         :parent-id="[...props.parentId, group.id]"
                         :item="item as unknown as Item"/>
-        <NavigationGroup v-else
+        <NavigationGroup v-else-if="item.type === 'group'"
+                         class="mb-5"
                          @navigate="navigateEventReceived"
                          :active="childActive"
                          :parent-id="[...props.parentId, group.id]"
                          :group="item as unknown as ItemGroup"/>
-
+        <Divider v-else-if="item.type === 'divider'" horizontal class="mt-5 mb-2"/>
+        
       </li>
     </ul>
   </div>
@@ -33,6 +35,7 @@
 import type {Item, ItemGroup} from "@/components/material/navigation/NavigationRail.vue";
 import {toRefs, computed} from "vue";
 import NavigationItem from "@/components/material/navigation/NavigationItem.vue";
+import Divider from "@/components/material/containment/dividers/Divider.vue";
 
 const props = defineProps<{
   group: ItemGroup,
