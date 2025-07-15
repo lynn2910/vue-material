@@ -78,19 +78,16 @@ export type Divider = {
   type: NavItemType,
 }
 
-export function createGroup(label: string, id: string, items: NavStructure): ItemGroup {
-  return {type: 'group', label, id, items} as ItemGroup;
+export function createGroup(group: Omit<ItemGroup, 'type'>): ItemGroup {
+  return {...group, type: 'group'};
 }
 
 export function createItem(item: Omit<Item, 'type'>): Item {
-  return {
-    type: 'item',
-    ...item
-  }
+  return {...item, type: 'item'}
 }
 
 export function addDivider(): Divider {
-  return {type: 'divider'} as Divider;
+  return {type: 'divider'};
 }
 
 export type NavStructure = (Item | Divider | ItemGroup)[];
