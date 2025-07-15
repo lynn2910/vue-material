@@ -68,25 +68,34 @@
         :for="props.name"
         :class="{
           // Common styles for floating label
-          'absolute tracking-[.03125em] duration-300 transform px-1 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-focus:scale-75': true,
+          'absolute tracking-[.03125em] duration-300 transform px-1 z-10 origin-[0]': true,
           'select-none': props.disabled,
 
-          // Background for floating label (always bg-surface in M3)
-          'bg-surface peer-focus:bg-surface': !props.disabled && !props.filled,
+          // Background for floating label
+          'bg-surface': !props.disabled && !props.filled,
+
+          // Scale and position based on focus OR content presence
+          'scale-75': isFocused || hasContent,
+          'scale-100': !isFocused && !hasContent,
 
           // Horizontal position
-          'left-12 peer-focus:left-18': props.icon && props.filled,
-          'left-12 peer-focus:left-12': props.icon && !props.filled,
-          'left-4 peer-focus:left-10': !props.icon && props.filled,
-          'left-4 peer-focus:left-4': !props.icon && !props.filled,
+          'left-12 ': props.icon && props.filled && (isFocused || hasContent),
+          'left-12': props.icon && !props.filled,
+          'left-3 ': !props.icon && props.filled && (isFocused || hasContent),
+          'left-3': !props.icon,
 
-          // Vertical position (initial state)
-          'top-4 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-7': !props.filled,
-          'top-4 peer-placeholder-shown:translate-y-0 peer-focus:top-7 peer-focus:-translate-7': props.filled,
+          // Vertical position for outlined
+          'top-4 -translate-y-7': !props.filled && (isFocused || hasContent),
+          'top-4 translate-y-0': !props.filled && !isFocused && !hasContent,
+
+          // Vertical position for filled
+          'top-1 translate-y-0': props.filled && (isFocused || hasContent),
+          'top-4 translate-y-0 ': props.filled && !isFocused && !hasContent,
 
           // Text color
           'text-error': hasError && !props.disabled,
-          'text-on-surface-variant/70 peer-focus:text-primary': !hasError && !props.disabled,
+          'text-primary': isFocused && !hasError && !props.disabled,
+          'text-on-surface-variant/70': !isFocused && !hasError && !props.disabled,
           'text-on-surface-variant/50': props.disabled
         }"
       >
@@ -150,6 +159,12 @@ const emit = defineEmits(['update:modelValue', 'validation-change']);
 
 const isValid = ref(true);
 const isFocused = ref(false);
+
+const hasContent = computed(() => {
+  return props.modelValue !== undefined &&
+    props.modelValue !== null &&
+    String(props.modelValue).trim() !== '';
+});
 
 const hasError = computed(() => {
   if (props.disabled) {
