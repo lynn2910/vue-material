@@ -7,13 +7,14 @@
       <i class="material-symbols-outlined normal_outlined_icon">palette</i>
     </button>
 
-    <div v-show="showThemeControls" class="fixed top-12 right-2">
+    <div v-show="showThemeControls" class="fixed z-[9999] top-12 right-2">
       <ColorPicker/>
     </div>
 
     <div class="flex flex-row">
-      <NavigationRail :items="navigation_rail_items" :fab="{icon: 'add', label: 'Ajouter'}"
-                      :expanded-layout="ExpandedLayout.Standard"/>
+      <NavigationRail :items="navigation_rail_items"
+                      :active="activeNav"
+                      @navigate="changeNav"/>
 
       <router-view/>
 
@@ -37,32 +38,55 @@
 import {RouterView} from 'vue-router'
 import {ref} from "vue";
 import ColorPicker from "@/components/material/ColorPicker.vue";
-import NavigationRail, {
-  ExpandedLayout,
-  type NavigationItem
-} from "@/components/material/navigation/NavigationRail.vue";
 import Snackbar from "@/components/material/communication/Snackbar.vue";
+import NavigationRail from "@/components/material/navigation/NavigationRail.vue";
+import {
+  createGroup,
+  type NavStructure
+} from "@/components/material/navigation/NavigationRail.vue";
 
 const showThemeControls = ref(false);
 
-const navigation_rail_items: NavigationItem[] = [
+const navigation_rail_items: NavStructure = [
+  createGroup(
+    'Mail',
+    'mail_group',
+    [
+      {name: 'Inbox', icon: 'inbox', id: 'item_inbox', counter: 12},
+      {name: 'Sent', icon: 'inbox', id: 'item_sent'},
+      {name: 'Favorite', icon: 'inbox', id: 'item_favorite'},
+      {name: 'Trash', icon: 'inbox', id: 'item_trash'},
+    ]
+  ),
   {
-    selected: true,
-    icon: "home",
-    label: "Introduction"
+    name: 'Components',
+    icon: 'inbox',
+    id: 'item_components',
+    children: [
+      {name: 'Chips', icon: 'inbox', id: 'item_chips'},
+      {name: 'Buttons', icon: 'inbox', id: 'item_buttons'},
+      {name: 'TextFields', icon: 'inbox', id: 'item_text_fields'},
+      {name: 'Selects', icon: 'inbox', id: 'item_selects'},
+      {name: 'Checkboxes', icon: 'inbox', id: 'item_checkboxes'},
+      {name: 'RadioButtons', icon: 'inbox', id: 'item_radio_buttons'},
+      {name: 'Switches', icon: 'inbox', id: 'item_switches'},
+    ]
   },
-  {
-    type: 'section',
-    label: "Composants",
-  },
-  {
-    selected: false,
-    icon: "apps",
-    label: "Navigation",
-
-    show_badge: true,
-    badge_type: 'large',
-    badge_label: 3,
-  }
+  createGroup(
+    'Labels',
+    'labels_group',
+    [
+      {name: 'Work', icon: 'inbox', id: 'item_work'},
+      {name: 'Family', icon: 'inbox', id: 'item_family'},
+      {name: 'Friends', icon: 'inbox', id: 'item_friends'},
+      {name: 'Clients', icon: 'inbox', id: 'item_clients'},
+    ]
+  )
 ]
+
+const activeNav = ref(['labels_group', 'item_friends']);
+
+function changeNav(id: string, path: string[]) {
+  activeNav.value = path;
+}
 </script>
