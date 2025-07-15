@@ -79,9 +79,9 @@
           'scale-100': !isFocused && !hasContent,
 
           // Horizontal position
-          'left-12 ': props.icon && props.filled && (isFocused || hasContent),
-          'left-12': props.icon && !props.filled,
-          'left-3 ': !props.icon && props.filled && (isFocused || hasContent),
+          // 'left-12 ': props.icon && props.filled && (isFocused || hasContent),
+          'left-12': props.icon,
+          // 'left-3 ': !props.icon && props.filled && (isFocused || hasContent),
           'left-3': !props.icon,
 
           // Vertical position for outlined
