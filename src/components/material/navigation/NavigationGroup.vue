@@ -1,13 +1,20 @@
 <template>
   <div>
     <div
-      class="py-[18px] px-4 rounded-full"
-      :class="{ 'text-secondary': isActive }"
+      class="py-[18px] px-4 rounded-full flex flex-row items-center justify-between"
+      :class="{
+        'text-secondary': isActive,
+        'cursor-pointer hover:bg-secondary/10 select-none': group.foldable
+      }"
       @click="onGroupClick">
+
       <p class="text-sm tracking-[.00714em] font-medium">{{ group.label }}</p>
+
+      <i v-show="group.foldable && !isFolded" class="material-symbols-outlined">arrow_drop_down</i>
+      <i v-show="group.foldable && isFolded" class="material-symbols-outlined">arrow_drop_up</i>
     </div>
 
-    <ul class="flex flex-col">
+    <ul class="flex flex-col" v-show="!group.foldable || (group.foldable && isFolded)">
       <li v-for="(item, index) in group.items" :key="index"
           class="relative">
 
@@ -24,7 +31,7 @@
                          :parent-id="[...props.parentId, group.id]"
                          :group="item as unknown as ItemGroup"/>
         <Divider v-else-if="item.type === 'divider'" horizontal class="mt-5 mb-2"/>
-        
+
       </li>
     </ul>
   </div>
@@ -33,7 +40,7 @@
 <script setup lang="ts">
 
 import type {Item, ItemGroup} from "@/components/material/navigation/NavigationRail.vue";
-import {toRefs, computed} from "vue";
+import {toRefs, computed, ref} from "vue";
 import NavigationItem from "@/components/material/navigation/NavigationItem.vue";
 import Divider from "@/components/material/containment/dividers/Divider.vue";
 
@@ -48,6 +55,12 @@ const {group} = toRefs(props);
 const isActive = computed(() => {
   return props.active.length > 0 && props.active[0] === props.group.id;
 });
+
+const folded = ref(false);
+
+const isFolded = computed(() => {
+  return group.value.foldable && folded.value;
+})
 
 const childActive = computed(() => {
   if (isActive.value && props.active.length > 1) {
@@ -65,6 +78,11 @@ function navigateEventReceived(id: string, path: string[]) {
 }
 
 function onGroupClick() {
-  emit('navigate', props.group.id, [...props.parentId, props.group.id]);
+  if (group.value.foldable) {
+    folded.value = !folded.value;
+    return;
+  }
+
+  // emit('navigate', props.group.id, [...props.parentId, props.group.id]);
 }
 </script>

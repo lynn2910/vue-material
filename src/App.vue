@@ -52,14 +52,16 @@ const showThemeControls = ref(false);
 
 const navigation_rail_items: NavStructure = [
   createGroup(
-    'Mail',
-    'mail_group',
-    [
-      createItem({name: 'Inbox', icon: 'inbox', id: 'item_inbox', counter: 12}),
-      createItem({name: 'Sent', icon: 'inbox', id: 'item_sent'}),
-      createItem({name: 'Favorite', icon: 'inbox', id: 'item_favorite'}),
-      createItem({name: 'Trash', icon: 'inbox', id: 'item_trash'}),
-    ]
+    {
+      label: 'Mail',
+      id: 'mail_group',
+      items: [
+        createItem({name: 'Inbox', icon: 'inbox', id: 'item_inbox', counter: 12}),
+        createItem({name: 'Sent', icon: 'inbox', id: 'item_sent'}),
+        createItem({name: 'Favorite', icon: 'inbox', id: 'item_favorite'}),
+        createItem({name: 'Trash', icon: 'inbox', id: 'item_trash'}),
+      ]
+    }
   ),
   createItem({
     name: 'Components',
@@ -76,16 +78,17 @@ const navigation_rail_items: NavStructure = [
     ]
   }),
   addDivider(),
-  createGroup(
-    'Labels',
-    'labels_group',
-    [
+  createGroup({
+    label: 'Labels',
+    id: 'labels_group',
+    foldable: true,
+    items: [
       createItem({name: 'Work', icon: 'inbox', id: 'item_work'}),
       createItem({name: 'Family', icon: 'inbox', id: 'item_family'}),
       createItem({name: 'Friends', icon: 'inbox', id: 'item_friends'}),
       createItem({name: 'Clients', icon: 'inbox', id: 'item_clients'}),
     ]
-  )
+  })
 ]
 
 const activeNav = ref(['labels_group', 'item_friends']);

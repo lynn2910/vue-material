@@ -71,7 +71,9 @@ export type ItemGroup = {
 
   label: string,
   id: string,
-  items: Item[]
+  items: Item[],
+
+  foldable?: boolean,
 }
 
 export type Divider = {
