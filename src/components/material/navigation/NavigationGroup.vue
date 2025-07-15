@@ -10,12 +10,19 @@
 
       <p class="text-sm tracking-[.00714em] font-medium">{{ group.label }}</p>
 
-      <i v-show="group.foldable && !isFolded" class="material-symbols-outlined">arrow_drop_down</i>
-      <i v-show="group.foldable && isFolded" class="material-symbols-outlined">arrow_drop_up</i>
+      <i v-show="group.foldable && !isFolded && !group.unfoldedItemsLimit"
+         class="material-symbols-outlined">
+        arrow_drop_down
+      </i>
+
+      <i v-show="group.foldable && isFolded  && !group.unfoldedItemsLimit"
+         class="material-symbols-outlined">
+        arrow_drop_up
+      </i>
     </div>
 
-    <ul class="flex flex-col" v-show="!group.foldable || (group.foldable && isFolded)">
-      <li v-for="(item, index) in group.items" :key="index"
+    <ul class="flex flex-col" v-show="!group.foldable || group.unfoldedItemsLimit || !isFolded">
+      <li v-for="(item, index) in visibleItems" :key="index"
           class="relative">
 
         <!-- Recursive hell -->
@@ -31,6 +38,19 @@
                          :parent-id="[...props.parentId, group.id]"
                          :group="item as unknown as ItemGroup"/>
         <Divider v-else-if="item.type === 'divider'" horizontal class="mt-5 mb-2"/>
+
+
+        <div
+          class="relative active flex flex-row items-center justify-between gap-3 py-2 pl-4 my-2 pr-6 rounded-full cursor-pointer bg-secondary/10 select-none"
+          @click="folded = !folded"
+          v-if="group.unfoldedItemsLimit && index === group.unfoldedItemsLimit - 1">
+
+          <p v-show="!folded">Afficher plus</p>
+          <i v-show="!folded" class="material-symbols-outlined">add</i>
+
+          <p v-show="folded">Afficher moins</p>
+          <i v-show="folded" class="material-symbols-outlined">remove</i>
+        </div>
 
       </li>
     </ul>
@@ -56,11 +76,11 @@ const isActive = computed(() => {
   return props.active.length > 0 && props.active[0] === props.group.id;
 });
 
-const folded = ref(false);
+const folded = ref(Boolean(!group.value.showFoldedItemsByDefault));
 
 const isFolded = computed(() => {
   return group.value.foldable && folded.value;
-})
+});
 
 const childActive = computed(() => {
   if (isActive.value && props.active.length > 1) {
@@ -68,6 +88,15 @@ const childActive = computed(() => {
   }
   return [];
 });
+
+
+const visibleItems = computed(() => {
+  if (group.value.unfoldedItemsLimit && !folded.value) {
+    return group.value.items.slice(0, group.value.unfoldedItemsLimit);
+  }
+  return group.value.items;
+})
+
 
 const emit = defineEmits<{
   navigate: [id: string, path: string[]],

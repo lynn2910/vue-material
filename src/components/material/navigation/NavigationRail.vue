@@ -73,6 +73,12 @@ export type ItemGroup = {
   id: string,
   items: Item[],
 
+  /**
+   * Declares how many items are shown before a "show more" label is shown
+   */
+  unfoldedItemsLimit?: number,
+
+  showFoldedItemsByDefault?: boolean,
   foldable?: boolean,
 }
 

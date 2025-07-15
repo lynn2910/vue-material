@@ -82,6 +82,8 @@ const navigation_rail_items: NavStructure = [
     label: 'Labels',
     id: 'labels_group',
     foldable: true,
+    showFoldedItemsByDefault: false,
+    unfoldedItemsLimit: 2,
     items: [
       createItem({name: 'Work', icon: 'inbox', id: 'item_work'}),
       createItem({name: 'Family', icon: 'inbox', id: 'item_family'}),
