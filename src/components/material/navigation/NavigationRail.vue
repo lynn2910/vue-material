@@ -32,9 +32,12 @@ import Divider from "@/components/material/containment/dividers/Divider.vue";
 const props = defineProps<{
   hideMenuButton?: Boolean,
   items: NavStructure,
-  fab?: { icon: string, label: string },
+  active: string[],
 
-  active: string[]
+  modelValue?: boolean,
+
+  fab?: { icon: string, label: string },
+  display_mode?: "active" | "modal",
 }>();
 
 const {active = []} = toRefs(props);
@@ -60,7 +63,6 @@ export type Item = {
   icon: string,
 
   onClick?: (name: string) => void,
-  children?: NavStructure,
 
   counter?: number
   allow_expand?: boolean,

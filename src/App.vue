@@ -49,6 +49,7 @@ import {
 } from "@/components/material/navigation/NavigationRail.vue";
 
 const showThemeControls = ref(false);
+const showExpandedNavigationRail = ref(false);
 
 const navigation_rail_items: NavStructure = [
   createGroup(
@@ -63,11 +64,11 @@ const navigation_rail_items: NavStructure = [
       ]
     }
   ),
-  createItem({
-    name: 'Components',
-    icon: 'inbox',
+  createGroup({
+    label: 'Components',
+    foldable: true,
     id: 'item_components',
-    children: [
+    items: [
       createItem({name: 'Chips', icon: 'inbox', id: 'item_chips'}),
       createItem({name: 'Buttons', icon: 'inbox', id: 'item_buttons'}),
       createItem({name: 'TextFields', icon: 'inbox', id: 'item_text_fields'}),

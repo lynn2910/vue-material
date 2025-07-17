@@ -4,7 +4,7 @@
       class="py-[18px] px-4 rounded-full flex flex-row items-center justify-between"
       :class="{
         'text-secondary': isActive,
-        'cursor-pointer hover:bg-secondary/10 select-none': group.foldable
+        'cursor-pointer hover:bg-secondary/10 select-none': group.foldable && !('unfoldedItemsLimit' in group)
       }"
       @click="onGroupClick">
 
