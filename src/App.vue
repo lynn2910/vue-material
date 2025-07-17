@@ -14,6 +14,8 @@
     <div class="flex flex-row">
       <NavigationRail :items="navigation_rail_items"
                       :active="activeNav"
+                      v-model="expandNav"
+                      allow_expand_change
                       @navigate="changeNav"/>
 
       <router-view/>
@@ -49,7 +51,7 @@ import {
 } from "@/components/material/navigation/NavigationRail.vue";
 
 const showThemeControls = ref(false);
-const showExpandedNavigationRail = ref(false);
+const expandNav = ref(false);
 
 const navigation_rail_items: NavStructure = [
   createGroup(
