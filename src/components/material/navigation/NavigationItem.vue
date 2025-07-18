@@ -1,21 +1,31 @@
 <template>
   <div
-    class="active flex flex-row items-center gap-3 py-4 pl-4 pr-6 rounded-full cursor-pointer"
+    class="active flex items-center rounded-full cursor-pointer group"
     :class="{
-      'hover:bg-secondary/15': !isActive,
-      'bg-secondary/30': isActive,
+      'hover:bg-secondary/15': !isActive && props.expand,
+      'bg-secondary/30': isActive && props.expand,
+      'flex-row pl-4 pr-6 py-4 gap-3': props.expand,
+      'flex-col py-2 gap-1.5': !props.expand,
     }"
     @click="onClick()"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false">
 
-    <i class="material-symbols-outlined" :style="iconStyle">{{ props.item.icon }}</i>
+    <div
+      :style="iconStyle"
+      :class="{
+         'w-14 h-8 group-hover:bg-secondary/15 rounded-2xl flex items-center justify-center': !props.expand,
+         'bg-secondary/30': !props.expand && isActive,
+       }">
+      <i class="material-symbols-outlined">{{ props.item.icon }}</i>
+    </div>
 
     {{ props.item.name }}
 
-    <span v-if="props.item.counter" class="flex flex-grow justify-end text-sm tracking-[.00714em]">{{
-        props.item.counter
-      }}</span>
+    <span v-if="props.item.counter" v-show="props.expand"
+          class="flex flex-grow justify-end text-sm tracking-[.00714em]">
+      {{ props.item.counter }}
+    </span>
   </div>
 </template>
 
@@ -27,6 +37,7 @@ const props = defineProps<{
   item: Item,
   active: string[],
   parentId: string[],
+  expand: boolean
 }>();
 
 const isHovered = ref(false);

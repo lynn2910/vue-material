@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full m-10">
+  <div class="m-10">
     <div
       class="flex flex-col gap-10 p-7 bg-surface rounded-lg border border-surface-container-highest w-full">
 

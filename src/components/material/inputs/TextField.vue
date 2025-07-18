@@ -82,7 +82,7 @@
 
           // Horizontal position
           // 'left-12 ': props.icon && props.filled && (isFocused || hasContent),
-          'left-12': props.icon,
+          'left-11': props.icon,
           // 'left-3 ': !props.icon && props.filled && (isFocused || hasContent),
           'left-3': !props.icon,
 

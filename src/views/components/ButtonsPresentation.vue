@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full m-10">
+  <div class="m-10">
 
     <h1>Boutons</h1>
 

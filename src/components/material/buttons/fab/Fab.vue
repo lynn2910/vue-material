@@ -4,7 +4,7 @@
     class="fab_after relative flex flex-row items-center justify-center gap-x-2 p-4 rounded-2xl overflow-hidden shadow-lg text-sm tracking-[.00714em] font-medium bg-primary-container cursor-pointer"
     :class="{
       'w-14': !props.show_label,
-      'w-fit': props.show_label
+      'w-fit ': props.show_label
     }">
     <i class="material-symbols-outlined text-2xl">{{ props.icon }}</i>
     {{ computedLabel }}
