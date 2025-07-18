@@ -76,8 +76,8 @@ nav::-webkit-scrollbar {
 </style>
 
 <script setup lang="ts">
-import NavigationItem from "@/components/material/navigation/bars/NavigationItem.vue";
-import NavigationGroup from "@/components/material/navigation/bars/NavigationGroup.vue";
+import NavigationItem from "@/components/material/navigation/rails/NavigationItem.vue";
+import NavigationGroup from "@/components/material/navigation/rails/NavigationGroup.vue";
 import {toRefs} from "vue";
 import Divider from "@/components/material/containment/dividers/Divider.vue";
 import Fab from "@/components/material/buttons/fab/Fab.vue";

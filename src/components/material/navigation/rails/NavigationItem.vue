@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import {ref, computed} from 'vue'
-import type {Item} from "@/components/material/navigation/bars/NavigationRail.vue";
+import type {Item} from "@/components/material/navigation/rails/NavigationRail.vue";
 
 const props = defineProps<{
   item: Item,

@@ -74,9 +74,9 @@
 
 <script setup lang="ts">
 
-import type {Item, ItemGroup} from "@/components/material/navigation/bars/NavigationRail.vue";
+import type {Item, ItemGroup} from "@/components/material/navigation/rails/NavigationRail.vue";
 import {toRefs, computed, ref} from "vue";
-import NavigationItem from "@/components/material/navigation/bars/NavigationItem.vue";
+import NavigationItem from "@/components/material/navigation/rails/NavigationItem.vue";
 import Divider from "@/components/material/containment/dividers/Divider.vue";
 
 const props = defineProps<{

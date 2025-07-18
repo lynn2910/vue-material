@@ -64,11 +64,11 @@ import Snackbar from "@/components/material/communication/Snackbar.vue";
 import NavigationRail, {
   addDivider,
   createItem
-} from "@/components/material/navigation/bars/NavigationRail.vue";
+} from "@/components/material/navigation/rails/NavigationRail.vue";
 import {
   createGroup,
   type NavStructure
-} from "@/components/material/navigation/bars/NavigationRail.vue";
+} from "@/components/material/navigation/rails/NavigationRail.vue";
 
 const showThemeControls = ref(false);
 const expandNav = ref(true);
