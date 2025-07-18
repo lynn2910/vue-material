@@ -30,6 +30,11 @@ const router = createRouter({
           path: 'inputs',
           name: 'inputs_presentation',
           component: () => import('../views/components/InputsPresentation.vue')
+        },
+        {
+          path: 'navigation',
+          name: 'navigation_presentation',
+          component: () => import('../views/components/NavigationPresentation.vue')
         }
       ]
     }

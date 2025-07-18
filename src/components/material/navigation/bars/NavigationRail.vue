@@ -9,7 +9,7 @@
 
     <div v-if="props.allow_expand_change" class="mb-5 select-none cursor-pointer"
          :class="{
-            'ml-12': props.modelValue,
+            'ml-5': props.modelValue,
             'mx-auto': !props.modelValue
          }"
          @click="toggle">
@@ -76,8 +76,8 @@ nav::-webkit-scrollbar {
 </style>
 
 <script setup lang="ts">
-import NavigationItem from "@/components/material/navigation/NavigationItem.vue";
-import NavigationGroup from "@/components/material/navigation/NavigationGroup.vue";
+import NavigationItem from "@/components/material/navigation/bars/NavigationItem.vue";
+import NavigationGroup from "@/components/material/navigation/bars/NavigationGroup.vue";
 import {toRefs} from "vue";
 import Divider from "@/components/material/containment/dividers/Divider.vue";
 import Fab from "@/components/material/buttons/fab/Fab.vue";

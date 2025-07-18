@@ -43,8 +43,8 @@ Afin de déployer l'application sur Github Pages, vous pouvez:
 
 ### Navigation
 
-- [ ] Navigation bar & rail (rework)
-- [ ] Tabs
+- [x] Navigation bar & rail (rework)
+- [x] Tabs
 - [ ] App bars
 - [ ] Bottom sheets
 - [ ] Side sheets
