@@ -2,11 +2,13 @@
   <button
     @click="clicked()"
     :disabled="props.disabled"
-    class="btn_after relative flex flex-row items-center justify-center w-12 h-12 gap-x-2 p-2.5 rounded-[6.25em] text-sm tracking-[.00714em] font-medium select-none"
-    :class="{
-      'text-primary cursor-pointer': !props.disabled,
+    class="btn_button_icon_after relative flex flex-row items-center justify-center w-12 h-12 gap-x-2 p-2.5 rounded-[6.25em] text-sm tracking-[.00714em] font-medium select-none"
+    :class="[{
+      'text-inverse-primary': !props.disabled && props.inverseColors,
+      'text-primary': !props.disabled && !props.inverseColors,
+      'cursor-pointer': !props.disabled,
       'text-on-surface-variant/70 cursor-default': props.disabled
-    }">
+    }, props.inverseColors ? 'inverse_colors' : '']">
     <i v-if="props.icon" class="material-symbols-outlined normal_outlined_icon">{{ props.icon }}</i>
   </button>
 </template>
@@ -14,7 +16,8 @@
 <script setup lang="ts">
 const props = defineProps<{
   icon: string,
-  disabled?: boolean
+  disabled?: boolean,
+  inverseColors?: boolean
 }>();
 
 const emit = defineEmits(['click'])
@@ -25,14 +28,14 @@ function clicked() {
 }
 </script>
 
-<style scoped>
+<style>
 @reference "@/styles/index.css"
 
-.btn_after {
+.btn_button_icon_after {
   /*box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);*/
 }
 
-.btn_after:not(:disabled)::after {
+.btn_button_icon_after:not(:disabled)::after {
   content: '';
   position: absolute;
   top: 0;
@@ -45,15 +48,28 @@ function clicked() {
   pointer-events: none;
 }
 
-.btn_after:not(:disabled):hover::after {
+.btn_button_icon_after:not(:disabled):hover::after {
   opacity: 1;
+}
+
+.btn_button_icon_after:not(:disabled):hover::after {
   @apply bg-primary/10;
 }
 
-.btn_after:not(:disabled):focus::after {
+.btn_button_icon_after.inverse_colors:not(:disabled):hover::after {
+  @apply bg-inverse-primary/10;
+}
+
+.btn_button_icon_after:not(:disabled):focus::after {
   opacity: 1;
+}
+
+.btn_button_icon_after:not(:disabled):focus::after {
   @apply bg-primary/20;
 }
+
+.btn_button_icon_after.inverse_colors:not(:disabled):focus::after {
+  @apply bg-inverse-primary/20;
+}
+
 </style>
-
-

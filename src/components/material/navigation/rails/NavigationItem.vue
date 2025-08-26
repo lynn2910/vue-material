@@ -4,7 +4,7 @@
     :class="{
       'hover:bg-secondary/15': !isActive && props.expand,
       'bg-secondary/30': isActive && props.expand,
-      'flex-row pl-4 pr-6 py-4 gap-3': props.expand,
+      'flex-row pl-4 pr-6 py-3 gap-3': props.expand,
       'flex-col py-2 gap-1.5': !props.expand,
     }"
     @click="onClick()"
@@ -17,7 +17,7 @@
          'w-14 h-8 group-hover:bg-secondary/15 rounded-2xl flex items-center justify-center': !props.expand,
          'bg-secondary/30': !props.expand && isActive,
        }">
-      <i class="material-symbols-outlined">{{ props.item.icon }}</i>
+      <i class="material-symbols-outlined !text-headline-small">{{ props.item.icon }}</i>
     </div>
 
     {{ props.item.name }}

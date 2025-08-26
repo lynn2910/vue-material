@@ -74,18 +74,10 @@ const showThemeControls = ref(false);
 const expandNav = ref(true);
 
 const navigation_rail_items: NavStructure = [
-  createGroup(
-    {
-      label: 'Mail',
-      id: 'mail_group',
-      items: [
-        createItem({name: 'Inbox', icon: 'inbox', id: 'item_inbox', counter: 12}),
-        createItem({name: 'Sent', icon: 'inbox', id: 'item_sent'}),
-        createItem({name: 'Favorite', icon: 'inbox', id: 'item_favorite'}),
-        createItem({name: 'Trash', icon: 'inbox', id: 'item_trash'}),
-      ]
-    }
-  ),
+  createItem({name: 'Inbox', icon: 'inbox', id: 'item_inbox', counter: 12}),
+  createItem({name: 'Sent', icon: 'inbox', id: 'item_sent'}),
+  createItem({name: 'Favorite', icon: 'inbox', id: 'item_favorite'}),
+  createItem({name: 'Trash', icon: 'inbox', id: 'item_trash'}),
   addDivider(),
   createGroup({
     label: 'Labels',
@@ -102,7 +94,7 @@ const navigation_rail_items: NavStructure = [
   })
 ]
 
-const activeNav = ref(['labels_group', 'item_friends']);
+const activeNav = ref(['item_inbox']);
 
 function changeNav(id: string, path: string[]) {
   activeNav.value = path;
