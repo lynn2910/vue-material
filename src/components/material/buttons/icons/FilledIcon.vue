@@ -5,7 +5,7 @@
     class="btn_after relative flex flex-row items-center justify-center w-12 h-12 gap-x-2 p-2.5 rounded-[6.25em] shadow-lg text-sm tracking-[.00714em] font-medium select-none"
     :class="{
       'bg-primary text-on-primary cursor-pointer': !props.disabled,
-      'bg-surface-container text-on-surface-variant/70 cursor-default': props.disabled
+      'bg-surface-container text-on-surface-variant/70 cursor-not-allowed': props.disabled
     }">
     <span v-if="props.icon" class="material-symbols-outlined normal_outlined_icon">{{
         props.icon
