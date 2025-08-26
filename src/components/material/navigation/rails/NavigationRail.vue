@@ -40,7 +40,7 @@
            :label="props.fab.label"/>
     </div>
 
-    <div class="overflow-y-auto h-full w-full pl-1 overflow-x-hidden">
+    <div class="overflow-y-auto h-full w-full pl-1 overflow-x-hidden items_list">
       <div v-for="(item, index) in props.items" :key="index"
            class="w-full"
            :class="{'mx-auto': !props.modelValue, 'pl-5': props.modelValue}">
@@ -65,12 +65,12 @@
 </template>
 
 <style scoped>
-nav {
+nav, .items_list {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-nav::-webkit-scrollbar {
+nav::-webkit-scrollbar, .items_list::-webkit-scrollbar {
   display: none;
 }
 </style>
