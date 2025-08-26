@@ -1,14 +1,82 @@
 <template>
   <div class="m-10">
     <div
-      class="flex flex-row gap-10  p-7 bg-surface rounded-lg border border-surface-container-highest w-full">
+      class="flex flex-col gap-10  p-7 bg-surface rounded-lg border border-surface-container-highest w-full">
 
       <!-- Snackbars -->
       <div class="flex flex-col items-start gap-6">
         <h3 class="text-title-medium text-on-surface">Notifications (snackbar)</h3>
 
         <FilledButton label="Afficher la notification" icon="circle_notifications"
+                      :disabled="messageRef.length === 0"
                       @click="showNotification()"/>
+
+        <div
+          class="border border-on-surface-variant/20 bg-surface-container-lowest p-10 h-[30rem] rounded-xl gap-10 flex flex-row items-start">
+
+          <div class="flex flex-col gap-10">
+
+            <SegmentedButtons :items="availableLayout" id="banner_or_float" v-model="layoutRef"
+                              :disallow_none="true"/>
+
+            <Divider horizontal/>
+
+            <div>
+              <!-- Duration -->
+              <BaseSlider v-model="durationRef" :min="0" :max="6000"
+                          :step="100"/>
+              <div class="flex flex-row justify-between my-3">
+                <p><b>Durée d'affichage:</b></p>
+                <p>{{ durationRef / 1000 }}s</p>
+              </div>
+              <br>
+              <!-- Grid -->
+              <div class="grid grid-cols-3 grid-rows-3 gap-1 w-40">
+                <FilledIcon @click="updatePosition('top-left')"
+                            :disabled="!isFloatingSnackbar || positionRef === 'top-left'"
+                            icon="north_west"/>
+                <FilledIcon @click="updatePosition('top-center')"
+                            :disabled="!isFloatingSnackbar || positionRef === 'top-center'"
+                            icon="north"/>
+                <FilledIcon @click="updatePosition('top-right')"
+                            :disabled="!isFloatingSnackbar || positionRef === 'top-right'"
+                            icon="north_east"/>
+
+                <FilledIcon @click="updatePosition('center-left')"
+                            :disabled="!isFloatingSnackbar || positionRef === 'center-left'"
+                            icon="west"/>
+                <div></div>
+                <FilledIcon @click="updatePosition('center-right')"
+                            :disabled="!isFloatingSnackbar || positionRef === 'center-right'"
+                            icon="east"/>
+
+                <FilledIcon @click="updatePosition('bottom-left')"
+                            :disabled="!isFloatingSnackbar || positionRef === 'bottom-left'"
+                            icon="south_west"/>
+                <FilledIcon @click="updatePosition('bottom-center')"
+                            :disabled="!isFloatingSnackbar || positionRef === 'bottom-center'"
+                            icon="south"/>
+                <FilledIcon @click="updatePosition('bottom-right')"
+                            :disabled="!isFloatingSnackbar || positionRef === 'bottom-right'"
+                            icon="south_east"/>
+              </div>
+              <div class="flex flex-row justify-between my-6">
+                <p><b>Sélectionné:</b></p>
+                <p>{{ positionRef }}</p>
+              </div>
+            </div>
+
+          </div>
+
+          <Divider vertical/>
+
+          <div class="flex flex-col">
+            <TextField v-model="messageRef" label="Message" type="text" id="snackbar_message"
+                       name="message"
+                       class="w-96"/>
+          </div>
+
+        </div>
       </div>
 
 
@@ -86,7 +154,11 @@
 
 <script setup lang="ts">
 import FilledButton from "@/components/material/buttons/withLabels/FilledButton.vue";
-import {useSnackbarStore} from "@/stores/material/snackbarStore.ts";
+import {
+  type SnackbarLayout,
+  type SnackbarPosition,
+  useSnackbarStore
+} from "@/stores/material/snackbarStore.ts";
 import ProgressIndicator
   from "@/components/material/communication/progress_indicators/ProgressIndicator.vue";
 import CircularLoader
@@ -94,16 +166,39 @@ import CircularLoader
 import SegmentedButtons from "@/components/material/buttons/segmented/SegmentedButtons.vue";
 import {computed, onMounted, ref} from "vue";
 import Divider from "@/components/material/containment/dividers/Divider.vue";
+import TextField from "@/components/material/inputs/TextField.vue";
+import BaseSlider from "@/components/material/inputs/sliders/BaseSlider.vue";
+import ButtonIcon from "@/components/material/buttons/icons/ButtonIcon.vue";
+import FilledIcon from "@/components/material/buttons/icons/FilledIcon.vue";
 
 // Snackbars
 
 const snackbarStore = useSnackbarStore();
 
+const layoutRef = ref('banner');
+const availableLayout = [
+  {label: 'Banner', value: 'banner'},
+  {label: 'Floating', value: 'float'},
+]
+
+const positionRef = ref('bottom-right');
+const durationRef = ref(0);
+const messageRef = ref('Une notification');
+
+function updatePosition(new_position: string) {
+  positionRef.value = new_position;
+}
+
+const isFloatingSnackbar = computed(() => layoutRef.value === 'float');
+
+
 function showNotification() {
   snackbarStore.addNotification({
-    message: "A single message snackbar",
-    duration: 0,
+    message: messageRef.value,
+    duration: durationRef.value,
     show_close_btn: true,
+    position: positionRef.value as SnackbarPosition,
+    layout: layoutRef.value as SnackbarLayout
   })
 }
 
