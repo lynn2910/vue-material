@@ -9,7 +9,8 @@
     />
 
     <div
-      class="bg-primary absolute rounded-l-full rounded-r-sm h-full flex flex-row justify-around items-center"
+      class="absolute rounded-l-full rounded-r-sm h-full flex flex-row justify-around items-center"
+      :class="props.disabled ? 'bg-on-surface-variant/35' : 'bg-primary'"
       :style="activeTrackStyle"/>
 
     <!-- step points -->
@@ -26,7 +27,8 @@
     </div>
 
     <div
-      class="rounded-full bg-primary absolute z-10 h-full w-1.5"
+      class="rounded-full absolute z-10 h-full w-1.5"
+      :class="props.disabled ? 'bg-on-surface-variant/35' : 'bg-primary'"
       :style="thumbStyle"
     />
 
@@ -39,9 +41,11 @@
       type="range"
       :min="min"
       :max="max"
+      :disabled="props.disabled"
       :step="effectiveStep"
       v-model.number="modelValue"
-      class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20 appearance-none bg-transparent"
+      :class="props.disabled ? 'cursor-not-allowed' : 'cursor-pointer'"
+      class="absolute inset-0 w-full h-full opacity-0 z-20 appearance-none bg-transparent"
     />
   </div>
 </template>
@@ -56,6 +60,8 @@ const props = defineProps<{
   modelValue: number,
   maxStepPoints?: number,
   showSteps?: boolean,
+
+  disabled?: boolean
 }>();
 
 const emit = defineEmits(['update:modelValue']);
