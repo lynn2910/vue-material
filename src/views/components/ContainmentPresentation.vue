@@ -1,5 +1,5 @@
 <template>
-  <div class="m-10">
+  <div class="m-10 h-full flex flex-row">
     <div
       class="flex flex-col gap-10  p-7 bg-surface rounded-lg border border-surface-container-highest w-full">
 
@@ -64,10 +64,23 @@
         <BottomSheet :opened="showBottomSheet" @close="closeBottomSheet">
           Coucou !
         </BottomSheet>
+
+        <br><br>
+
+        <FilledButton :label="showSideSheet ? 'Close side sheet' : 'Show side sheet'"
+                      icon="side_navigation" @click="openSideSheet"/>
+
       </div>
 
     </div>
 
+    <div class="w-2/3" v-show="showSideSheet">
+      <SideSheet headline="Titre intéressant" @close="closeSideSheet">
+
+        Bonjour !
+        
+      </SideSheet>
+    </div>
   </div>
 
 </template>
@@ -80,6 +93,7 @@ import Icon from "@/components/material/Icon.vue";
 import FilledButton from "@/components/material/buttons/withLabels/FilledButton.vue";
 import BottomSheet from "@/components/material/sheets/BottomSheet.vue";
 import {ref} from "vue";
+import SideSheet from "@/components/material/sheets/SideSheet.vue";
 
 const showBottomSheet = ref(false);
 
@@ -89,5 +103,15 @@ function openBottomSheet() {
 
 function closeBottomSheet() {
   showBottomSheet.value = false;
+}
+
+const showSideSheet = ref(true);
+
+function openSideSheet() {
+  showSideSheet.value = !showSideSheet.value;
+}
+
+function closeSideSheet() {
+  showSideSheet.value = false;
 }
 </script>

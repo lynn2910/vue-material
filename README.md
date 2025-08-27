@@ -45,8 +45,8 @@ Afin de déployer l'application sur Github Pages, vous pouvez:
 
 - [x] Navigation bar & rail (rework)
 - [x] Tabs
-- [ ] App bars
-- [ ] Bottom sheets
+- [x] App bars
+- [x] Bottom sheets
 - [ ] Side sheets
 - [ ] Full-view sheets
 
@@ -64,6 +64,7 @@ Afin de déployer l'application sur Github Pages, vous pouvez:
 
 - [ ] Carousel
 - [ ] Lists
+- [ ] Details (voir le système de filtres de fonts.google.com/icon)
 - [ ] _Data table_ (n'existe pas dans la documentation Material)
 - [ ] _Graphiques_
 - [ ] _Search_ (pas besoin dans l'immédiat)
