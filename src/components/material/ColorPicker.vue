@@ -1,56 +1,123 @@
 <template>
-  <div class="bg-surface rounded-xl p-6 w-80 shadow-lg dark:border-primary dark:border-2">
-    <!-- Head -->
+  <div
+    class="bg-surface rounded-xl p-6 w-full h-full shadow-lg dark:border-primary dark:border-2">
+
     <div class="flex flex-row justify-between items-center">
-      <h2 class="text-title-large text-on-surface">Editeur de thème</h2>
-      <Icon icon="content_copy" class="cursor-pointer" @click="copyColor"/>
+      <h2 class="text-title-large text-on-surface">Éditeur de thème</h2>
+      <FilledButton icon="content_copy" label="Copier" @click="copyColor"/>
     </div>
 
-    <!-- Color picker -->
     <br>
-    <div class="rounded-xl bg-secondary-container flex flex-row items-center justify-between p-3">
-      <label for="hex_color_picker" class="text-title-medium text-on-secondary-container">Couleur
-        hexadécimale</label>
-      <input type="color" v-model="themeStore.sourceColor" id="hex_color_picker"
-             class="w-10 h-10 rounded-md border-2 border-primary">
+    <div class="rounded-xl bg-surface-container-highest p-3 flex flex-col gap-4">
+      <TextField
+        label="Couleur hexadécimale"
+        id="hex_color_picker_input"
+        name="hex_color_picker"
+        type="text"
+        v-model="hexValue"
+        :pattern="'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'"
+        @update:model-value="handleHexInput"
+        @validation-change="handleValidation"
+        :error-message="'Format hexadécimal invalide'"
+        filled
+      />
+
+      <div class="flex flex-row justify-between items-center">
+        <label for="color_picker" class="text-title-medium text-on-surface">Sélection
+          visuelle</label>
+        <div class="flex gap-2 items-center">
+          <!-- Preview de la couleur actuelle HCT -->
+          <div
+            class="w-12 h-12 rounded-md border-2 border-outline"
+            :style="{ backgroundColor: currentHctColor }"
+            :title="`HCT: ${Math.round(themeStore.hue)}°, ${Math.round(themeStore.chroma)}, ${Math.round(themeStore.tone)}`"
+          ></div>
+          <input
+            type="color"
+            :value="themeStore.sourceColor"
+            @input="handleColorInput"
+            id="color_picker"
+            class="w-12 h-12 rounded-md border-2 border-primary cursor-pointer">
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview des différents tons pour mieux voir l'effet -->
+    <br>
+    <div class="rounded-xl bg-surface-container-highest p-3">
+      <p class="text-title-small text-on-surface mb-3">Aperçu des tons</p>
+      <div class="flex gap-1 w-full">
+        <div
+          v-for="tone in tonePreviewValues"
+          :key="tone"
+          class="flex-1 h-8 border border-outline rounded"
+          :style="{ backgroundColor: getColorAtTone(tone) }"
+          :title="`Tone: ${tone}`"
+        ></div>
+      </div>
+      <div class="flex justify-between text-xs text-on-surface-variant mt-1">
+        <span>0 (noir)</span>
+        <span>50</span>
+        <span>100 (blanc)</span>
+      </div>
     </div>
 
     <br>
     <div
-      class="rounded-xl bg-secondary-container flex flex-col items-center justify-between p-3 gap-3">
-      <!-- Hue -->
+      class="rounded-xl bg-surface-container-highest flex flex-col items-center justify-between p-3 gap-5">
       <div class="flex flex-col gap-2 w-full">
-        <label for="hue_picker" class="text-title-medium text-on-secondary-container">Hue</label>
-        <input type="range" min="0" max="360" id="hue_picker" v-model="hue" class="mx-2">
-        <div class="hue_gradient_bg rounded-full border border-white w-full h-6"></div>
+        <div class="flex justify-between items-center text-on-surface">
+          <label for="hue_picker" class="text-title-medium">Teinte (Hue)</label>
+          <span class="text-body-small">{{ Math.round(hueValue) }}°</span>
+        </div>
+        <BaseSlider
+          :min="0" :max="360" :step="1"
+          v-model="hueValue"
+        />
+        <div class="hue_gradient_bg rounded-full border border-outline w-full h-6"/>
       </div>
 
-      <!-- Chroma -->
       <div class="flex flex-col gap-2 w-full">
-        <label for="chroma_picker"
-               class="text-title-medium text-on-secondary-container">Chroma</label>
-        <input type="range" min="0" max="100" id="chroma_picker" v-model="chroma" class="mx-2">
-        <div class="rounded-full border border-white w-full h-6" :style="chromaGradientStyle"></div>
+        <div class="flex justify-between items-center text-on-surface">
+          <label for="chroma_picker" class="text-title-medium">Chroma (Saturation)</label>
+          <span class="text-body-small">{{ Math.round(chromaValue) }}</span>
+        </div>
+        <BaseSlider
+          :min="0" :max="100" :step="1"
+          v-model="chromaValue"
+        />
+        <div class="rounded-full border border-outline w-full h-6" :style="chromaGradientStyle"/>
       </div>
 
-      <!-- Tone -->
       <div class="flex flex-col gap-2 w-full">
-        <label for="tone_picker" class="text-title-medium text-on-secondary-container">Tone</label>
-        <input type="range" min="0" max="100" id="tone_picker" v-model="tone" class="mx-2">
-        <div class="rounded-full border border-white w-full h-6" :style="toneGradientStyle"></div>
+        <div class="flex justify-between items-center text-on-surface">
+          <label for="tone_picker" class="text-title-medium">Tonalité (Luminosité)</label>
+          <div class="flex items-center gap-2">
+            <span class="text-body-small">{{ Math.round(toneValue) }}</span>
+            <div
+              class="w-6 h-6 rounded border border-outline"
+              :style="{ backgroundColor: currentHctColor }"
+            ></div>
+          </div>
+        </div>
+        <BaseSlider
+          :min="0" :max="100" :step="1"
+          v-model="toneValue"
+        />
+        <div class="rounded-full border border-outline w-full h-6" :style="toneGradientStyle"/>
       </div>
     </div>
 
-
     <br>
-    <div class="rounded-xl bg-secondary-container flex flex-col items-center justify-between p-3">
-      <select :value="themeMode"
-              @input="event => setThemeMode((event.target as HTMLInputElement).value)"
-              class="text-on-secondary-container bg-secondary-container">
-        <option class="text-surface bg-surface" value="dark">Mode sombre</option>
-        <option class="text-surface bg-surface" value="auto">Automatique</option>
-        <option class="text-surface bg-surface" value="light">Mode clair</option>
-      </select>
+    <div class="flex flex-col gap-2">
+      <p class="text-title-small text-on-surface">Mode de thème</p>
+      <SegmentedButtons
+        :items="themeModes"
+        id="theme_mode_selector"
+        v-model="themeMode"
+        :allow_multiple="false"
+        :disallow_none="true"
+      />
     </div>
 
   </div>
@@ -60,74 +127,134 @@
 import {useThemeStore} from '@/stores/themeStore';
 import {ref, watch, computed} from "vue";
 import {Hct, hexFromArgb} from '@poupe/material-color-utilities';
-import Icon from "@/components/material/Icon.vue";
+import BaseSlider from "@/components/material/inputs/sliders/BaseSlider.vue";
+import SegmentedButtons from "@/components/material/buttons/segmented/SegmentedButtons.vue";
+import FilledButton from "@/components/material/buttons/withLabels/FilledButton.vue";
+import TextField from "@/components/material/inputs/TextField.vue";
+import {useSnackbarStore} from "@/stores/material/snackbarStore.ts";
+
 
 const themeStore = useThemeStore();
+const showDecimalDialog = ref(false);
 
-const themeMode = computed(() => {
-  if (themeStore.isSystemTheme) {
-    return 'auto';
-  } else if (themeStore.isDarkMode) {
-    return 'dark';
-  } else {
-    return 'light';
-  }
+const themeModes = [
+  {label: 'Clair', value: 'light'},
+  {label: 'Système', value: 'auto'},
+  {label: 'Sombre', value: 'dark'},
+];
+
+const hueValue = computed({
+  get: () => themeStore.hue,
+  set: (value) => themeStore.setHue(value)
+});
+
+const chromaValue = computed({
+  get: () => themeStore.chroma,
+  set: (value) => themeStore.setChroma(value)
+});
+
+const toneValue = computed({
+  get: () => themeStore.tone,
+  set: (value) => themeStore.setTone(value)
+});
+
+const hexValue = computed({
+  get: () => themeStore.sourceColor,
+  set: (value) => themeStore.setSourceColor(value)
 })
 
-function setThemeMode(mode: string) {
-  switch (mode) {
-    case 'auto': {
+const currentHctColor = computed(() => {
+  try {
+    const color = Hct.from(themeStore.hue, themeStore.chroma, themeStore.tone);
+    return hexFromArgb(color.toInt());
+  } catch (e) {
+    return themeStore.sourceColor;
+  }
+});
+
+const tonePreviewValues = [10, 20, 30, 40, 50, 60, 70, 80, 90];
+
+const getColorAtTone = (tone: number) => {
+  try {
+    const color = Hct.from(themeStore.hue, themeStore.chroma, tone);
+    return hexFromArgb(color.toInt());
+  } catch (e) {
+    return `hsl(0, 0%, ${tone}%)`;
+  }
+};
+
+const themeMode = computed({
+  get: () => {
+    if (themeStore.isSystemTheme) {
+      return ['auto'];
+    } else if (themeStore.isDarkMode) {
+      return ['dark'];
+    } else {
+      return ['light'];
+    }
+  },
+  set: (newValue) => {
+    if (newValue.includes('auto')) {
       themeStore.setSystemTheme();
-      break;
-    }
-    case 'dark': {
+    } else if (newValue.includes('dark')) {
       themeStore.setManualTheme(true);
-      break;
-    }
-    case 'light': {
+    } else {
       themeStore.setManualTheme(false);
-      break;
     }
-    default: {
-      console.error(`Mode ${mode} inconnu`);
-      break;
+  }
+});
+
+const handleHexInput = (value: string) => {
+  themeStore.setSourceColor(value);
+};
+
+const handleColorInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  themeStore.setSourceColor(target.value);
+};
+
+const handleValidation = (isValid: boolean) => {
+  console.log("Input hex is valid:", isValid);
+};
+
+const snackbarStore = useSnackbarStore();
+
+async function copyColor() {
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(currentHctColor.value);
+      console.log('Couleur HCT copiée:', currentHctColor.value);
+
+      snackbarStore.addNotification({
+        message: `La couleur HCT a été copiée: ${currentHctColor.value}`,
+        duration: 5000,
+        show_close_btn: true,
+        layout: "banner"
+      })
+    } else {
+      const textArea = document.createElement('textarea');
+      textArea.value = currentHctColor.value;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      console.log('Couleur HCT copiée (fallback):', currentHctColor.value);
     }
+  } catch (e) {
+    console.error('Erreur de copie:', e);
   }
 }
-
-const hue = ref(themeStore.hue);
-const chroma = ref(themeStore.chroma);
-const tone = ref(themeStore.tone);
-
-watch(hue, (newVal) => {
-  themeStore.setHue(newVal);
-});
-
-watch(chroma, (newVal) => {
-  themeStore.setChroma(newVal);
-});
-
-watch(tone, (newVal) => {
-  themeStore.setTone(newVal);
-});
-
-watch(() => themeStore.sourceColor, (newColor) => {
-  const hctValues = themeStore.hexToHct(newColor);
-
-  if (!themeStore.isUpdatingFromHct) {
-    hue.value = Math.round(hctValues.hue);
-    chroma.value = Math.round(hctValues.chroma);
-    tone.value = Math.round(hctValues.tone);
-  }
-}, {immediate: true});
 
 const STOPS = 20;
 
 const chromaGradientStyle = computed(() => {
   let gradient = 'linear-gradient(to right';
-
-  const safeHue = hue.value;
-  const safeTone = Math.max(10, Math.min(90, tone.value));
+  const safeHue = themeStore.hue;
+  const safeTone = Math.max(10, Math.min(90, themeStore.tone));
 
   for (let i = 0; i <= STOPS; i++) {
     const currentChroma = (i / STOPS) * 100;
@@ -135,7 +262,8 @@ const chromaGradientStyle = computed(() => {
       const color = Hct.from(safeHue, currentChroma, safeTone);
       gradient += `, ${hexFromArgb(color.toInt())} ${i * (100 / STOPS)}%`;
     } catch (e) {
-      gradient += `, #808080 ${i * (100 / STOPS)}%`;
+      const fallbackTone = Math.max(10, Math.min(90, safeTone));
+      gradient += `, hsl(0, 0%, ${fallbackTone}%) ${i * (100 / STOPS)}%`;
     }
   }
   gradient += ')';
@@ -144,9 +272,8 @@ const chromaGradientStyle = computed(() => {
 
 const toneGradientStyle = computed(() => {
   let gradient = 'linear-gradient(to right';
-
-  const safeHue = hue.value;
-  const safeChroma = Math.min(100, Math.max(0, chroma.value));
+  const safeHue = themeStore.hue;
+  const safeChroma = Math.min(100, Math.max(0, themeStore.chroma));
 
   for (let i = 0; i <= STOPS; i++) {
     const currentTone = (i / STOPS) * 100;
@@ -154,21 +281,12 @@ const toneGradientStyle = computed(() => {
       const color = Hct.from(safeHue, safeChroma, currentTone);
       gradient += `, ${hexFromArgb(color.toInt())} ${i * (100 / STOPS)}%`;
     } catch (e) {
-      gradient += `, #808080 ${i * (100 / STOPS)}%`;
+      gradient += `, hsl(0, 0%, ${currentTone}%) ${i * (100 / STOPS)}%`;
     }
   }
   gradient += ')';
   return {background: gradient};
 });
-
-// TODO Ajouter gestion de l'erreur et notification
-function copyColor() {
-  try {
-    navigator.clipboard.writeText(themeStore.sourceColor);
-  } catch (e) {
-    alert('Impossible de copier la couleur dans le presse-papier');
-  }
-}
 </script>
 
 <style scoped>

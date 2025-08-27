@@ -7,7 +7,7 @@
       <i class="material-symbols-outlined normal_outlined_icon">palette</i>
     </button>
 
-    <div v-show="showThemeControls" class="fixed z-[9999] top-12 right-2">
+    <div v-show="showThemeControls" class="fixed z-[9999] top-12 right-2 h-[90%]">
       <ColorPicker/>
     </div>
 
