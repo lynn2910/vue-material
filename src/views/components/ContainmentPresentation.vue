@@ -78,6 +78,17 @@
 
         <ModalSideSheet v-if="showModalSideSheet" headline="Titre intéressant"
                         @close="closeModalSideSheet"/>
+
+        <br><br>
+
+        <FilledButton
+          :label="showFullViewSheet ? 'Close full view sheet' : 'Show full view sheet'"
+          icon="fullscreen" @click="openFullViewSheet"/>
+
+        <FullViewSheet v-if="showFullViewSheet" headline="Titre intéressant"
+                       @close="closeFullViewSheet">
+          On peut mettre plein de contenu dedans
+        </FullViewSheet>
       </div>
 
     </div>
@@ -103,6 +114,7 @@ import BottomSheet from "@/components/material/sheets/BottomSheet.vue";
 import {ref} from "vue";
 import SideSheet from "@/components/material/sheets/SideSheet.vue";
 import ModalSideSheet from "@/components/material/sheets/ModalSideSheet.vue";
+import FullViewSheet from "@/components/material/sheets/FullViewSheet.vue";
 
 const showBottomSheet = ref(false);
 
@@ -132,5 +144,16 @@ function openModalSideSheet() {
 
 function closeModalSideSheet() {
   showModalSideSheet.value = false;
+}
+
+
+const showFullViewSheet = ref(false);
+
+function openFullViewSheet() {
+  showFullViewSheet.value = !showFullViewSheet.value;
+}
+
+function closeFullViewSheet() {
+  showFullViewSheet.value = false;
 }
 </script>

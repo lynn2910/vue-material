@@ -47,8 +47,8 @@ Afin de déployer l'application sur Github Pages, vous pouvez:
 - [x] Tabs
 - [x] App bars
 - [x] Bottom sheets
-- [ ] Side sheets
-- [ ] Full-view sheets
+- [x] Side sheets
+- [x] Full-view sheets
 
 ### Interactions
 
