@@ -3,7 +3,7 @@
     class="min-h-screen min-w-screen bg-surface-container-lowest text-on-background transition-colors duration-300">
 
     <button @click="showThemeControls = !showThemeControls"
-            class="fixed top-2 right-2 z-50">
+            class="fixed top-2 right-2 z-40">
       <i class="material-symbols-outlined normal_outlined_icon">palette</i>
     </button>
 

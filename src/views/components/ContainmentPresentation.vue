@@ -70,6 +70,14 @@
         <FilledButton :label="showSideSheet ? 'Close side sheet' : 'Show side sheet'"
                       icon="side_navigation" @click="openSideSheet"/>
 
+        <br><br>
+
+        <FilledButton
+          :label="showModalSideSheet ? 'Close modal side sheet' : 'Show modal side sheet'"
+          icon="view_sidebar" @click="openModalSideSheet"/>
+
+        <ModalSideSheet v-if="showModalSideSheet" headline="Titre intéressant"
+                        @close="closeModalSideSheet"/>
       </div>
 
     </div>
@@ -78,7 +86,7 @@
       <SideSheet headline="Titre intéressant" @close="closeSideSheet">
 
         Bonjour !
-        
+
       </SideSheet>
     </div>
   </div>
@@ -94,6 +102,7 @@ import FilledButton from "@/components/material/buttons/withLabels/FilledButton.
 import BottomSheet from "@/components/material/sheets/BottomSheet.vue";
 import {ref} from "vue";
 import SideSheet from "@/components/material/sheets/SideSheet.vue";
+import ModalSideSheet from "@/components/material/sheets/ModalSideSheet.vue";
 
 const showBottomSheet = ref(false);
 
@@ -105,7 +114,7 @@ function closeBottomSheet() {
   showBottomSheet.value = false;
 }
 
-const showSideSheet = ref(true);
+const showSideSheet = ref(false);
 
 function openSideSheet() {
   showSideSheet.value = !showSideSheet.value;
@@ -113,5 +122,15 @@ function openSideSheet() {
 
 function closeSideSheet() {
   showSideSheet.value = false;
+}
+
+const showModalSideSheet = ref(true);
+
+function openModalSideSheet() {
+  showModalSideSheet.value = !showModalSideSheet.value;
+}
+
+function closeModalSideSheet() {
+  showModalSideSheet.value = false;
 }
 </script>
