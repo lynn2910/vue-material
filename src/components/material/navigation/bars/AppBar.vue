@@ -3,8 +3,10 @@
     <div class="flex flex-row justify-between">
       <div class="flex flex-row items-center gap-x-5">
         <ButtonIcon :icon="props.leading_icon || 'arrow_back'"
+                    v-if="props.leading_icon"
                     @click="leadingIconClick()"
                     class="!text-headline-medium !text-on-background"/>
+        <div v-else class="w-3"/>
 
         <div class="flex flex-col" v-if="size == 'small'">
           <h1 class="text-headline-small font-medium">
@@ -52,7 +54,7 @@ export type AppBarAction = {
 const emit = defineEmits(['click']);
 
 const props = defineProps<{
-  leading_icon?: string,
+  leading_icon?: string | null,
   onClick?: () => void,
   actions?: AppBarAction[],
   headline: string,
