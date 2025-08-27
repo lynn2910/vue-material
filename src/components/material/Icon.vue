@@ -6,6 +6,6 @@
 <script setup lang="ts">
 const props = defineProps<{
   icon: string,
-  class?: string
+  class?: any
 }>();
 </script>
