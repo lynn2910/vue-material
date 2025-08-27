@@ -52,6 +52,16 @@
       If you want to add elements, do it before this comment !!
     -->
 
+    <!-- Bottom sheets -->
+    <div class="fixed bottom-0 w-screen h-screen z-50" id="bottom_sheets_container"
+         v-show="bottomSheetsStore.sheets.length > 0">
+
+      <div class="absolute h-full w-full bg-black/50"
+           @click="bottomSheetsStore.closeLatestSheet"/>
+
+    </div>
+
+    <!-- Snackbar -->
     <Snackbar/>
   </div>
 </template>
@@ -69,6 +79,7 @@ import {
   createGroup,
   type NavStructure
 } from "@/components/material/navigation/rails/NavigationRail.vue";
+import {useBottomSheetsStore} from "@/stores/material/bottomSheetsStore.ts";
 
 const showThemeControls = ref(false);
 const expandNav = ref(true);
@@ -99,4 +110,13 @@ const activeNav = ref(['item_inbox']);
 function changeNav(id: string, path: string[]) {
   activeNav.value = path;
 }
+
+/**
+ *       Material UI required Section for global components
+ *     DON'T EDIT THIS SECTION
+ *
+ *     If you want to add elements, do it before this comment !!
+ */
+
+const bottomSheetsStore = useBottomSheetsStore();
 </script>
