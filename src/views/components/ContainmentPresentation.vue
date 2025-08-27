@@ -124,7 +124,7 @@ function closeSideSheet() {
   showSideSheet.value = false;
 }
 
-const showModalSideSheet = ref(true);
+const showModalSideSheet = ref(false);
 
 function openModalSideSheet() {
   showModalSideSheet.value = !showModalSideSheet.value;

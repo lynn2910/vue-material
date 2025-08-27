@@ -53,7 +53,8 @@
     -->
 
     <!-- Bottom sheets -->
-    <div class="fixed bottom-0 w-screen h-screen z-50" id="bottom_sheets_container"
+    <div class="fixed bottom-0 w-screen h-screen z-50 transition-all duration-200"
+         id="bottom_sheets_container"
          v-show="bottomSheetsStore.sheets.length > 0">
 
       <div class="absolute h-full w-full bg-black/50"
