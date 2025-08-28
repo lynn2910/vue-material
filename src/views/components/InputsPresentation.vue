@@ -199,6 +199,7 @@
           <ElevatedSplitButton label="Show menu" :opened="showMenu1"
                                ref="menuBtn1"
                                @click="showMenu1 = !showMenu1"/>
+
           <Menu :anchor="menuBtn1" :show-menu="showMenu1" :items="menu"
                 @close="showMenu1 = false"/>
 
@@ -206,13 +207,23 @@
                              ref="menuBtn2"
                              @click="showMenu2 = !showMenu2"/>
 
+          <Menu :anchor="menuBtn2" :show-menu="showMenu2" :items="menu"
+                @close="showMenu2 = false"/>
+
           <OutlinedSplitButton label="Show menu" :opened="showMenu3"
                                ref="menuBtn3"
                                @click="showMenu3 = !showMenu3"/>
 
+          <Menu :anchor="menuBtn3" :show-menu="showMenu3" :items="menu"
+                @close="showMenu3 = false"/>
+
           <TonalSplitButton label="Show menu" :opened="showMenu4"
                             ref="menuBtn4"
                             @click="showMenu4 = !showMenu4"/>
+
+          <Menu :anchor="menuBtn4" :show-menu="showMenu4" :items="menu"
+                @close="showMenu4 = false"/>
+
 
         </div>
       </div>
