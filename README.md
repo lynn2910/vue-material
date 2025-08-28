@@ -52,7 +52,7 @@ Afin de déployer l'application sur Github Pages, vous pouvez:
 
 ### Interactions
 
-- [ ] Menus
+- [x] Menus
 - [ ] Dialogs
 - [ ] FAB menu
 - [ ] Button groups

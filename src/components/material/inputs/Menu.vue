@@ -35,7 +35,14 @@
 
 <script setup lang="ts">
 import {ref, toRef, onMounted, onUnmounted} from "vue";
-import {autoUpdate, type Middleware, offset, type Placement, useFloating} from "@floating-ui/vue";
+import {
+  autoUpdate,
+  type Middleware,
+  offset,
+  type Placement,
+  shift,
+  useFloating
+} from "@floating-ui/vue";
 import Icon from "@/components/material/Icon.vue";
 
 export type MenuItem = {
@@ -69,6 +76,7 @@ const {floatingStyles} = useFloating(reference, floating, {
   placement: props.placement || 'bottom-end',
   middleware: [
     offset(10),
+    shift(),
     ...(props.middleware || [])
   ],
   whileElementsMounted: autoUpdate,
