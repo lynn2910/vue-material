@@ -199,7 +199,8 @@
           <ElevatedSplitButton label="Show menu" :opened="showMenu1"
                                ref="menuBtn1"
                                @click="showMenu1 = !showMenu1"/>
-          <Menu :anchor="menuBtn1" :show-menu="showMenu1" :items="menu"/>
+          <Menu :anchor="menuBtn1" :show-menu="showMenu1" :items="menu"
+                @close="showMenu1 = false"/>
 
           <FilledSplitButton label="Show menu" :opened="showMenu2"
                              ref="menuBtn2"

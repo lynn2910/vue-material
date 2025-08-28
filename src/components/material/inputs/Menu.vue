@@ -9,7 +9,8 @@
            'px-4 min-h-[3rem] hover:bg-inverse-surface/10 cursor-pointer': item !== 'divider',
            'rounded-t-lg': index === 0,
            'rounded-b-lg': index === props.items.length - 1,
-         }">
+         }"
+         @click="handleItemClick(item)">
       <div v-if="typeof item === 'string'" class="w-full h-[1px] bg-on-surface-variant/50"/>
 
       <div v-else class="flex flex-row items-center gap-4 py-2 w-full">
@@ -33,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, toRef} from "vue";
+import {ref, toRef, onMounted, onUnmounted} from "vue";
 import {autoUpdate, type Middleware, offset, type Placement, useFloating} from "@floating-ui/vue";
 import Icon from "@/components/material/Icon.vue";
 
@@ -57,6 +58,10 @@ const props = defineProps<{
   items: MenuItems
 }>();
 
+const emit = defineEmits<{
+  close: []
+}>();
+
 const floating = ref(null);
 const reference = toRef(props, 'anchor');
 
@@ -67,5 +72,58 @@ const {floatingStyles} = useFloating(reference, floating, {
     ...(props.middleware || [])
   ],
   whileElementsMounted: autoUpdate,
+});
+
+const handleClickOutside = (event: MouseEvent) => {
+  if (!props.showMenu) return;
+
+  const target = event.target as Node;
+  const floatingEl = floating.value as HTMLElement | null;
+
+  if (floatingEl && !floatingEl.contains(target)) {
+    const getAnchorElement = (anchor: any): HTMLElement | null => {
+      if (!anchor) return null;
+
+      if (anchor instanceof HTMLElement) return anchor;
+
+      if (anchor && typeof anchor === 'object' && '$el' in anchor) {
+        return anchor.$el;
+      }
+
+      if (anchor && typeof anchor === 'object' && 'value' in anchor) {
+        return anchor.value;
+      }
+
+      return null;
+    };
+
+    const anchorEl = getAnchorElement(reference.value);
+
+    if (!anchorEl || !anchorEl.contains(target)) {
+      emit('close');
+    }
+  }
+};
+
+const handleKeydown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape' && props.showMenu) {
+    emit('close');
+  }
+};
+
+const handleItemClick = (item: MenuItem | 'divider') => {
+  if (typeof item !== 'string' && !item.disabled) {
+    item.onClick?.();
+  }
+};
+
+onMounted(() => {
+  document.addEventListener('mousedown', handleClickOutside);
+  document.addEventListener('keydown', handleKeydown);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('mousedown', handleClickOutside);
+  document.removeEventListener('keydown', handleKeydown);
 });
 </script>
