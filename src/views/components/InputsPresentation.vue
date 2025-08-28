@@ -189,6 +189,26 @@
         </div>
       </div>
 
+
+      <div class="flex flex-col gap-10 items-stretch">
+        <h3 class="text-title-medium text-on-surface">Menu</h3>
+
+        <div
+          class="border border-on-surface-variant/20 p-10 flex flex-row items-start rounded-xl gap-5 text-on-surface-variant">
+
+          <ElevatedSplitButton label="Show menu" :opened="showMenu1"
+                               @click="showMenu1 = !showMenu1"/>
+
+          <FilledSplitButton label="Show menu" :opened="showMenu2" @click="showMenu2 = !showMenu2"/>
+
+          <OutlinedSplitButton label="Show menu" :opened="showMenu3"
+                               @click="showMenu3 = !showMenu3"/>
+
+          <TonalSplitButton label="Show menu" :opened="showMenu4" @click="showMenu4 = !showMenu4"/>
+
+        </div>
+      </div>
+
       <div class="flex flex-row gap-10 items-start w-full">
         <!-- Chips -->
         <div class="flex flex-col items-start gap-6">
@@ -302,6 +322,13 @@ import FilterChip from "@/components/material/inputs/chips/FilterChip.vue";
 import InputChip from "@/components/material/inputs/chips/InputChip.vue";
 import SuggestionChip from "@/components/material/inputs/chips/SuggestionChip.vue";
 import TextField from "@/components/material/inputs/TextField.vue";
+import FilledButton from "@/components/material/buttons/withLabels/FilledButton.vue";
+import ElevatedSplitButton
+  from "@/components/material/buttons/splitButtons/ElevatedSplitButton.vue";
+import FilledSplitButton from "@/components/material/buttons/splitButtons/FilledSplitButton.vue";
+import OutlinedSplitButton
+  from "@/components/material/buttons/splitButtons/OutlinedSplitButton.vue";
+import TonalSplitButton from "@/components/material/buttons/splitButtons/TonalSplitButton.vue";
 
 const horizontalSlider1 = ref(4);
 const horizontalSliderStepped = ref(3);
@@ -331,4 +358,10 @@ const input9 = ref("");
 const input10 = ref("");
 
 const emailValidationRegex = "^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$";
+
+
+const showMenu1 = ref(false);
+const showMenu2 = ref(false);
+const showMenu3 = ref(false);
+const showMenu4 = ref(false);
 </script>
