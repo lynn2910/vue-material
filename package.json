@@ -13,6 +13,7 @@
     "lint": "run-s lint:*"
   },
   "dependencies": {
+    "@floating-ui/vue": "^1.1.9",
     "@material/web": "^2.3.0",
     "@poupe/material-color-utilities": "^0.3.6",
     "@tailwindcss/vite": "^4.1.11",

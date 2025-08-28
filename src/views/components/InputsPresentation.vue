@@ -197,14 +197,21 @@
           class="border border-on-surface-variant/20 p-10 flex flex-row items-start rounded-xl gap-5 text-on-surface-variant">
 
           <ElevatedSplitButton label="Show menu" :opened="showMenu1"
+                               ref="menuBtn1"
                                @click="showMenu1 = !showMenu1"/>
+          <Menu :anchor="menuBtn1" :show-menu="showMenu1" :items="menu"/>
 
-          <FilledSplitButton label="Show menu" :opened="showMenu2" @click="showMenu2 = !showMenu2"/>
+          <FilledSplitButton label="Show menu" :opened="showMenu2"
+                             ref="menuBtn2"
+                             @click="showMenu2 = !showMenu2"/>
 
           <OutlinedSplitButton label="Show menu" :opened="showMenu3"
+                               ref="menuBtn3"
                                @click="showMenu3 = !showMenu3"/>
 
-          <TonalSplitButton label="Show menu" :opened="showMenu4" @click="showMenu4 = !showMenu4"/>
+          <TonalSplitButton label="Show menu" :opened="showMenu4"
+                            ref="menuBtn4"
+                            @click="showMenu4 = !showMenu4"/>
 
         </div>
       </div>
@@ -329,6 +336,7 @@ import FilledSplitButton from "@/components/material/buttons/splitButtons/Filled
 import OutlinedSplitButton
   from "@/components/material/buttons/splitButtons/OutlinedSplitButton.vue";
 import TonalSplitButton from "@/components/material/buttons/splitButtons/TonalSplitButton.vue";
+import Menu, {type MenuItems} from "@/components/material/inputs/Menu.vue";
 
 const horizontalSlider1 = ref(4);
 const horizontalSliderStepped = ref(3);
@@ -360,8 +368,35 @@ const input10 = ref("");
 const emailValidationRegex = "^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$";
 
 
+const menuBtn1 = ref(null);
 const showMenu1 = ref(false);
+const menuBtn2 = ref(null);
 const showMenu2 = ref(false);
+const menuBtn3 = ref(null);
 const showMenu3 = ref(false);
+const menuBtn4 = ref(null);
 const showMenu4 = ref(false);
+
+const menu: MenuItems = [
+  {
+    leading_icon: 'person',
+    label: "Profil",
+
+    trailing_text: "⌘P",
+  },
+  {
+    leading_icon: 'settings',
+    label: "Paramètres",
+    trailing_icon: "exclamation"
+  },
+  {
+    leading_icon: 'help_center',
+    label: "Aide",
+  },
+  "divider",
+  {
+    leading_icon: 'logout',
+    label: "Déconnecter",
+  },
+]
 </script>
