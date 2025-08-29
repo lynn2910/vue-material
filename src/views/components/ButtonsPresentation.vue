@@ -90,6 +90,20 @@
       </div>
     </div>
 
+    <br>
+
+    <div
+      class="flex flex-row gap-10  p-7 bg-surface rounded-lg border border-surface-container-highest w-full">
+      <div class="flex flex-col gap-5">
+        <h3 class="text-title-medium text-on-surface">Boutons groupés</h3>
+
+        <div class="flex flex-col gap-5">
+          <ButtonGroup :buttons="buttonGroupsButtons"/>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -109,8 +123,45 @@ import SmallFab from "@/components/material/buttons/fab/SmallFab.vue";
 import SegmentedButtons from "@/components/material/buttons/segmented/SegmentedButtons.vue";
 
 import {ref} from "vue";
+import ButtonGroup, {type Buttons} from "@/components/material/buttons/ButtonGroup.vue";
+import {useSnackbarStore} from "@/stores/material/snackbarStore.ts";
 
 const selectedOptions = ref<number[]>([1]);
 
 const selectedOptionsMultiple = ref<number[]>([2, 3]);
+
+const snackbarStore = useSnackbarStore();
+
+const buttonGroupsButtons: Buttons = [
+  {
+    label: "Start",
+    icon: "directions_car",
+    onClick: () => {
+      snackbarStore.addNotification({
+        message: "Start",
+        duration: 1500,
+      })
+    }
+  },
+  {
+    label: "Directions",
+    icon: "directions_car",
+    onClick: () => {
+      snackbarStore.addNotification({
+        message: "Directions",
+        duration: 1500,
+      })
+    }
+  },
+  {
+    // label: "Share",
+    icon: "share",
+    onClick: () => {
+      snackbarStore.addNotification({
+        message: "Share",
+        duration: 1500,
+      })
+    }
+  }
+]
 </script>
