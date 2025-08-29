@@ -193,7 +193,7 @@ import ButtonIcon from "@/components/material/buttons/icons/ButtonIcon.vue";
 import FilledIcon from "@/components/material/buttons/icons/FilledIcon.vue";
 import Dialog from "@/components/material/communication/Dialog.vue";
 
-const showDialog = ref(true);
+const showDialog = ref(false);
 const dialogButtons = [
   {
     label: "Annuler",
