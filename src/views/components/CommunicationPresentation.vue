@@ -148,6 +148,27 @@
         </div>
       </div>
 
+      <div class="flex flex-col items-start gap-6">
+        <h3 class="text-title-medium text-on-surface">Dialogs</h3>
+
+        <div
+          class="border border-on-surface-variant/20 bg-surface-container-lowest p-10 rounded-xl gap-10 flex flex-row items-start">
+
+          <FilledButton label="Show dialog" @click="showDialog = !showDialog"/>
+
+          <Dialog v-if="showDialog"
+                  icon="warning"
+                  headline="Êtes vous sûr ?"
+                  :buttons="dialogButtons"
+                  @dismiss="showDialog = false">
+            <p>Vous êtes sur le point de ne rien faire.</p>
+            <p>C'est très dangereux, vous êtes vraiment sûr de vous ?</p>
+          </Dialog>
+
+        </div>
+      </div>
+
+
     </div>
   </div>
 </template>
@@ -170,6 +191,23 @@ import TextField from "@/components/material/inputs/TextField.vue";
 import BaseSlider from "@/components/material/inputs/sliders/BaseSlider.vue";
 import ButtonIcon from "@/components/material/buttons/icons/ButtonIcon.vue";
 import FilledIcon from "@/components/material/buttons/icons/FilledIcon.vue";
+import Dialog from "@/components/material/communication/Dialog.vue";
+
+const showDialog = ref(true);
+const dialogButtons = [
+  {
+    label: "Annuler",
+    onClick: () => {
+      showDialog.value = false;
+    }
+  },
+  {
+    label: "Confirmer",
+    onClick: () => {
+      showDialog.value = false;
+    }
+  }
+]
 
 // Snackbars
 
