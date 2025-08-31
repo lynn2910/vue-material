@@ -54,13 +54,13 @@ Afin de déployer l'application sur Github Pages, vous pouvez:
 
 - [x] Menus
 - [x] Dialogs
-- [ ] FAB menu
+- [x] FAB menu
 - [x] Button groups
 - [ ] Toolbars
 - [ ] Tooltips
 - [ ] Split buttons
 
-### Elements visuels
+### Visual elements
 
 - [ ] Carousel
 - [ ] Lists
