@@ -95,6 +95,21 @@
     <div
       class="flex flex-row gap-10  p-7 bg-surface rounded-lg border border-surface-container-highest w-full">
       <div class="flex flex-col gap-5">
+        <h3 class="text-title-medium text-on-surface">Fab menus</h3>
+
+        <div class="flex flex-row gap-5">
+          <FabWithMenu icon="edit" :items="fabMenuItems" color_set="primary"/>
+          <FabWithMenu icon="edit" :items="fabMenuItems" color_set="secondary"/>
+          <FabWithMenu icon="edit" :items="fabMenuItems" color_set="tertiary"/>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div
+      class="flex flex-row gap-10  p-7 bg-surface rounded-lg border border-surface-container-highest w-full">
+      <div class="flex flex-col gap-5">
         <h3 class="text-title-medium text-on-surface">Boutons groupés</h3>
 
         <div class="flex flex-col gap-5">
@@ -125,6 +140,8 @@ import SegmentedButtons from "@/components/material/buttons/segmented/SegmentedB
 import {ref} from "vue";
 import ButtonGroup, {type Buttons} from "@/components/material/buttons/ButtonGroup.vue";
 import {useSnackbarStore} from "@/stores/material/snackbarStore.ts";
+import type {FabMenuItem} from "@/components/material/buttons/fabWithMenus/FabMenu.vue";
+import FabWithMenu from "@/components/material/buttons/fabWithMenus/FabWithMenu.vue";
 
 const selectedOptions = ref<number[]>([1]);
 
@@ -160,6 +177,42 @@ const buttonGroupsButtons: Buttons = [
       snackbarStore.addNotification({
         message: "Share",
         duration: 1500,
+      })
+    }
+  }
+];
+
+const fabMenuItems: FabMenuItem[] = [
+  {
+    label: "Document",
+    icon: "mail",
+    onClick: () => {
+      snackbarStore.addNotification({
+        message: "Document",
+        layout: "banner",
+        duration: 1500
+      })
+    }
+  },
+  {
+    label: "Message",
+    icon: "chat",
+    onClick: () => {
+      snackbarStore.addNotification({
+        message: "Messages",
+        layout: "banner",
+        duration: 1500
+      })
+    }
+  },
+  {
+    label: "Folder",
+    icon: "folder_shared",
+    onClick: () => {
+      snackbarStore.addNotification({
+        message: "Folder",
+        layout: "banner",
+        duration: 1500
       })
     }
   }

@@ -1,25 +1,29 @@
 <template>
   <button
     @click="emit('click')"
-    class="fab_after relative flex flex-row items-center justify-center gap-x-2 p-4 rounded-2xl overflow-hidden shadow-lg text-sm tracking-[.00714em] font-medium bg-primary-container cursor-pointer"
+    class="fab_after relative flex flex-row items-center justify-center gap-x-2 p-4 rounded-2xl overflow-hidden shadow-lg text-sm tracking-[.00714em] font-medium cursor-pointer"
     :class="{
       'w-14': !props.show_label,
-      'w-fit ': props.show_label
+      'w-fit ': props.show_label,
+      'bg-primary-container': props.color_set === 'primary',
+      'bg-secondary-container': props.color_set === 'secondary',
+      'bg-tertiary-container': props.color_set === 'tertiary',
     }">
     <i class="material-symbols-outlined text-2xl">{{ props.icon }}</i>
     {{ computedLabel }}
   </button>
-
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed, ref} from "vue";
 
 const props = defineProps<{
+  color_set?: "primary" | "secondary" | "tertiary",
   icon: string,
   label?: string,
   show_label?: boolean
 }>();
+
 
 const computedLabel = computed(() => props.show_label ? props.label || '' : '');
 

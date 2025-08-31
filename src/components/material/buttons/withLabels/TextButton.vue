@@ -4,8 +4,10 @@
     :disabled="props.disabled"
     class="btn_after relative flex flex-row items-center justify-center gap-x-2 py-2.5 px-6 rounded-[6.25em] text-sm tracking-[.00714em] font-medium select-none"
     :class="{
-      'text-primary cursor-pointer': !props.disabled,
-      'text-on-surface-variant/70 cursor-default': props.disabled
+      'text-primary cursor-pointer': !props.disabled && (!props.color_set || !['secondary', 'tertiary'].includes(props.color_set)),
+      'text-secondary cursor-pointer': !props.disabled && props.color_set === 'secondary',
+      'text-tertiary cursor-pointer': !props.disabled && props.color_set === 'tertiary',
+      'text-surface-variant/70 cursor-default': props.disabled
     }">
     <i v-if="props.icon" class="material-symbols-outlined normal_outlined_icon">{{ props.icon }}</i>
     {{ props.label }}
@@ -16,7 +18,8 @@
 const props = defineProps<{
   label: string,
   icon?: string,
-  disabled?: boolean
+  disabled?: boolean,
+  color_set?: "primary" | "secondary" | "tertiary",
 }>();
 
 const emit = defineEmits(['click'])
