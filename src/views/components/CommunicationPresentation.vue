@@ -172,7 +172,7 @@
         <h3 class="text-title-medium text-on-surface">Tooltips</h3>
 
         <div
-          class="border border-on-surface-variant/20 bg-surface-container-lowest p-10 rounded-xl gap-10 flex flex-row items-start">
+          class="border border-on-surface-variant/20 bg-surface-container-lowest p-10 rounded-xl gap-10 flex flex-col items-start">
 
           <p>
             Souvent confondu avec son célèbre
@@ -196,6 +196,10 @@
               <Icon icon="help"/>
             </template>
           </rich-tooltip>
+
+          <plain-tooltip message="Get help">
+            <ButtonIcon icon="help"/>
+          </plain-tooltip>
         </div>
       </div>
     </div>
@@ -223,6 +227,7 @@ import FilledIcon from "@/components/material/buttons/icons/FilledIcon.vue";
 import Dialog from "@/components/material/communication/Dialog.vue";
 import RichTooltip from "@/components/material/communication/tooltip/rich-tooltip.vue";
 import Icon from "@/components/material/Icon.vue";
+import PlainTooltip from "@/components/material/communication/tooltip/plain-tooltip.vue";
 
 const showDialog = ref(false);
 const dialogButtons = [
