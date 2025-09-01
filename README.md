@@ -56,7 +56,7 @@ Afin de déployer l'application sur Github Pages, vous pouvez:
 - [x] Dialogs
 - [x] FAB menu
 - [x] Button groups
-- [ ] Toolbars
+- [x] Toolbars
 - [x] Tooltips
 - [x] Split buttons
 

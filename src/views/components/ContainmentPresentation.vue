@@ -53,6 +53,21 @@
       </div>
 
 
+      <div class="w-80">
+        <h3 class="text-title-medium text-on-surface">Details</h3>
+
+        <br>
+
+        <Details label="Style" icon="style">
+          <div class="grid grid-cols-2 w-56 gap-y-3">
+            <Chip label="Material 3"/>
+            <Chip label="Material 2"/>
+            <Chip label="Material 1"/>
+            <Chip label="Cupertino"/>
+          </div>
+        </Details>
+      </div>
+
       <!-- Sheets -->
       <div>
         <h3 class="text-title-medium text-on-surface">Sheets</h3>
@@ -115,6 +130,8 @@ import {ref} from "vue";
 import SideSheet from "@/components/material/sheets/SideSheet.vue";
 import ModalSideSheet from "@/components/material/sheets/ModalSideSheet.vue";
 import FullViewSheet from "@/components/material/sheets/FullViewSheet.vue";
+import Details from "@/components/material/containment/Details.vue";
+import Chip from "@/components/material/inputs/chips/Chip.vue";
 
 const showBottomSheet = ref(false);
 
