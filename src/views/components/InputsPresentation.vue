@@ -233,18 +233,34 @@
         <h3 class="text-title-medium text-on-surface">Selects</h3>
 
         <div
-          class="border border-on-surface-variant/20 p-10 flex flex-row items-start rounded-xl gap-5 text-on-surface-variant w-1/3">
+          class="border border-on-surface-variant/20 p-10 flex flex-col items-start rounded-xl gap-5 text-on-surface-variant w-1/3">
 
-          <SingleSelect :items="selectItems"
-                        :selected="select1"
-                        @change="onSelect1Change"
-                        placeholder="No item selected"/>
+          <div class="flex flex-row gap-5 w-full">
+            <SingleSelect :items="selectItems"
+                          :selected="select1"
+                          @change="onSelect1Change"
+                          placeholder="No item selected"/>
 
 
-          <SingleSelect :items="selectItems"
-                        :selected="select2"
-                        @change="onSelect2Change"
-                        disallow-null/>
+            <SingleSelect :items="selectItems"
+                          :selected="select2"
+                          @change="onSelect2Change"
+                          disallow-null/>
+          </div>
+
+          <div class="flex flex-col gap-5 w-full">
+            <MultipleSelect :items="selectItems"
+                            :selected="select3"
+                            @change="onSelect3Change"
+                            placeholder="No item selected"/>
+
+            <MultipleSelect :items="selectItems"
+                            :selected="select4"
+                            @change="onSelect4Change"
+                            :max-selection="2"
+                            show-select-all
+                            placeholder="No item selected"/>
+          </div>
 
         </div>
       </div>
@@ -371,6 +387,7 @@ import OutlinedSplitButton
 import TonalSplitButton from "@/components/material/buttons/splitButtons/TonalSplitButton.vue";
 import Menu, {type MenuItems} from "@/components/material/inputs/Menu.vue";
 import SingleSelect from "@/components/material/inputs/selects/SingleSelect.vue";
+import MultipleSelect from "@/components/material/inputs/selects/MultipleSelect.vue";
 
 const horizontalSlider1 = ref(4);
 const horizontalSliderStepped = ref(3);
@@ -436,6 +453,8 @@ const menu: MenuItems = [
 
 const select1 = ref(0);
 const select2 = ref(0);
+const select3 = ref([0]);
+const select4 = ref([0]);
 const selectItems = [
   {
     value: 0,
@@ -457,5 +476,13 @@ function onSelect1Change(value: any) {
 
 function onSelect2Change(value: any) {
   select2.value = value;
+}
+
+function onSelect3Change(value: any[]) {
+  select3.value = value;
+}
+
+function onSelect4Change(value: any[]) {
+  select4.value = value;
 }
 </script>
