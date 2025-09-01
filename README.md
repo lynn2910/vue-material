@@ -37,6 +37,7 @@ Afin de déployer l'application sur Github Pages, vous pouvez:
 - [x] Radio button
 - [x] Switch
 - [x] Chips
+- [x] Select
 - [x] Text fields
 - [ ] _Date pickers_
 - [ ] _Time pickers_
@@ -64,7 +65,7 @@ Afin de déployer l'application sur Github Pages, vous pouvez:
 
 - [ ] Carousel
 - [ ] Lists
-- [ ] Details (voir le système de filtres de fonts.google.com/icon)
+- [x] Details (voir le système de filtres de fonts.google.com/icon)
 - [ ] _Data table_ (n'existe pas dans la documentation Material)
 - [ ] _Graphiques_
 - [ ] _Search_ (pas besoin dans l'immédiat)

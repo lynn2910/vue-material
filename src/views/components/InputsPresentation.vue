@@ -228,6 +228,27 @@
         </div>
       </div>
 
+
+      <div class="flex flex-col gap-10 items-stretch">
+        <h3 class="text-title-medium text-on-surface">Selects</h3>
+
+        <div
+          class="border border-on-surface-variant/20 p-10 flex flex-row items-start rounded-xl gap-5 text-on-surface-variant w-1/3">
+
+          <SingleSelect :items="selectItems"
+                        :selected="select1"
+                        @change="onSelect1Change"
+                        placeholder="No item selected"/>
+
+
+          <SingleSelect :items="selectItems"
+                        :selected="select2"
+                        @change="onSelect2Change"
+                        disallow-null/>
+
+        </div>
+      </div>
+
       <div class="flex flex-row gap-10 items-start w-full">
         <!-- Chips -->
         <div class="flex flex-col items-start gap-6">
@@ -349,6 +370,7 @@ import OutlinedSplitButton
   from "@/components/material/buttons/splitButtons/OutlinedSplitButton.vue";
 import TonalSplitButton from "@/components/material/buttons/splitButtons/TonalSplitButton.vue";
 import Menu, {type MenuItems} from "@/components/material/inputs/Menu.vue";
+import SingleSelect from "@/components/material/inputs/selects/SingleSelect.vue";
 
 const horizontalSlider1 = ref(4);
 const horizontalSliderStepped = ref(3);
@@ -411,4 +433,29 @@ const menu: MenuItems = [
     label: "Déconnecter",
   },
 ]
+
+const select1 = ref(0);
+const select2 = ref(0);
+const selectItems = [
+  {
+    value: 0,
+    label: "Option 1"
+  },
+  {
+    value: 1,
+    label: "Option 2"
+  },
+  {
+    value: 2,
+    label: "Option 3"
+  }
+]
+
+function onSelect1Change(value: any) {
+  select1.value = value;
+}
+
+function onSelect2Change(value: any) {
+  select2.value = value;
+}
 </script>
