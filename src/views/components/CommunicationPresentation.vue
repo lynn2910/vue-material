@@ -168,7 +168,36 @@
         </div>
       </div>
 
+      <div class="flex flex-col items-start gap-6">
+        <h3 class="text-title-medium text-on-surface">Tooltips</h3>
 
+        <div
+          class="border border-on-surface-variant/20 bg-surface-container-lowest p-10 rounded-xl gap-10 flex flex-row items-start">
+
+          <p>
+            Souvent confondu avec son célèbre
+            <rich-tooltip label="homonyme" subhead="Le grand panda"
+                          :actions="[{label: 'En savoir plus', onClick: () => {}}]">
+              <p>
+                L'homonyme du <b>panda roux</b> est le <b>grand panda</b>, une autre espèce
+                emblématique qui vit aussi en Asie. Malgré leur nom en commun, ils ne sont pas si
+                proches sur le plan <i>génétique</i>
+              </p>
+            </rich-tooltip>
+            , le panda roux est un mammifère arboricole
+            qui vit dans les forêts tempérées de l'Himalaya oriental. Avec sa fourrure rousse et sa
+            longue queue touffue, il ressemble plus à un raton laveur qu'à un ours.
+          </p>
+
+          <rich-tooltip>
+            Aide
+
+            <template #label>
+              <Icon icon="help"/>
+            </template>
+          </rich-tooltip>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -192,6 +221,8 @@ import BaseSlider from "@/components/material/inputs/sliders/BaseSlider.vue";
 import ButtonIcon from "@/components/material/buttons/icons/ButtonIcon.vue";
 import FilledIcon from "@/components/material/buttons/icons/FilledIcon.vue";
 import Dialog from "@/components/material/communication/Dialog.vue";
+import RichTooltip from "@/components/material/communication/tooltip/rich-tooltip.vue";
+import Icon from "@/components/material/Icon.vue";
 
 const showDialog = ref(false);
 const dialogButtons = [
