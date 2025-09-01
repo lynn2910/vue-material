@@ -51,6 +51,26 @@
     </div>
 
     <div
+      class="flex flex-row gap-10 p-7 bg-surface rounded-lg border border-surface-container-highest w-full">
+
+      <div class="flex flex-col items-start gap-6 w-full">
+        <h3 class="text-title-medium text-on-surface">Toolbar</h3>
+
+        <div class="flex flex-col gap-6 w-full items-start">
+
+          <Toolbar layout="horizontal" :items="horizontalToolbarItems" theme="standard"/>
+          <Toolbar layout="horizontal" :items="horizontalToolbarItems" theme="vibrant"/>
+
+          <div class="flex flex-row gap-6">
+            <Toolbar layout="vertical" :items="verticalToolbarItems" theme="standard"/>
+            <Toolbar layout="vertical" :items="verticalToolbarItems" theme="vibrant"/>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div
       class="flex flex-row gap-10  p-7 bg-surface rounded-lg border border-surface-container-highest w-full">
 
       <div class="flex flex-col items-start gap-6 w-full">
@@ -60,12 +80,14 @@
 
           <div class="bg-surface-container-lowest p-5 w-full rounded-xl">
             <AppBar :actions="appbar_actions" headline="Titre" size="small"
+                    leading_icon="arrow_back"
                     :on-click="onLeadingIconClick"/>
           </div>
 
           <div class="bg-surface-container-lowest p-5 w-full rounded-xl">
             <AppBar :actions="appbar_actions" headline="Titre" size="small"
                     subtitle="Sous-titre"
+                    leading_icon="arrow_back"
                     :on-click="onLeadingIconClick"/>
           </div>
 
@@ -76,6 +98,7 @@
           <div class="bg-surface-container-lowest p-5 w-full rounded-xl">
             <AppBar :actions="appbar_actions" headline="Titre" size="medium"
                     subtitle="Sous-titre"
+                    leading_icon="arrow_back"
                     :on-click="onLeadingIconClick"/>
           </div>
 
@@ -86,6 +109,7 @@
           <div class="bg-surface-container-lowest p-5 w-full rounded-xl">
             <AppBar :actions="appbar_actions" headline="Titre" size="large"
                     subtitle="Sous-titre"
+                    leading_icon="arrow_back"
                     :on-click="onLeadingIconClick"/>
           </div>
 
@@ -100,6 +124,8 @@
 import Tabs from "@/components/material/navigation/Tabs.vue";
 import {ref} from "vue";
 import AppBar, {type AppBarAction} from "@/components/material/navigation/bars/AppBar.vue";
+import Toolbar from "@/components/material/communication/toolbars/Toolbar.vue";
+import type {ToolbarItem} from "@/components/material/communication/toolbars/toolbar.ts";
 
 const selectedTab1 = ref('music');
 const selectedTab2 = ref('music');
@@ -137,4 +163,69 @@ const appbar_actions: AppBarAction[] = [
 function onLeadingIconClick() {
   alert("On peut revenir en arrière facilement !")
 }
+
+const horizontalToolbarItems: ToolbarItem[] = [
+  {
+    variant: "icon",
+    icon: "arrow_back",
+    onClick: () => {
+    },
+  },
+  {
+    variant: "icon",
+    icon: "arrow_forward",
+    onClick: () => {
+    },
+  },
+  {
+    variant: "fab",
+    icon: "add",
+    onClick: () => {
+    },
+  },
+  {
+    variant: "icon",
+    icon: "tab",
+    onClick: () => {
+    },
+  },
+  {
+    variant: "icon",
+    icon: "more_vert",
+    onClick: () => {
+    },
+  }
+]
+const verticalToolbarItems: ToolbarItem[] = [
+  {
+    variant: "icon",
+    icon: "undo",
+    onClick: () => {
+    },
+  },
+  {
+    variant: "icon",
+    icon: "redo",
+    onClick: () => {
+    },
+  },
+  {
+    variant: "fab",
+    icon: "add",
+    onClick: () => {
+    },
+  },
+  {
+    variant: "icon",
+    icon: "tab",
+    onClick: () => {
+    },
+  },
+  {
+    variant: "icon",
+    icon: "more_vert",
+    onClick: () => {
+    },
+  }
+]
 </script>
